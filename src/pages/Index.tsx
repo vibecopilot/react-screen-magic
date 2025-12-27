@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StackedCards from "@/components/StackedCards";
+import ClientLogos from "@/components/ClientLogos";
 
 const Index = () => {
   return (
@@ -8,6 +9,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <StackedCards />
+      <ClientLogos />
     </div>
   );
 };
