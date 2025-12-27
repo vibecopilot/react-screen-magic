@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { BarChart3, Search, Users, FileText, TrendingUp, Settings, Bell, Calendar, Mail, PieChart, LucideIcon } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
+import screenPresalesMobile from "@/assets/screen-presales-mobile.png";
 
 const cards = [
   {
@@ -11,7 +12,7 @@ const cards = [
     icon: "📊",
     floatingIcons: [BarChart3, TrendingUp, Users, Search, PieChart] as LucideIcon[],
     screenImage: screenPresales,
-    mobileImage: null as string | null,
+    mobileImage: screenPresalesMobile,
   },
   {
     name: "Post Sales",
