@@ -11,6 +11,7 @@ const cards = [
     icon: "📊",
     floatingIcons: [BarChart3, TrendingUp, Users, Search, PieChart] as LucideIcon[],
     screenImage: screenPresales,
+    mobileImage: null as string | null,
   },
   {
     name: "Post Sales",
@@ -19,6 +20,7 @@ const cards = [
     icon: "🤝",
     floatingIcons: [FileText, Users, Mail, Bell, Calendar] as LucideIcon[],
     screenImage: null,
+    mobileImage: null as string | null,
   },
   {
     name: "Konstruct",
@@ -27,6 +29,7 @@ const cards = [
     icon: "🏗️",
     floatingIcons: [Calendar, Settings, BarChart3, FileText, TrendingUp] as LucideIcon[],
     screenImage: null,
+    mobileImage: null as string | null,
   },
   {
     name: "VibeCopilot",
@@ -35,6 +38,7 @@ const cards = [
     icon: "🤖",
     floatingIcons: [Search, TrendingUp, PieChart, Settings, Bell] as LucideIcon[],
     screenImage: null,
+    mobileImage: null as string | null,
   },
   {
     name: "HRMS",
@@ -43,6 +47,7 @@ const cards = [
     icon: "👥",
     floatingIcons: [Users, Calendar, FileText, Mail, Settings] as LucideIcon[],
     screenImage: null,
+    mobileImage: null as string | null,
   },
   {
     name: "Possession",
@@ -51,6 +56,7 @@ const cards = [
     icon: "🔑",
     floatingIcons: [FileText, Calendar, Bell, Users, TrendingUp] as LucideIcon[],
     screenImage: null,
+    mobileImage: null as string | null,
   },
 ];
 
@@ -91,7 +97,32 @@ const FloatingIcon = ({
   </div>
 );
 
-const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage }: { icon: string; floatingIcons: LucideIcon[]; barColor: string; screenImage?: string | null }) => (
+const PhoneFrame = ({ icon, mobileImage }: { icon: string; mobileImage?: string | null }) => (
+  <div className="w-[90px] md:w-[120px] bg-[#1a1a2e] rounded-[20px] p-1.5 border-4 border-[#2d2d44] shadow-xl">
+    {/* Notch */}
+    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-[#1a1a2e] rounded-b-xl z-10" />
+    {/* Screen */}
+    <div className="bg-white rounded-[14px] aspect-[9/19] flex items-center justify-center overflow-hidden">
+      {mobileImage ? (
+        <img 
+          src={mobileImage} 
+          alt="Mobile preview" 
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <div className="flex flex-col items-center gap-2 p-2">
+          <span className="text-2xl md:text-3xl">{icon}</span>
+          <div className="w-8 h-1 bg-slate-300 rounded" />
+          <div className="w-6 h-1 bg-slate-300 rounded" />
+        </div>
+      )}
+    </div>
+    {/* Home indicator */}
+    <div className="w-8 h-1 bg-[#3d3d54] rounded-full mx-auto mt-1" />
+  </div>
+);
+
+const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage, mobileImage }: { icon: string; floatingIcons: LucideIcon[]; barColor: string; screenImage?: string | null; mobileImage?: string | null }) => (
   <div className="relative w-[320px] md:w-[450px]">
     {/* Floating Icons */}
     {floatingIcons.map((IconComponent, index) => (
@@ -137,6 +168,11 @@ const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage }: { icon: str
     </div>
     {/* Laptop Stand */}
     <div className="h-1 bg-[#1a1a2e] mx-6 rounded-b-lg" />
+
+    {/* iPhone Frame - Bottom Right */}
+    <div className="absolute -bottom-4 -right-8 md:-right-12 z-20 animate-float" style={{ animationDelay: "0.5s" }}>
+      <PhoneFrame icon={icon} mobileImage={mobileImage} />
+    </div>
   </div>
 );
 
@@ -254,7 +290,7 @@ const StackedCards = () => {
 
                     {/* Right Side - Laptop Frame */}
                     <div className="flex-shrink-0 hidden md:block relative z-10">
-                      <LaptopFrame icon={card.icon} floatingIcons={card.floatingIcons} barColor={card.barColor} screenImage={card.screenImage} />
+                      <LaptopFrame icon={card.icon} floatingIcons={card.floatingIcons} barColor={card.barColor} screenImage={card.screenImage} mobileImage={card.mobileImage} />
                     </div>
                   </div>
                 </div>
