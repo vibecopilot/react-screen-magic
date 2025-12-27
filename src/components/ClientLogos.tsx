@@ -4,6 +4,16 @@ import logoIxora from "@/assets/logo-ixora.png";
 import logoGoyal from "@/assets/logo-goyal.png";
 import logoChandak from "@/assets/logo-chandak.png";
 import logoJpinfra from "@/assets/logo-jpinfra.png";
+import logoLotus from "@/assets/logo-lotus.png";
+import logoArvind from "@/assets/logo-arvind.png";
+import logoAai from "@/assets/logo-aai.png";
+import logoAjmera from "@/assets/logo-ajmera.png";
+import logoArkade from "@/assets/logo-arkade.png";
+import logoBhoomi from "@/assets/logo-bhoomi.png";
+import logoLogicon from "@/assets/logo-logicon.png";
+import logoShreeramkrushna from "@/assets/logo-shreeramkrushna.png";
+import logoCbre from "@/assets/logo-cbre.png";
+import logoNyati from "@/assets/logo-nyati.png";
 
 const logos = [
   { src: logoRaghav, alt: "Raghav Realty" },
@@ -12,6 +22,16 @@ const logos = [
   { src: logoGoyal, alt: "Goyal & Co" },
   { src: logoChandak, alt: "Chandak" },
   { src: logoJpinfra, alt: "JP Infra" },
+  { src: logoLotus, alt: "Lotus Developers" },
+  { src: logoArvind, alt: "Arvind Smartspaces" },
+  { src: logoAai, alt: "Airports Authority of India" },
+  { src: logoAjmera, alt: "Ajmera" },
+  { src: logoArkade, alt: "Arkade" },
+  { src: logoBhoomi, alt: "Bhoomi Group" },
+  { src: logoLogicon, alt: "Logicon" },
+  { src: logoShreeramkrushna, alt: "Shree Ram Krushna Developers" },
+  { src: logoCbre, alt: "CBRE" },
+  { src: logoNyati, alt: "Nyati Group" },
 ];
 
 const ClientLogos = () => {
