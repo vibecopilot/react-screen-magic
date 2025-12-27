@@ -5,37 +5,37 @@ const cards = [
   {
     name: "Pre Sales",
     description: "Streamline your lead management and inquiry handling with powerful CRM tools. Track prospects, manage follow-ups, and convert leads faster than ever.",
-    color: "bg-[#4A9FE8]",
+    barColor: "bg-[#4A9FE8]",
     icon: "📊",
   },
   {
     name: "Post Sales",
     description: "Manage customer relationships after the deal closes. Handle documentation, payment tracking, and customer support seamlessly.",
-    color: "bg-[#10B981]",
+    barColor: "bg-[#10B981]",
     icon: "🤝",
   },
   {
     name: "Konstruct",
     description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
-    color: "bg-[#F59E0B]",
+    barColor: "bg-[#F59E0B]",
     icon: "🏗️",
   },
   {
     name: "VibeCopilot",
     description: "AI-powered assistant for your daily operations. Get intelligent insights, automate repetitive tasks, and boost productivity.",
-    color: "bg-[#8B5CF6]",
+    barColor: "bg-[#8B5CF6]",
     icon: "🤖",
   },
   {
     name: "HRMS",
     description: "Complete human resource management solution. Manage employees, payroll, attendance, and performance all in one place.",
-    color: "bg-[#EF4444]",
+    barColor: "bg-[#EF4444]",
     icon: "👥",
   },
   {
     name: "Possession",
     description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
-    color: "bg-[#6366F1]",
+    barColor: "bg-[#6366F1]",
     icon: "🔑",
   },
 ];
@@ -123,51 +123,73 @@ const StackedCards = () => {
           {cards.map((card, index) => {
             const isVisible = index <= activeCardIndex;
             const isActive = index === activeCardIndex;
-            const stackOffset = (activeCardIndex - index) * 12;
-            const scale = isActive ? 1 : 1 - (activeCardIndex - index) * 0.03;
+            const stackOffset = (activeCardIndex - index) * 8;
 
             return (
               <div
                 key={card.name}
                 className={cn(
-                  "absolute inset-0 w-full rounded-3xl overflow-hidden transition-all duration-700 ease-out",
-                  "shadow-2xl"
+                  "absolute inset-0 w-full overflow-hidden transition-all duration-700 ease-out"
                 )}
                 style={{
                   transform: isVisible 
-                    ? `translateY(-${stackOffset}px) scale(${scale})` 
-                    : "translateY(100px) scale(0.9)",
+                    ? `translateY(-${stackOffset}px)` 
+                    : "translateY(100px)",
                   opacity: isVisible ? 1 : 0,
                   zIndex: isVisible ? cards.length - (activeCardIndex - index) : 0,
                 }}
               >
-                {/* Solid Card Background */}
-                <div className={cn("absolute inset-0", card.color)} />
+                {/* Stacked colored bars at top */}
+                <div className="relative">
+                  {cards.slice(0, cards.length).map((c, i) => {
+                    const barIndex = cards.length - 1 - i;
+                    const showBar = barIndex < index;
+                    return showBar ? (
+                      <div
+                        key={c.name}
+                        className={cn("h-2 w-full", c.barColor)}
+                        style={{
+                          opacity: 1 - (index - barIndex - 1) * 0.15,
+                        }}
+                      />
+                    ) : null;
+                  })}
+                </div>
 
-                {/* Decorative Circle */}
-                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-white/10" />
+                {/* Main Card - White with shadow */}
+                <div className="bg-white rounded-b-3xl rounded-t-none shadow-xl border border-gray-100">
+                  {/* Top colored bar for current card */}
+                  <div className={cn("h-2 w-full", card.barColor, "rounded-t-none")} />
+                  
+                  {/* Card Content */}
+                  <div className="relative h-[380px] md:h-[440px] flex flex-col md:flex-row items-center justify-between p-8 md:p-12">
+                    {/* Decorative Circle */}
+                    <div className={cn("absolute -top-10 -right-10 w-48 h-48 rounded-full opacity-10", card.barColor)} />
 
-                {/* Card Content */}
-                <div className="relative h-full flex flex-col md:flex-row items-center justify-between p-8 md:p-12 text-white">
-                  {/* Left Side - Text */}
-                  <div className="flex-1 text-center md:text-left mb-6 md:mb-0 max-w-md">
-                    <div className="inline-flex items-center gap-3 bg-white/20 rounded-xl px-4 py-2 mb-6">
-                      <span className="text-3xl">{card.icon}</span>
+                    {/* Left Side - Text */}
+                    <div className="flex-1 text-center md:text-left mb-6 md:mb-0 max-w-md">
+                      <div className={cn("inline-flex items-center gap-3 rounded-xl px-4 py-2 mb-6 bg-opacity-20", card.barColor.replace('bg-', 'bg-') + '/20')}>
+                        <span className="text-3xl">{card.icon}</span>
+                      </div>
+                      <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-gray-900">
+                        {card.name}
+                      </h3>
+                      <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                        {card.description}
+                      </p>
+                      <button className={cn(
+                        "mt-6 px-6 py-2 rounded-full font-medium transition-colors duration-300 text-white",
+                        card.barColor,
+                        "hover:opacity-90"
+                      )}>
+                        Learn More →
+                      </button>
                     </div>
-                    <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-                      {card.name}
-                    </h3>
-                    <p className="text-white/90 text-base md:text-lg leading-relaxed">
-                      {card.description}
-                    </p>
-                    <button className="mt-6 px-6 py-2 bg-white/20 hover:bg-white/30 rounded-full text-white font-medium transition-colors duration-300">
-                      Learn More →
-                    </button>
-                  </div>
 
-                  {/* Right Side - Laptop Frame */}
-                  <div className="flex-shrink-0 hidden md:block">
-                    <LaptopFrame icon={card.icon} />
+                    {/* Right Side - Laptop Frame */}
+                    <div className="flex-shrink-0 hidden md:block">
+                      <LaptopFrame icon={card.icon} />
+                    </div>
                   </div>
                 </div>
               </div>
