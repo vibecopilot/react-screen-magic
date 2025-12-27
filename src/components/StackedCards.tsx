@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { BarChart3, Search, Users, FileText, TrendingUp, Settings, Bell, Calendar, Mail, PieChart, LucideIcon } from "lucide-react";
 
 const cards = [
   {
@@ -7,67 +8,120 @@ const cards = [
     description: "Streamline your lead management and inquiry handling with powerful CRM tools. Track prospects, manage follow-ups, and convert leads faster than ever.",
     barColor: "bg-[#4A9FE8]",
     icon: "📊",
+    floatingIcons: [BarChart3, TrendingUp, Users, Search, PieChart] as LucideIcon[],
   },
   {
     name: "Post Sales",
     description: "Manage customer relationships after the deal closes. Handle documentation, payment tracking, and customer support seamlessly.",
     barColor: "bg-[#10B981]",
     icon: "🤝",
+    floatingIcons: [FileText, Users, Mail, Bell, Calendar] as LucideIcon[],
   },
   {
     name: "Konstruct",
     description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
     barColor: "bg-[#F59E0B]",
     icon: "🏗️",
+    floatingIcons: [Calendar, Settings, BarChart3, FileText, TrendingUp] as LucideIcon[],
   },
   {
     name: "VibeCopilot",
     description: "AI-powered assistant for your daily operations. Get intelligent insights, automate repetitive tasks, and boost productivity.",
     barColor: "bg-[#8B5CF6]",
     icon: "🤖",
+    floatingIcons: [Search, TrendingUp, PieChart, Settings, Bell] as LucideIcon[],
   },
   {
     name: "HRMS",
     description: "Complete human resource management solution. Manage employees, payroll, attendance, and performance all in one place.",
     barColor: "bg-[#EF4444]",
     icon: "👥",
+    floatingIcons: [Users, Calendar, FileText, Mail, Settings] as LucideIcon[],
   },
   {
     name: "Possession",
     description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
     barColor: "bg-[#6366F1]",
     icon: "🔑",
+    floatingIcons: [FileText, Calendar, Bell, Users, TrendingUp] as LucideIcon[],
   },
 ];
 
-const LaptopFrame = ({ icon }: { icon: string }) => (
-  <div className="relative w-[280px] md:w-[380px]">
+// Floating icon positions around the laptop
+const floatingPositions = [
+  { top: "-10%", right: "-15%", delay: "0s" },
+  { top: "20%", right: "-20%", delay: "0.5s" },
+  { bottom: "10%", right: "-15%", delay: "1s" },
+  { top: "-5%", left: "-10%", delay: "1.5s" },
+  { bottom: "20%", left: "-15%", delay: "2s" },
+];
+
+const FloatingIcon = ({ 
+  Icon, 
+  position, 
+  color 
+}: { 
+  Icon: LucideIcon; 
+  position: { top?: string; bottom?: string; left?: string; right?: string; delay: string };
+  color: string;
+}) => (
+  <div 
+    className="absolute animate-float"
+    style={{ 
+      top: position.top, 
+      bottom: position.bottom, 
+      left: position.left, 
+      right: position.right,
+      animationDelay: position.delay,
+    }}
+  >
+    <div className={cn(
+      "p-3 rounded-xl backdrop-blur-md shadow-lg border border-white/40",
+      "bg-white/70"
+    )}>
+      <Icon className={cn("w-6 h-6", color.replace("bg-", "text-"))} />
+    </div>
+  </div>
+);
+
+const LaptopFrame = ({ icon, floatingIcons, barColor }: { icon: string; floatingIcons: LucideIcon[]; barColor: string }) => (
+  <div className="relative w-[320px] md:w-[450px]">
+    {/* Floating Icons */}
+    {floatingIcons.map((IconComponent, index) => (
+      <FloatingIcon 
+        key={index} 
+        Icon={IconComponent} 
+        position={floatingPositions[index]} 
+        color={barColor}
+      />
+    ))}
+    
     {/* Laptop Screen */}
-    <div className="relative bg-[#1a1a2e] rounded-t-xl p-2 border-4 border-[#2d2d44]">
+    <div className="relative bg-[#1a1a2e] rounded-t-2xl p-3 border-4 border-[#2d2d44]">
       {/* Screen bezel */}
-      <div className="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#2d2d44]" />
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#2d2d44]" />
       {/* Screen content */}
       <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-lg aspect-[16/10] flex items-center justify-center overflow-hidden">
-        <div className="flex flex-col items-center gap-3">
-          <span className="text-6xl md:text-7xl">{icon}</span>
+        <div className="flex flex-col items-center gap-4 p-4">
+          <span className="text-7xl md:text-8xl">{icon}</span>
           <div className="flex gap-2">
-            <div className="w-16 h-2 bg-slate-300 rounded" />
-            <div className="w-10 h-2 bg-slate-300 rounded" />
+            <div className="w-20 h-3 bg-slate-300 rounded" />
+            <div className="w-14 h-3 bg-slate-300 rounded" />
           </div>
-          <div className="flex gap-1">
-            <div className="w-8 h-8 bg-blue-200 rounded" />
-            <div className="w-8 h-8 bg-green-200 rounded" />
-            <div className="w-8 h-8 bg-purple-200 rounded" />
+          <div className="flex gap-2">
+            <div className="w-12 h-12 bg-blue-200 rounded-lg" />
+            <div className="w-12 h-12 bg-green-200 rounded-lg" />
+            <div className="w-12 h-12 bg-purple-200 rounded-lg" />
           </div>
         </div>
       </div>
     </div>
     {/* Laptop Base */}
-    <div className="relative h-3 bg-gradient-to-b from-[#2d2d44] to-[#1a1a2e] rounded-b-lg">
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-[#3d3d54] rounded-t-full" />
+    <div className="relative h-4 bg-gradient-to-b from-[#2d2d44] to-[#1a1a2e] rounded-b-xl">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1.5 bg-[#3d3d54] rounded-t-full" />
     </div>
     {/* Laptop Stand */}
-    <div className="h-1 bg-[#1a1a2e] mx-4 rounded-b-lg" />
+    <div className="h-1 bg-[#1a1a2e] mx-6 rounded-b-lg" />
   </div>
 );
 
@@ -185,7 +239,7 @@ const StackedCards = () => {
 
                     {/* Right Side - Laptop Frame */}
                     <div className="flex-shrink-0 hidden md:block relative z-10">
-                      <LaptopFrame icon={card.icon} />
+                      <LaptopFrame icon={card.icon} floatingIcons={card.floatingIcons} barColor={card.barColor} />
                     </div>
                   </div>
                 </div>

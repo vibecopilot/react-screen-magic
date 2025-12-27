@@ -89,6 +89,10 @@ export default {
           from: { transform: "translateX(-50%)" },
           to: { transform: "translateX(0)" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "50%": { transform: "translateY(-10px) rotate(3deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -97,6 +101,7 @@ export default {
         "scroll": "scroll 15s linear infinite",
         "scroll-slow": "scroll 40s linear infinite",
         "scroll-reverse": "scroll-reverse 40s linear infinite",
+        "float": "float 3s ease-in-out infinite",
       },
     },
   },
