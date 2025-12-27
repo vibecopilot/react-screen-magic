@@ -42,34 +42,17 @@ const ClientLogos = () => {
           Trusted by 100+ top real estate developers and enterprises
         </p>
         
-        {/* Logos row */}
-        <div className="relative overflow-hidden">
-          {/* Gradient fade on edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-muted/30 to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-muted/30 to-transparent z-10" />
-          
-          {/* Scrolling container */}
-          <div className="flex animate-scroll">
-            {logos.map((logo, index) => (
-              <div key={index} className="flex-shrink-0 mx-12 flex items-center">
-                <img 
-                  src={logo.src} 
-                  alt={logo.alt} 
-                  className="h-16 md:h-20 w-auto object-contain"
-                />
-              </div>
-            ))}
-            {/* Duplicate for seamless loop */}
-            {logos.map((logo, index) => (
-              <div key={`dup-${index}`} className="flex-shrink-0 mx-12 flex items-center">
-                <img 
-                  src={logo.src} 
-                  alt={logo.alt} 
-                  className="h-16 md:h-20 w-auto object-contain"
-                />
-              </div>
-            ))}
-          </div>
+        {/* Logos grid */}
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+          {logos.map((logo, index) => (
+            <div key={index} className="flex items-center justify-center">
+              <img 
+                src={logo.src} 
+                alt={logo.alt} 
+                className="h-12 md:h-16 w-auto object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>
