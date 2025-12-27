@@ -51,21 +51,21 @@ const ClientLogos = () => {
           {/* Scrolling container */}
           <div className="flex animate-scroll">
             {logos.map((logo, index) => (
-              <div key={index} className="flex-shrink-0 mx-10 flex items-center">
+              <div key={index} className="flex-shrink-0 mx-12 flex items-center">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="h-10 md:h-12 w-auto object-contain opacity-70"
+                  className="h-16 md:h-20 w-auto object-contain"
                 />
               </div>
             ))}
             {/* Duplicate for seamless loop */}
             {logos.map((logo, index) => (
-              <div key={`dup-${index}`} className="flex-shrink-0 mx-10 flex items-center">
+              <div key={`dup-${index}`} className="flex-shrink-0 mx-12 flex items-center">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="h-10 md:h-12 w-auto object-contain opacity-70"
+                  className="h-16 md:h-20 w-auto object-contain"
                 />
               </div>
             ))}
