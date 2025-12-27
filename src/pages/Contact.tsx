@@ -72,13 +72,13 @@ const Contact = () => {
       {/* Contact Hero */}
       <section className="pt-32 pb-8 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block px-4 py-1.5 bg-white/60 backdrop-blur-sm rounded-full text-xs font-medium text-foreground mb-6">
+          <span className="inline-block px-4 py-1.5 bg-white/60 backdrop-blur-sm rounded-full text-xs font-medium text-foreground mb-6 animate-fade-in" style={{ animationDelay: "0.1s", animationFillMode: "backwards" }}>
             CONTACT US
           </span>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold text-foreground mb-4">
+          <h1 className="font-serif text-4xl md:text-6xl font-bold text-foreground mb-4 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "backwards" }}>
             Let's connect
           </h1>
-          <p className="text-foreground/70 text-lg max-w-md mx-auto">
+          <p className="text-foreground/70 text-lg max-w-md mx-auto animate-fade-in" style={{ animationDelay: "0.3s", animationFillMode: "backwards" }}>
             Have questions about Dreelio? Contact us and we'll be happy to help.
           </p>
         </div>
@@ -86,7 +86,7 @@ const Contact = () => {
 
       {/* Contact Form */}
       <section className="pb-16 px-4">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.4s", animationFillMode: "backwards" }}>
           <form onSubmit={handleSubmit} className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-10 shadow-lg">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
