@@ -34,7 +34,7 @@ const Navbar = () => {
         )}
       >
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="w-9 h-9 bg-accent rounded-full flex items-center justify-center">
             <svg
               width="20"
@@ -53,7 +53,7 @@ const Navbar = () => {
           <span className="font-semibold text-xl tracking-tight text-foreground">
             MY CITI
           </span>
-        </div>
+        </Link>
 
         {/* Navigation Links - Desktop */}
         <div className="hidden md:flex items-center gap-8">
