@@ -74,6 +74,7 @@ const LaptopFrame = ({ icon }: { icon: string }) => (
 const StackedCards = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const cardHeight = 550; // Height of each card
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,13 +85,13 @@ const StackedCards = () => {
       const containerHeight = containerRef.current.offsetHeight;
       const scrollableHeight = containerHeight - windowHeight;
 
-      // Calculate how far we've scrolled into the container (0 to 1 per card)
       const scrolledIntoContainer = -rect.top;
       
       if (scrolledIntoContainer < 0) {
         setScrollProgress(0);
       } else {
-        const progress = scrolledIntoContainer / scrollableHeight * cards.length;
+        // Progress from 0 to cards.length
+        const progress = (scrolledIntoContainer / scrollableHeight) * cards.length;
         setScrollProgress(Math.min(cards.length, Math.max(0, progress)));
       }
     };
@@ -100,15 +101,12 @@ const StackedCards = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const activeCardIndex = Math.floor(scrollProgress);
-  const cardProgress = scrollProgress - activeCardIndex; // 0 to 1 progress within current card transition
-
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[500vh] py-20 bg-gradient-to-b from-background via-muted/20 to-background"
+      className="relative min-h-[600vh] py-20 bg-gradient-to-b from-background via-muted/20 to-background"
     >
-      <div className="sticky top-16 flex flex-col items-center px-4 md:px-6">
+      <div className="sticky top-16 flex flex-col items-center px-4 md:px-6 overflow-hidden">
         {/* Section Header */}
         <div className="text-center mb-12 animate-fade-in">
           <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
@@ -119,60 +117,40 @@ const StackedCards = () => {
           </p>
         </div>
 
-        {/* Stacked Cards Container - Bigger size */}
-        <div className="relative w-full max-w-6xl h-[480px] md:h-[550px]">
+        {/* Stacked Cards Container */}
+        <div className="relative w-full max-w-6xl h-[550px]">
           {cards.map((card, index) => {
-            const isCurrentCard = index === activeCardIndex;
-            const isPreviousCard = index < activeCardIndex;
-            const isNextCard = index === activeCardIndex + 1;
+            // Calculate how much this card should move based on scroll
+            // Each card starts at bottom and slides up to cover the previous card
+            const cardStartProgress = index; // When this card starts moving
+            const cardEndProgress = index + 1; // When this card is fully in position
             
-            // Calculate dynamic transforms based on scroll progress
-            let translateY = 0;
-            let scale = 1;
-            let opacity = 1;
-            let zIndex = 0;
-
-            if (isPreviousCard) {
-              // Previous cards stack up with offset
-              const stackPosition = activeCardIndex - index;
-              translateY = -stackPosition * 10 - cardProgress * 10;
-              scale = 1 - stackPosition * 0.02 - cardProgress * 0.02;
-              opacity = 1 - stackPosition * 0.15;
-              zIndex = cards.length - stackPosition;
-            } else if (isCurrentCard) {
-              // Current card moves up as we scroll
-              translateY = -cardProgress * 60;
-              scale = 1 - cardProgress * 0.02;
-              opacity = 1;
-              zIndex = cards.length;
-            } else if (isNextCard) {
-              // Next card slides in from bottom
-              translateY = 400 - cardProgress * 400;
-              scale = 0.95 + cardProgress * 0.05;
-              opacity = cardProgress;
-              zIndex = cards.length - 1;
-            } else {
-              // Future cards are hidden below
-              translateY = 500;
-              opacity = 0;
-              zIndex = 0;
-            }
+            // Progress for this specific card (0 = at bottom, 1 = fully visible)
+            const thisCardProgress = Math.min(1, Math.max(0, scrollProgress - cardStartProgress));
+            
+            // How far up to translate (from bottom to top)
+            const translateY = (1 - thisCardProgress) * cardHeight;
+            
+            // Cards that haven't started should be below viewport
+            const isInView = scrollProgress >= index - 0.1;
+            
+            // Z-index: later cards stack on top
+            const zIndex = index + 1;
 
             return (
               <div
                 key={card.name}
                 className="absolute inset-0 w-full will-change-transform"
                 style={{
-                  transform: `translateY(${translateY}px) scale(${scale})`,
-                  opacity,
+                  transform: `translateY(${isInView ? translateY : cardHeight}px)`,
                   zIndex,
-                  transition: 'transform 0.1s ease-out, opacity 0.15s ease-out',
+                  opacity: isInView ? 1 : 0,
                 }}
               >
                 {/* Main Card - White with popup shadow and rounded corners */}
                 <div className="bg-white rounded-3xl shadow-[0_25px_80px_-20px_rgba(0,0,0,0.25)] h-full">
                   {/* Card Content */}
-                  <div className="relative h-[480px] md:h-[550px] flex flex-col md:flex-row items-center justify-between p-10 md:p-16">
+                  <div className="relative h-[550px] flex flex-col md:flex-row items-center justify-between p-10 md:p-16 overflow-hidden">
                     {/* Decorative Circle */}
                     <div className={cn("absolute -top-16 -right-16 w-64 h-64 rounded-full opacity-10", card.barColor)} />
 
@@ -210,14 +188,14 @@ const StackedCards = () => {
         {/* Progress Indicator */}
         <div className="flex gap-2 mt-16">
           {cards.map((card, index) => {
-            const isActive = index <= activeCardIndex;
-            const isCurrent = index === activeCardIndex;
+            const isCurrent = scrollProgress >= index && scrollProgress < index + 1;
+            const isPast = scrollProgress >= index + 1;
             return (
               <div
                 key={card.name}
                 className={cn(
                   "h-2 rounded-full transition-all duration-300",
-                  isCurrent ? "w-10 bg-primary" : isActive ? "w-2 bg-primary/60" : "w-2 bg-muted-foreground/30"
+                  isCurrent ? "w-10 bg-primary" : isPast ? "w-2 bg-primary/60" : "w-2 bg-muted-foreground/30"
                 )}
               />
             );
