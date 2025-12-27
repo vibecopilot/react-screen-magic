@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import mycitiLogo from "@/assets/myciti-logo.png";
 
 const navLinks = [
   { label: "Features", href: "#features", isRoute: false },
@@ -34,22 +35,8 @@ const Navbar = () => {
         )}
       >
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <div className="w-9 h-9 bg-accent rounded-full flex items-center justify-center">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
-                fill="currentColor"
-                className="text-accent-foreground"
-              />
-            </svg>
-          </div>
+        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <img src={mycitiLogo} alt="My Citi Logo" className="h-10 w-auto" />
           <span className="font-semibold text-xl tracking-tight text-foreground">
             MY CITI
           </span>
@@ -80,7 +67,7 @@ const Navbar = () => {
 
         {/* CTA Button */}
         <Button variant="hero" size={isScrolled ? "default" : "default"}>
-          Try Dreelio free
+          Try My Citi free
         </Button>
       </nav>
     </header>
