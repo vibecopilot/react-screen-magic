@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StackedCards from "@/components/StackedCards";
 import ClientLogos from "@/components/ClientLogos";
+import Footer from "@/components/Footer";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
       <HeroSection />
       <StackedCards />
       <ClientLogos />
+      <Footer />
     </div>
   );
 };

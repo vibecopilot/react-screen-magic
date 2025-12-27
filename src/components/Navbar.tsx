@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Benefits", href: "#benefits" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contact Us", href: "#contact" },
+  { label: "Features", href: "#features", isRoute: false },
+  { label: "Benefits", href: "#benefits", isRoute: false },
+  { label: "Pricing", href: "#pricing", isRoute: false },
+  { label: "Blog", href: "#blog", isRoute: false },
+  { label: "Contact Us", href: "/contact", isRoute: true },
 ];
 
 const Navbar = () => {
@@ -57,13 +58,23 @@ const Navbar = () => {
         {/* Navigation Links - Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200"
-            >
-              {link.label}
-            </a>
+            link.isRoute ? (
+              <Link
+                key={link.label}
+                to={link.href}
+                className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            )
           ))}
         </div>
 
