@@ -28,8 +28,8 @@ const Navbar = () => {
         className={cn(
           "w-full flex items-center justify-between transition-all duration-300",
           isScrolled
-            ? "max-w-4xl mx-auto bg-card/95 backdrop-blur-md shadow-lg rounded-pill px-6 py-3"
-            : "max-w-7xl mx-auto px-6 py-2"
+            ? "max-w-4xl mx-auto bg-card/80 backdrop-blur-xl shadow-lg rounded-pill px-6 py-3"
+            : "max-w-7xl mx-auto bg-transparent px-6 py-2"
         )}
       >
         {/* Logo */}
