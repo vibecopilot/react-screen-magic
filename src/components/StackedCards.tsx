@@ -4,45 +4,76 @@ import { cn } from "@/lib/utils";
 const cards = [
   {
     name: "Pre Sales",
-    description: "Streamline your lead management and inquiry handling",
-    gradient: "from-blue-500 to-cyan-400",
+    description: "Streamline your lead management and inquiry handling with powerful CRM tools. Track prospects, manage follow-ups, and convert leads faster than ever.",
+    color: "bg-[#4A9FE8]",
     icon: "📊",
   },
   {
     name: "Post Sales",
-    description: "Manage customer relationships after the deal closes",
-    gradient: "from-emerald-500 to-teal-400",
+    description: "Manage customer relationships after the deal closes. Handle documentation, payment tracking, and customer support seamlessly.",
+    color: "bg-[#10B981]",
     icon: "🤝",
   },
   {
     name: "Konstruct",
-    description: "Track construction progress and project milestones",
-    gradient: "from-orange-500 to-amber-400",
+    description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
+    color: "bg-[#F59E0B]",
     icon: "🏗️",
   },
   {
     name: "VibeCopilot",
-    description: "AI-powered assistant for your daily operations",
-    gradient: "from-purple-500 to-pink-400",
+    description: "AI-powered assistant for your daily operations. Get intelligent insights, automate repetitive tasks, and boost productivity.",
+    color: "bg-[#8B5CF6]",
     icon: "🤖",
   },
   {
     name: "HRMS",
-    description: "Complete human resource management solution",
-    gradient: "from-rose-500 to-red-400",
+    description: "Complete human resource management solution. Manage employees, payroll, attendance, and performance all in one place.",
+    color: "bg-[#EF4444]",
     icon: "👥",
   },
   {
     name: "Possession",
-    description: "Seamless handover and possession tracking",
-    gradient: "from-indigo-500 to-violet-400",
+    description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
+    color: "bg-[#6366F1]",
     icon: "🔑",
   },
 ];
 
+const LaptopFrame = ({ icon }: { icon: string }) => (
+  <div className="relative w-[280px] md:w-[380px]">
+    {/* Laptop Screen */}
+    <div className="relative bg-[#1a1a2e] rounded-t-xl p-2 border-4 border-[#2d2d44]">
+      {/* Screen bezel */}
+      <div className="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#2d2d44]" />
+      {/* Screen content */}
+      <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-lg aspect-[16/10] flex items-center justify-center overflow-hidden">
+        <div className="flex flex-col items-center gap-3">
+          <span className="text-6xl md:text-7xl">{icon}</span>
+          <div className="flex gap-2">
+            <div className="w-16 h-2 bg-slate-300 rounded" />
+            <div className="w-10 h-2 bg-slate-300 rounded" />
+          </div>
+          <div className="flex gap-1">
+            <div className="w-8 h-8 bg-blue-200 rounded" />
+            <div className="w-8 h-8 bg-green-200 rounded" />
+            <div className="w-8 h-8 bg-purple-200 rounded" />
+          </div>
+        </div>
+      </div>
+    </div>
+    {/* Laptop Base */}
+    <div className="relative h-3 bg-gradient-to-b from-[#2d2d44] to-[#1a1a2e] rounded-b-lg">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-[#3d3d54] rounded-t-full" />
+    </div>
+    {/* Laptop Stand */}
+    <div className="h-1 bg-[#1a1a2e] mx-4 rounded-b-lg" />
+  </div>
+);
+
 const StackedCards = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,34 +82,34 @@ const StackedCards = () => {
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       const containerHeight = containerRef.current.offsetHeight;
+      const scrollableHeight = containerHeight - windowHeight;
 
-      // Calculate scroll progress from 0 to 1 based on container position
-      const startTrigger = windowHeight * 0.8;
-      const endTrigger = -containerHeight + windowHeight * 0.2;
-
-      if (rect.top > startTrigger) {
-        setScrollProgress(0);
-      } else if (rect.top < endTrigger) {
-        setScrollProgress(1);
+      // Calculate how far we've scrolled into the container
+      const scrolledIntoContainer = -rect.top;
+      
+      if (scrolledIntoContainer < 0) {
+        setActiveCardIndex(0);
       } else {
-        const progress = (startTrigger - rect.top) / (startTrigger - endTrigger);
-        setScrollProgress(Math.min(1, Math.max(0, progress)));
+        // Each card gets equal scroll distance
+        const scrollPerCard = scrollableHeight / cards.length;
+        const newIndex = Math.floor(scrolledIntoContainer / scrollPerCard);
+        setActiveCardIndex(Math.min(cards.length - 1, Math.max(0, newIndex)));
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[300vh] py-16 -mt-20 bg-gradient-to-b from-background via-muted/30 to-background"
+      className="relative min-h-[400vh] py-20 bg-gradient-to-b from-background via-muted/20 to-background"
     >
-      <div className="sticky top-16 flex flex-col items-center px-6">
+      <div className="sticky top-20 flex flex-col items-center px-6">
         {/* Section Header */}
-        <div className="text-center mb-12 animate-fade-in">
+        <div className="text-center mb-16 animate-fade-in">
           <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
             Our Powerful Modules
           </h2>
@@ -88,87 +119,73 @@ const StackedCards = () => {
         </div>
 
         {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-5xl h-[500px] perspective-1000">
+        <div className="relative w-full max-w-5xl h-[420px] md:h-[480px]">
           {cards.map((card, index) => {
-            // Calculate individual card progress
-            const cardProgress = scrollProgress * cards.length;
-            const cardIndex = index;
-            const isActive = cardProgress >= cardIndex;
-            const cardOffset = Math.max(0, cardProgress - cardIndex);
-            const isTop = cardProgress >= cardIndex && cardProgress < cardIndex + 1;
-
-            // Transform values
-            const translateY = isActive
-              ? Math.min(cardOffset * 20, 20) + index * 8
-              : 200 + index * 20;
-            const scale = isActive ? 1 - cardOffset * 0.02 : 0.9;
-            const opacity = isActive ? 1 - cardOffset * 0.15 : 0;
-            const rotateX = isActive ? -cardOffset * 5 : 10;
-            const zIndex = cards.length - index + (isTop ? 10 : 0);
+            const isVisible = index <= activeCardIndex;
+            const isActive = index === activeCardIndex;
+            const stackOffset = (activeCardIndex - index) * 12;
+            const scale = isActive ? 1 : 1 - (activeCardIndex - index) * 0.03;
 
             return (
               <div
                 key={card.name}
                 className={cn(
                   "absolute inset-0 w-full rounded-3xl overflow-hidden transition-all duration-700 ease-out",
-                  "shadow-2xl border border-white/10"
+                  "shadow-2xl"
                 )}
                 style={{
-                  transform: `translateY(${translateY}px) scale(${scale}) rotateX(${rotateX}deg)`,
-                  opacity,
-                  zIndex,
-                  transformOrigin: "center bottom",
+                  transform: isVisible 
+                    ? `translateY(-${stackOffset}px) scale(${scale})` 
+                    : "translateY(100px) scale(0.9)",
+                  opacity: isVisible ? 1 : 0,
+                  zIndex: isVisible ? cards.length - (activeCardIndex - index) : 0,
                 }}
               >
-                {/* Card Background */}
-                <div
-                  className={cn(
-                    "absolute inset-0 bg-gradient-to-br",
-                    card.gradient
-                  )}
-                />
+                {/* Solid Card Background */}
+                <div className={cn("absolute inset-0", card.color)} />
+
+                {/* Decorative Circle */}
+                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-white/10" />
 
                 {/* Card Content */}
-                <div className="relative h-full flex flex-col md:flex-row items-center justify-between p-10 md:p-16 text-white">
+                <div className="relative h-full flex flex-col md:flex-row items-center justify-between p-8 md:p-12 text-white">
                   {/* Left Side - Text */}
-                  <div className="flex-1 text-center md:text-left mb-6 md:mb-0">
-                    <span className="text-7xl mb-6 block">{card.icon}</span>
-                    <h3 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+                  <div className="flex-1 text-center md:text-left mb-6 md:mb-0 max-w-md">
+                    <div className="inline-flex items-center gap-3 bg-white/20 rounded-xl px-4 py-2 mb-6">
+                      <span className="text-3xl">{card.icon}</span>
+                    </div>
+                    <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4">
                       {card.name}
                     </h3>
-                    <p className="text-white/80 text-xl max-w-lg">
+                    <p className="text-white/90 text-base md:text-lg leading-relaxed">
                       {card.description}
                     </p>
+                    <button className="mt-6 px-6 py-2 bg-white/20 hover:bg-white/30 rounded-full text-white font-medium transition-colors duration-300">
+                      Learn More →
+                    </button>
                   </div>
 
-                  {/* Right Side - Decorative Elements */}
-                  <div className="flex-shrink-0">
-                    <div className="w-56 h-56 md:w-72 md:h-72 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                      <div className="w-40 h-40 md:w-48 md:h-48 rounded-xl bg-white/20 flex items-center justify-center">
-                        <span className="text-8xl md:text-9xl">{card.icon}</span>
-                      </div>
-                    </div>
+                  {/* Right Side - Laptop Frame */}
+                  <div className="flex-shrink-0 hidden md:block">
+                    <LaptopFrame icon={card.icon} />
                   </div>
                 </div>
-
-                {/* Decorative Circles */}
-                <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-white/10" />
-                <div className="absolute bottom-4 left-4 w-12 h-12 rounded-full bg-white/10" />
               </div>
             );
           })}
         </div>
 
         {/* Progress Indicator */}
-        <div className="flex gap-2 mt-8">
+        <div className="flex gap-2 mt-12">
           {cards.map((card, index) => {
-            const isActive = scrollProgress * cards.length >= index;
+            const isActive = index <= activeCardIndex;
+            const isCurrent = index === activeCardIndex;
             return (
               <div
                 key={card.name}
                 className={cn(
-                  "w-2 h-2 rounded-full transition-all duration-300",
-                  isActive ? "bg-primary w-6" : "bg-muted-foreground/30"
+                  "h-2 rounded-full transition-all duration-500",
+                  isCurrent ? "w-8 bg-primary" : isActive ? "w-2 bg-primary/60" : "w-2 bg-muted-foreground/30"
                 )}
               />
             );
