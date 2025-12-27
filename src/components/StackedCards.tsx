@@ -126,13 +126,16 @@ const StackedCards = () => {
             const cardEndProgress = index + 1; // When this card is fully in position
             
             // Progress for this specific card (0 = at bottom, 1 = fully visible)
-            const thisCardProgress = Math.min(1, Math.max(0, scrollProgress - cardStartProgress));
+            // First card starts fully visible (translateY = 0)
+            const thisCardProgress = index === 0 
+              ? 1 
+              : Math.min(1, Math.max(0, scrollProgress - cardStartProgress + 1));
             
             // How far up to translate (from bottom to top)
-            const translateY = (1 - thisCardProgress) * cardHeight;
+            const translateY = index === 0 ? 0 : (1 - thisCardProgress) * cardHeight;
             
-            // Cards that haven't started should be below viewport
-            const isInView = scrollProgress >= index - 0.1;
+            // Cards that haven't started should be below viewport (except first card)
+            const isInView = index === 0 || scrollProgress >= index - 1;
             
             // Z-index: later cards stack on top
             const zIndex = index + 1;
@@ -147,8 +150,8 @@ const StackedCards = () => {
                   opacity: isInView ? 1 : 0,
                 }}
               >
-                {/* Main Card - White with popup shadow and rounded corners */}
-                <div className="bg-white rounded-3xl shadow-[0_25px_80px_-20px_rgba(0,0,0,0.25)] h-full">
+                {/* Main Card - White with popup shadow, light border and rounded corners */}
+                <div className="bg-white rounded-3xl shadow-[0_25px_80px_-20px_rgba(0,0,0,0.15)] border border-gray-200/60 h-full">
                   {/* Card Content */}
                   <div className="relative h-[550px] flex flex-col md:flex-row items-center justify-between p-10 md:p-16 overflow-hidden">
                     {/* Decorative Circle */}
