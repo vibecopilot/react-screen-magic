@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { BarChart3, Search, Users, FileText, TrendingUp, Settings, Bell, Calendar, Mail, PieChart, LucideIcon } from "lucide-react";
+import screenPresales from "@/assets/screen-presales.png";
 
 const cards = [
   {
@@ -9,6 +10,7 @@ const cards = [
     barColor: "bg-[#4A9FE8]",
     icon: "📊",
     floatingIcons: [BarChart3, TrendingUp, Users, Search, PieChart] as LucideIcon[],
+    screenImage: screenPresales,
   },
   {
     name: "Post Sales",
@@ -16,6 +18,7 @@ const cards = [
     barColor: "bg-[#10B981]",
     icon: "🤝",
     floatingIcons: [FileText, Users, Mail, Bell, Calendar] as LucideIcon[],
+    screenImage: null,
   },
   {
     name: "Konstruct",
@@ -23,6 +26,7 @@ const cards = [
     barColor: "bg-[#F59E0B]",
     icon: "🏗️",
     floatingIcons: [Calendar, Settings, BarChart3, FileText, TrendingUp] as LucideIcon[],
+    screenImage: null,
   },
   {
     name: "VibeCopilot",
@@ -30,6 +34,7 @@ const cards = [
     barColor: "bg-[#8B5CF6]",
     icon: "🤖",
     floatingIcons: [Search, TrendingUp, PieChart, Settings, Bell] as LucideIcon[],
+    screenImage: null,
   },
   {
     name: "HRMS",
@@ -37,6 +42,7 @@ const cards = [
     barColor: "bg-[#EF4444]",
     icon: "👥",
     floatingIcons: [Users, Calendar, FileText, Mail, Settings] as LucideIcon[],
+    screenImage: null,
   },
   {
     name: "Possession",
@@ -44,6 +50,7 @@ const cards = [
     barColor: "bg-[#6366F1]",
     icon: "🔑",
     floatingIcons: [FileText, Calendar, Bell, Users, TrendingUp] as LucideIcon[],
+    screenImage: null,
   },
 ];
 
@@ -84,7 +91,7 @@ const FloatingIcon = ({
   </div>
 );
 
-const LaptopFrame = ({ icon, floatingIcons, barColor }: { icon: string; floatingIcons: LucideIcon[]; barColor: string }) => (
+const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage }: { icon: string; floatingIcons: LucideIcon[]; barColor: string; screenImage?: string | null }) => (
   <div className="relative w-[320px] md:w-[450px]">
     {/* Floating Icons */}
     {floatingIcons.map((IconComponent, index) => (
@@ -102,18 +109,26 @@ const LaptopFrame = ({ icon, floatingIcons, barColor }: { icon: string; floating
       <div className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#2d2d44]" />
       {/* Screen content */}
       <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-lg aspect-[16/10] flex items-center justify-center overflow-hidden">
-        <div className="flex flex-col items-center gap-4 p-4">
-          <span className="text-7xl md:text-8xl">{icon}</span>
-          <div className="flex gap-2">
-            <div className="w-20 h-3 bg-slate-300 rounded" />
-            <div className="w-14 h-3 bg-slate-300 rounded" />
+        {screenImage ? (
+          <img 
+            src={screenImage} 
+            alt="Screen preview" 
+            className="w-full h-full object-cover object-top"
+          />
+        ) : (
+          <div className="flex flex-col items-center gap-4 p-4">
+            <span className="text-7xl md:text-8xl">{icon}</span>
+            <div className="flex gap-2">
+              <div className="w-20 h-3 bg-slate-300 rounded" />
+              <div className="w-14 h-3 bg-slate-300 rounded" />
+            </div>
+            <div className="flex gap-2">
+              <div className="w-12 h-12 bg-blue-200 rounded-lg" />
+              <div className="w-12 h-12 bg-green-200 rounded-lg" />
+              <div className="w-12 h-12 bg-purple-200 rounded-lg" />
+            </div>
           </div>
-          <div className="flex gap-2">
-            <div className="w-12 h-12 bg-blue-200 rounded-lg" />
-            <div className="w-12 h-12 bg-green-200 rounded-lg" />
-            <div className="w-12 h-12 bg-purple-200 rounded-lg" />
-          </div>
-        </div>
+        )}
       </div>
     </div>
     {/* Laptop Base */}
@@ -239,7 +254,7 @@ const StackedCards = () => {
 
                     {/* Right Side - Laptop Frame */}
                     <div className="flex-shrink-0 hidden md:block relative z-10">
-                      <LaptopFrame icon={card.icon} floatingIcons={card.floatingIcons} barColor={card.barColor} />
+                      <LaptopFrame icon={card.icon} floatingIcons={card.floatingIcons} barColor={card.barColor} screenImage={card.screenImage} />
                     </div>
                   </div>
                 </div>
