@@ -35,11 +35,8 @@ const Navbar = () => {
         )}
       >
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <img src={mycitiLogo} alt="My Citi Logo" className="h-10 w-auto" />
-          <span className="font-semibold text-xl tracking-tight text-foreground">
-            MY CITI
-          </span>
+        <Link to="/" className="hover:opacity-80 transition-opacity">
+          <img src={mycitiLogo} alt="My Citi Logo" className="h-12 w-auto" />
         </Link>
 
         {/* Navigation Links - Desktop */}
