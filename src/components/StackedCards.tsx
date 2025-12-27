@@ -73,7 +73,7 @@ const LaptopFrame = ({ icon }: { icon: string }) => (
 
 const StackedCards = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,32 +84,33 @@ const StackedCards = () => {
       const containerHeight = containerRef.current.offsetHeight;
       const scrollableHeight = containerHeight - windowHeight;
 
-      // Calculate how far we've scrolled into the container
+      // Calculate how far we've scrolled into the container (0 to 1 per card)
       const scrolledIntoContainer = -rect.top;
       
       if (scrolledIntoContainer < 0) {
-        setActiveCardIndex(0);
+        setScrollProgress(0);
       } else {
-        // Each card gets equal scroll distance
-        const scrollPerCard = scrollableHeight / cards.length;
-        const newIndex = Math.floor(scrolledIntoContainer / scrollPerCard);
-        setActiveCardIndex(Math.min(cards.length - 1, Math.max(0, newIndex)));
+        const progress = scrolledIntoContainer / scrollableHeight * cards.length;
+        setScrollProgress(Math.min(cards.length, Math.max(0, progress)));
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const activeCardIndex = Math.floor(scrollProgress);
+  const cardProgress = scrollProgress - activeCardIndex; // 0 to 1 progress within current card transition
+
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[400vh] py-20 bg-gradient-to-b from-background via-muted/20 to-background"
+      className="relative min-h-[500vh] py-20 bg-gradient-to-b from-background via-muted/20 to-background"
     >
-      <div className="sticky top-20 flex flex-col items-center px-6">
+      <div className="sticky top-16 flex flex-col items-center px-4 md:px-6">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
             Our Powerful Modules
           </h2>
@@ -118,50 +119,78 @@ const StackedCards = () => {
           </p>
         </div>
 
-        {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-5xl h-[420px] md:h-[480px]">
+        {/* Stacked Cards Container - Bigger size */}
+        <div className="relative w-full max-w-6xl h-[480px] md:h-[550px]">
           {cards.map((card, index) => {
-            const isVisible = index <= activeCardIndex;
-            const isActive = index === activeCardIndex;
-            const stackOffset = (activeCardIndex - index) * 8;
+            const isCurrentCard = index === activeCardIndex;
+            const isPreviousCard = index < activeCardIndex;
+            const isNextCard = index === activeCardIndex + 1;
+            
+            // Calculate dynamic transforms based on scroll progress
+            let translateY = 0;
+            let scale = 1;
+            let opacity = 1;
+            let zIndex = 0;
+
+            if (isPreviousCard) {
+              // Previous cards stack up with offset
+              const stackPosition = activeCardIndex - index;
+              translateY = -stackPosition * 10 - cardProgress * 10;
+              scale = 1 - stackPosition * 0.02 - cardProgress * 0.02;
+              opacity = 1 - stackPosition * 0.15;
+              zIndex = cards.length - stackPosition;
+            } else if (isCurrentCard) {
+              // Current card moves up as we scroll
+              translateY = -cardProgress * 60;
+              scale = 1 - cardProgress * 0.02;
+              opacity = 1;
+              zIndex = cards.length;
+            } else if (isNextCard) {
+              // Next card slides in from bottom
+              translateY = 400 - cardProgress * 400;
+              scale = 0.95 + cardProgress * 0.05;
+              opacity = cardProgress;
+              zIndex = cards.length - 1;
+            } else {
+              // Future cards are hidden below
+              translateY = 500;
+              opacity = 0;
+              zIndex = 0;
+            }
 
             return (
               <div
                 key={card.name}
-                className={cn(
-                  "absolute inset-0 w-full overflow-hidden transition-all duration-700 ease-out"
-                )}
+                className="absolute inset-0 w-full will-change-transform"
                 style={{
-                  transform: isVisible 
-                    ? `translateY(-${stackOffset}px)` 
-                    : "translateY(100px)",
-                  opacity: isVisible ? 1 : 0,
-                  zIndex: isVisible ? cards.length - (activeCardIndex - index) : 0,
+                  transform: `translateY(${translateY}px) scale(${scale})`,
+                  opacity,
+                  zIndex,
+                  transition: 'transform 0.1s ease-out, opacity 0.15s ease-out',
                 }}
               >
-
                 {/* Main Card - White with popup shadow and rounded corners */}
-                <div className="bg-white rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)]">
+                <div className="bg-white rounded-3xl shadow-[0_25px_80px_-20px_rgba(0,0,0,0.25)] h-full">
                   {/* Card Content */}
-                  <div className="relative h-[380px] md:h-[440px] flex flex-col md:flex-row items-center justify-between p-8 md:p-12">
+                  <div className="relative h-[480px] md:h-[550px] flex flex-col md:flex-row items-center justify-between p-10 md:p-16">
                     {/* Decorative Circle */}
-                    <div className={cn("absolute -top-10 -right-10 w-48 h-48 rounded-full opacity-10", card.barColor)} />
+                    <div className={cn("absolute -top-16 -right-16 w-64 h-64 rounded-full opacity-10", card.barColor)} />
 
                     {/* Left Side - Text */}
-                    <div className="flex-1 text-center md:text-left mb-6 md:mb-0 max-w-md">
-                      <div className={cn("inline-flex items-center gap-3 rounded-xl px-4 py-2 mb-6 bg-opacity-20", card.barColor.replace('bg-', 'bg-') + '/20')}>
-                        <span className="text-3xl">{card.icon}</span>
+                    <div className="flex-1 text-center md:text-left mb-6 md:mb-0 max-w-lg">
+                      <div className={cn("inline-flex items-center gap-3 rounded-xl px-5 py-3 mb-6", card.barColor + '/20')}>
+                        <span className="text-4xl">{card.icon}</span>
                       </div>
-                      <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-gray-900">
+                      <h3 className="text-4xl md:text-5xl font-serif font-bold mb-5 text-gray-900">
                         {card.name}
                       </h3>
-                      <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                      <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
                         {card.description}
                       </p>
                       <button className={cn(
-                        "mt-6 px-6 py-2 rounded-full font-medium transition-colors duration-300 text-white",
+                        "mt-8 px-8 py-3 rounded-full font-medium transition-all duration-300 text-white text-lg",
                         card.barColor,
-                        "hover:opacity-90"
+                        "hover:opacity-90 hover:scale-105"
                       )}>
                         Learn More →
                       </button>
@@ -179,7 +208,7 @@ const StackedCards = () => {
         </div>
 
         {/* Progress Indicator */}
-        <div className="flex gap-2 mt-12">
+        <div className="flex gap-2 mt-16">
           {cards.map((card, index) => {
             const isActive = index <= activeCardIndex;
             const isCurrent = index === activeCardIndex;
@@ -187,8 +216,8 @@ const StackedCards = () => {
               <div
                 key={card.name}
                 className={cn(
-                  "h-2 rounded-full transition-all duration-500",
-                  isCurrent ? "w-8 bg-primary" : isActive ? "w-2 bg-primary/60" : "w-2 bg-muted-foreground/30"
+                  "h-2 rounded-full transition-all duration-300",
+                  isCurrent ? "w-10 bg-primary" : isActive ? "w-2 bg-primary/60" : "w-2 bg-muted-foreground/30"
                 )}
               />
             );
