@@ -74,11 +74,11 @@ const StackedCards = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[200vh] py-32 bg-gradient-to-b from-background via-muted/30 to-background"
+      className="relative min-h-[300vh] py-16 -mt-20 bg-gradient-to-b from-background via-muted/30 to-background"
     >
-      <div className="sticky top-20 flex flex-col items-center px-6">
+      <div className="sticky top-16 flex flex-col items-center px-6">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
             Our Powerful Modules
           </h2>
@@ -88,7 +88,7 @@ const StackedCards = () => {
         </div>
 
         {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-4xl h-[400px] perspective-1000">
+        <div className="relative w-full max-w-5xl h-[500px] perspective-1000">
           {cards.map((card, index) => {
             // Calculate individual card progress
             const cardProgress = scrollProgress * cards.length;
@@ -110,7 +110,7 @@ const StackedCards = () => {
               <div
                 key={card.name}
                 className={cn(
-                  "absolute inset-0 w-full rounded-3xl overflow-hidden transition-all duration-500 ease-out",
+                  "absolute inset-0 w-full rounded-3xl overflow-hidden transition-all duration-700 ease-out",
                   "shadow-2xl border border-white/10"
                 )}
                 style={{
@@ -129,23 +129,23 @@ const StackedCards = () => {
                 />
 
                 {/* Card Content */}
-                <div className="relative h-full flex flex-col md:flex-row items-center justify-between p-8 md:p-12 text-white">
+                <div className="relative h-full flex flex-col md:flex-row items-center justify-between p-10 md:p-16 text-white">
                   {/* Left Side - Text */}
                   <div className="flex-1 text-center md:text-left mb-6 md:mb-0">
-                    <span className="text-6xl mb-4 block">{card.icon}</span>
-                    <h3 className="text-3xl md:text-4xl font-serif font-bold mb-3">
+                    <span className="text-7xl mb-6 block">{card.icon}</span>
+                    <h3 className="text-4xl md:text-5xl font-serif font-bold mb-4">
                       {card.name}
                     </h3>
-                    <p className="text-white/80 text-lg max-w-md">
+                    <p className="text-white/80 text-xl max-w-lg">
                       {card.description}
                     </p>
                   </div>
 
                   {/* Right Side - Decorative Elements */}
                   <div className="flex-shrink-0">
-                    <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                      <div className="w-32 h-32 md:w-40 md:h-40 rounded-xl bg-white/20 flex items-center justify-center">
-                        <span className="text-7xl md:text-8xl">{card.icon}</span>
+                    <div className="w-56 h-56 md:w-72 md:h-72 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                      <div className="w-40 h-40 md:w-48 md:h-48 rounded-xl bg-white/20 flex items-center justify-center">
+                        <span className="text-8xl md:text-9xl">{card.icon}</span>
                       </div>
                     </div>
                   </div>
