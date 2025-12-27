@@ -4,7 +4,7 @@ import heroBg from "@/assets/hero-clouds-bg.jpg";
 const HeroSection = () => {
   return (
     <section
-      className="relative min-h-[90vh] flex flex-col items-center justify-center px-6 text-center"
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 text-center pt-24"
       style={{
         backgroundImage: `url(${heroBg})`,
         backgroundSize: "cover",
