@@ -139,22 +139,6 @@ const StackedCards = () => {
                   zIndex: isVisible ? cards.length - (activeCardIndex - index) : 0,
                 }}
               >
-                {/* Stacked colored bars at top */}
-                <div className="relative rounded-t-3xl overflow-hidden">
-                  {cards.slice(0, cards.length).map((c, i) => {
-                    const barIndex = cards.length - 1 - i;
-                    const showBar = barIndex < index;
-                    return showBar ? (
-                      <div
-                        key={c.name}
-                        className={cn("h-2 w-full", c.barColor)}
-                        style={{
-                          opacity: 1 - (index - barIndex - 1) * 0.15,
-                        }}
-                      />
-                    ) : null;
-                  })}
-                </div>
 
                 {/* Main Card - White with popup shadow and rounded corners */}
                 <div className="bg-white rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)]">
