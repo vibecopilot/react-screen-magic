@@ -140,7 +140,7 @@ const StackedCards = () => {
                 }}
               >
                 {/* Stacked colored bars at top */}
-                <div className="relative">
+                <div className="relative rounded-t-3xl overflow-hidden">
                   {cards.slice(0, cards.length).map((c, i) => {
                     const barIndex = cards.length - 1 - i;
                     const showBar = barIndex < index;
@@ -156,11 +156,8 @@ const StackedCards = () => {
                   })}
                 </div>
 
-                {/* Main Card - White with shadow */}
-                <div className="bg-white rounded-b-3xl rounded-t-none shadow-xl border border-gray-100">
-                  {/* Top colored bar for current card */}
-                  <div className={cn("h-2 w-full", card.barColor, "rounded-t-none")} />
-                  
+                {/* Main Card - White with popup shadow and rounded corners */}
+                <div className="bg-white rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)]">
                   {/* Card Content */}
                   <div className="relative h-[380px] md:h-[440px] flex flex-col md:flex-row items-center justify-between p-8 md:p-12">
                     {/* Decorative Circle */}
