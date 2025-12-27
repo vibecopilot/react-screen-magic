@@ -26,10 +26,10 @@ const Navbar = () => {
     <header className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-5 transition-all duration-300">
       <nav
         className={cn(
-          "w-full flex items-center justify-between transition-all duration-300 bg-white/50 backdrop-blur-2xl rounded-pill px-8 py-4 border border-white/40 shadow-sm",
+          "w-full flex items-center justify-between transition-all duration-300 px-8 py-4",
           isScrolled
-            ? "max-w-5xl mx-auto shadow-lg"
-            : "max-w-7xl mx-auto"
+            ? "max-w-5xl mx-auto bg-white/50 backdrop-blur-2xl rounded-pill border border-white/40 shadow-lg"
+            : "max-w-7xl mx-auto bg-transparent"
         )}
       >
         {/* Logo */}
