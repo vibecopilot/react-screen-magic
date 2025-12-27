@@ -37,7 +37,7 @@ const ClientLogos = () => {
               <img 
                 src={logo.src} 
                 alt={logo.alt} 
-                className="h-16 md:h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-500"
+                className="h-16 md:h-20 w-auto object-contain"
               />
             </div>
           ))}
@@ -47,7 +47,7 @@ const ClientLogos = () => {
               <img 
                 src={logo.src} 
                 alt={logo.alt} 
-                className="h-16 md:h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-500"
+                className="h-16 md:h-20 w-auto object-contain"
               />
             </div>
           ))}
