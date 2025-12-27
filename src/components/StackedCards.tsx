@@ -104,16 +104,16 @@ const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage }: { icon: str
     ))}
     
     {/* Laptop Screen */}
-    <div className="relative bg-[#1a1a2e] rounded-t-2xl p-3 border-4 border-[#2d2d44]">
+    <div className="relative bg-[#1a1a2e] rounded-t-2xl p-2 border-4 border-[#2d2d44]">
       {/* Screen bezel */}
-      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#2d2d44]" />
+      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#2d2d44]" />
       {/* Screen content */}
-      <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-lg aspect-[16/10] flex items-center justify-center overflow-hidden">
+      <div className="bg-white rounded-lg aspect-[16/10] flex items-center justify-center overflow-hidden">
         {screenImage ? (
           <img 
             src={screenImage} 
             alt="Screen preview" 
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-contain bg-white"
           />
         ) : (
           <div className="flex flex-col items-center gap-4 p-4">
