@@ -79,7 +79,7 @@ const Contact = () => {
             Let's connect
           </h1>
           <p className="text-foreground/70 text-lg max-w-md mx-auto animate-fade-in" style={{ animationDelay: "0.3s", animationFillMode: "backwards" }}>
-            Have questions about Dreelio? Contact us and we'll be happy to help.
+            Have questions about My Citi? Contact us and we'll be happy to help.
           </p>
         </div>
       </section>
