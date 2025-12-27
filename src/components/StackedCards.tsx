@@ -150,35 +150,41 @@ const StackedCards = () => {
                   opacity: isInView ? 1 : 0,
                 }}
               >
-                {/* Main Card - White with popup shadow, light border and rounded corners */}
-                <div className="bg-white rounded-3xl shadow-[0_25px_80px_-20px_rgba(0,0,0,0.15)] border border-gray-200/60 h-full">
+                {/* Main Card - Glass effect with blur */}
+                <div className="bg-white/40 backdrop-blur-xl rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/50 h-full">
                   {/* Card Content */}
                   <div className="relative h-[550px] flex flex-col md:flex-row items-center justify-between p-10 md:p-16 overflow-hidden">
-                    {/* Decorative Circle */}
-                    <div className={cn("absolute -top-16 -right-16 w-64 h-64 rounded-full opacity-10", card.barColor)} />
+                    {/* Decorative gradient circles */}
+                    <div className={cn("absolute -top-20 -right-20 w-72 h-72 rounded-full opacity-30 blur-3xl", card.barColor)} />
+                    <div className={cn("absolute -bottom-20 -left-20 w-56 h-56 rounded-full opacity-20 blur-2xl", card.barColor)} />
 
                     {/* Left Side - Text */}
-                    <div className="flex-1 text-center md:text-left mb-6 md:mb-0 max-w-lg">
-                      <div className={cn("inline-flex items-center gap-3 rounded-xl px-5 py-3 mb-6", card.barColor + '/20')}>
+                    <div className="flex-1 text-center md:text-left mb-6 md:mb-0 max-w-lg relative z-10">
+                      <div className={cn("inline-flex items-center gap-3 rounded-xl px-5 py-3 mb-6 backdrop-blur-sm", card.barColor + '/20')}>
                         <span className="text-4xl">{card.icon}</span>
                       </div>
-                      <h3 className="text-4xl md:text-5xl font-serif font-bold mb-5 text-gray-900">
+                      <h3 className="text-4xl md:text-5xl font-serif font-bold mb-5 text-gray-800">
                         {card.name}
                       </h3>
                       <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
                         {card.description}
                       </p>
-                      <button className={cn(
-                        "mt-8 px-8 py-3 rounded-full font-medium transition-all duration-300 text-white text-lg",
-                        card.barColor,
-                        "hover:opacity-90 hover:scale-105"
-                      )}>
-                        Learn More →
-                      </button>
+                      <div className="flex gap-4 mt-8 justify-center md:justify-start">
+                        <button className={cn(
+                          "px-8 py-3 rounded-full font-medium transition-all duration-300 text-white text-lg",
+                          card.barColor,
+                          "hover:opacity-90 hover:scale-105 shadow-lg"
+                        )}>
+                          Get Started
+                        </button>
+                        <button className="px-8 py-3 rounded-full font-medium transition-all duration-300 text-gray-700 text-lg bg-white/60 backdrop-blur-sm border border-white/80 hover:bg-white/80 hover:scale-105">
+                          View Details
+                        </button>
+                      </div>
                     </div>
 
                     {/* Right Side - Laptop Frame */}
-                    <div className="flex-shrink-0 hidden md:block">
+                    <div className="flex-shrink-0 hidden md:block relative z-10">
                       <LaptopFrame icon={card.icon} />
                     </div>
                   </div>
