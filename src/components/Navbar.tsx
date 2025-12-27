@@ -23,21 +23,21 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-5 transition-all duration-300">
       <nav
         className={cn(
           "w-full flex items-center justify-between transition-all duration-300",
           isScrolled
-            ? "max-w-4xl mx-auto bg-card/80 backdrop-blur-xl shadow-lg rounded-pill px-6 py-3"
-            : "max-w-7xl mx-auto bg-transparent px-6 py-2"
+            ? "max-w-5xl mx-auto bg-white/40 backdrop-blur-2xl shadow-lg rounded-pill px-8 py-4 border border-white/30"
+            : "max-w-7xl mx-auto bg-white/30 backdrop-blur-xl rounded-pill px-8 py-4 border border-white/20"
         )}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-accent rounded-full flex items-center justify-center">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 bg-accent rounded-full flex items-center justify-center">
             <svg
-              width="16"
-              height="16"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@ const Navbar = () => {
               />
             </svg>
           </div>
-          <span className="font-semibold text-lg tracking-tight text-foreground">
+          <span className="font-semibold text-xl tracking-tight text-foreground">
             MY CITI
           </span>
         </div>
