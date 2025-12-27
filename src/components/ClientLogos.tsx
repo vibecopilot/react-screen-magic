@@ -14,8 +14,18 @@ import logoLogicon from "@/assets/logo-logicon.png";
 import logoShreeramkrushna from "@/assets/logo-shreeramkrushna.png";
 import logoCbre from "@/assets/logo-cbre.png";
 import logoNyati from "@/assets/logo-nyati.png";
+import logoAbil from "@/assets/logo-abil.png";
+import logoMaharashtra from "@/assets/logo-maharashtra.png";
+import logoPhoenix from "@/assets/logo-phoenix.png";
+import logoSunpharma from "@/assets/logo-sunpharma.png";
+import logoAdani from "@/assets/logo-adani.png";
+import logoAmanora from "@/assets/logo-amanora.png";
+import logoGrandhighstreet from "@/assets/logo-grandhighstreet.png";
+import logoWestend from "@/assets/logo-westend.png";
+import logoUsv from "@/assets/logo-usv.png";
+import logoEastcourt from "@/assets/logo-eastcourt.png";
 
-const logos = [
+const logosRow1 = [
   { src: logoRaghav, alt: "Raghav Realty" },
   { src: logoArrow, alt: "Arrow" },
   { src: logoIxora, alt: "Ixora" },
@@ -34,6 +44,19 @@ const logos = [
   { src: logoNyati, alt: "Nyati Group" },
 ];
 
+const logosRow2 = [
+  { src: logoAbil, alt: "ABIL" },
+  { src: logoMaharashtra, alt: "Maharashtra Bamboo Development Board" },
+  { src: logoPhoenix, alt: "Phoenix Marketcity" },
+  { src: logoSunpharma, alt: "Sun Pharma" },
+  { src: logoAdani, alt: "Adani" },
+  { src: logoAmanora, alt: "Amanora Mall" },
+  { src: logoGrandhighstreet, alt: "Grand Highstreet Hinjewadi" },
+  { src: logoWestend, alt: "Westend" },
+  { src: logoUsv, alt: "USV" },
+  { src: logoEastcourt, alt: "East Court" },
+];
+
 const ClientLogos = () => {
   return (
     <section className="py-16 bg-muted/30">
@@ -42,15 +65,13 @@ const ClientLogos = () => {
           Trusted by 100+ top real estate developers and enterprises
         </p>
         
-        {/* Auto-scrolling logos */}
-        <div className="relative overflow-hidden">
-          {/* Gradient fade on edges */}
+        {/* First row - scrolling left */}
+        <div className="relative overflow-hidden mb-8">
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent z-10" />
           
-          {/* Scrolling container */}
           <div className="flex animate-scroll-slow">
-            {logos.map((logo, index) => (
+            {logosRow1.map((logo, index) => (
               <div key={index} className="flex-shrink-0 mx-6 flex items-center">
                 <img 
                   src={logo.src} 
@@ -59,8 +80,34 @@ const ClientLogos = () => {
                 />
               </div>
             ))}
-            {/* Duplicate for seamless loop */}
-            {logos.map((logo, index) => (
+            {logosRow1.map((logo, index) => (
+              <div key={`dup-${index}`} className="flex-shrink-0 mx-6 flex items-center">
+                <img 
+                  src={logo.src} 
+                  alt={logo.alt} 
+                  className="h-12 md:h-14 w-auto object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Second row - scrolling right */}
+        <div className="relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent z-10" />
+          
+          <div className="flex animate-scroll-reverse">
+            {logosRow2.map((logo, index) => (
+              <div key={index} className="flex-shrink-0 mx-6 flex items-center">
+                <img 
+                  src={logo.src} 
+                  alt={logo.alt} 
+                  className="h-12 md:h-14 w-auto object-contain"
+                />
+              </div>
+            ))}
+            {logosRow2.map((logo, index) => (
               <div key={`dup-${index}`} className="flex-shrink-0 mx-6 flex items-center">
                 <img 
                   src={logo.src} 
