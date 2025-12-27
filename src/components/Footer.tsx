@@ -10,10 +10,10 @@ const Footer = () => {
           Ready to get started
         </h2>
         <p className="text-foreground/70 mb-6 text-sm">
-          Download Dreelio for free. No credit card required.
+          Download My Citi for free. No credit card required.
         </p>
         <button className="bg-foreground text-background px-6 py-2.5 rounded-full font-medium hover:bg-foreground/90 transition-colors text-sm">
-          Try Dreelio free
+          Try My Citi free
         </button>
       </div>
 
