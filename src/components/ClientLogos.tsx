@@ -16,41 +16,40 @@ const logos = [
 
 const ClientLogos = () => {
   return (
-    <section className="py-20 bg-background overflow-hidden">
-      <div className="text-center mb-12">
-        <p className="text-muted-foreground text-lg">
+    <section className="py-16 bg-muted/30">
+      <div className="container mx-auto px-4">
+        <p className="text-muted-foreground text-center text-sm mb-10">
           Trusted by 100+ top real estate developers and enterprises
         </p>
-      </div>
-      
-      {/* Auto-scrolling logos */}
-      <div className="relative">
-        {/* Gradient fade on edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
         
-        {/* Scrolling container */}
-        <div className="flex animate-scroll">
-          {/* First set of logos */}
-          {logos.map((logo, index) => (
-            <div key={index} className="flex-shrink-0 mx-8">
-              <img 
-                src={logo.src} 
-                alt={logo.alt} 
-                className="h-16 md:h-20 w-auto object-contain"
-              />
-            </div>
-          ))}
-          {/* Duplicate for seamless loop */}
-          {logos.map((logo, index) => (
-            <div key={`dup-${index}`} className="flex-shrink-0 mx-8">
-              <img 
-                src={logo.src} 
-                alt={logo.alt} 
-                className="h-16 md:h-20 w-auto object-contain"
-              />
-            </div>
-          ))}
+        {/* Logos row */}
+        <div className="relative overflow-hidden">
+          {/* Gradient fade on edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-muted/30 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-muted/30 to-transparent z-10" />
+          
+          {/* Scrolling container */}
+          <div className="flex animate-scroll">
+            {logos.map((logo, index) => (
+              <div key={index} className="flex-shrink-0 mx-10 flex items-center">
+                <img 
+                  src={logo.src} 
+                  alt={logo.alt} 
+                  className="h-10 md:h-12 w-auto object-contain opacity-70"
+                />
+              </div>
+            ))}
+            {/* Duplicate for seamless loop */}
+            {logos.map((logo, index) => (
+              <div key={`dup-${index}`} className="flex-shrink-0 mx-10 flex items-center">
+                <img 
+                  src={logo.src} 
+                  alt={logo.alt} 
+                  className="h-10 md:h-12 w-auto object-contain opacity-70"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
