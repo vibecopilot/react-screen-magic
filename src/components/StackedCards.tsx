@@ -104,7 +104,7 @@ const StackedCards = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[600vh] py-20 bg-gradient-to-b from-background via-muted/20 to-background"
+      className="relative min-h-[600vh] py-20"
     >
       <div className="sticky top-16 flex flex-col items-center px-4 md:px-6 overflow-hidden">
         {/* Section Header */}
