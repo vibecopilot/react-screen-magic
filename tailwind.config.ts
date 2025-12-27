@@ -85,6 +85,10 @@ export default {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-50%)" },
         },
+        "scroll-reverse": {
+          from: { transform: "translateX(-50%)" },
+          to: { transform: "translateX(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -92,6 +96,7 @@ export default {
         "fade-in": "fade-in 0.6s ease-out forwards",
         "scroll": "scroll 15s linear infinite",
         "scroll-slow": "scroll 40s linear infinite",
+        "scroll-reverse": "scroll-reverse 40s linear infinite",
       },
     },
   },
