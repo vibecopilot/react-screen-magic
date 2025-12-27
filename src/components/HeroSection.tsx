@@ -1,18 +1,8 @@
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/hero-clouds-bg.jpg";
 
 const HeroSection = () => {
   return (
-    <section
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 text-center pt-24"
-      style={{
-        backgroundImage: `url(${heroBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background/60" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 text-center pt-24">
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto animate-fade-in">
