@@ -38,7 +38,7 @@ const BlogSection = () => {
   const smallPosts = blogPosts.filter((post) => !post.featured);
 
   return (
-    <section className="py-16 px-4">
+    <section id="blog" className="py-16 px-4">
       <div className="container mx-auto max-w-5xl">
         {/* Header */}
         <div className="text-center mb-10">

@@ -209,13 +209,17 @@ const StackedCards = () => {
 
   return (
     <section
+      id="features"
       ref={containerRef}
       className="relative min-h-[600vh] pt-8 pb-20"
     >
       <div className="sticky top-16 flex flex-col items-center px-4 md:px-6 overflow-hidden">
         {/* Section Header */}
         <div className="text-center mb-12 animate-fade-in">
-          <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4">
+          <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
+            PRODUCT & FEATURES
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4 mt-2">
             Our Powerful Modules
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
