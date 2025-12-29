@@ -63,9 +63,11 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Button variant="hero" size={isScrolled ? "default" : "default"}>
-          Try My Citi free
-        </Button>
+        <Link to="/contact">
+          <Button variant="hero" size={isScrolled ? "default" : "default"}>
+            Try My Citi free
+          </Button>
+        </Link>
       </nav>
     </header>
   );
