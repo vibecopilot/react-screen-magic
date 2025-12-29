@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 import mycitiLogo from "@/assets/myciti-logo.png";
 
 const navLinks = [
-  { label: "Features", href: "#features", isRoute: false },
-  { label: "Benefits", href: "#benefits", isRoute: false },
-  { label: "Pricing", href: "#pricing", isRoute: false },
-  { label: "Blog", href: "#blog", isRoute: false },
-  { label: "Contact Us", href: "/contact", isRoute: true },
+  { label: "Product & Features", href: "#features", isRoute: false },
+  { label: "Blogs", href: "#blog", isRoute: false },
+  { label: "FAQ", href: "#faq", isRoute: false },
+  { label: "New Collection", href: "#collection", isRoute: false },
 ];
 
 const Navbar = () => {
@@ -65,7 +64,7 @@ const Navbar = () => {
         {/* CTA Button */}
         <Link to="/contact">
           <Button variant="hero" size={isScrolled ? "default" : "default"}>
-            Try My Citi free
+            Contact us
           </Button>
         </Link>
       </nav>
