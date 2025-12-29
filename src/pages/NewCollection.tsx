@@ -19,7 +19,7 @@ const NewCollection = () => {
       
       {/* Coming Soon Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center">
-        <h1 className="text-4xl md:text-6xl font-serif text-foreground/80">
+        <h1 className="text-2xl md:text-3xl font-serif text-foreground/50">
           coming soon..
         </h1>
       </div>
