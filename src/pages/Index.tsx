@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StackedCards from "@/components/StackedCards";
 import ClientLogos from "@/components/ClientLogos";
+import BlogSection from "@/components/BlogSection";
 import Footer from "@/components/Footer";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
 
@@ -20,6 +21,7 @@ const Index = () => {
       <HeroSection />
       <StackedCards />
       <ClientLogos />
+      <BlogSection />
       <Footer />
     </div>
   );

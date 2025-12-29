@@ -4,19 +4,6 @@ import { Linkedin } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="w-full">
-      {/* CTA Section */}
-      <div className="text-center py-12 px-4">
-        <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-3">
-          Ready to get started
-        </h2>
-        <p className="text-foreground/70 mb-6 text-sm">
-          Download My Citi for free. No credit card required.
-        </p>
-        <button className="bg-foreground text-background px-6 py-2.5 rounded-full font-medium hover:bg-foreground/90 transition-colors text-sm">
-          Try My Citi free
-        </button>
-      </div>
-
       {/* Footer Content - Full Width */}
       <div className="w-full px-4 md:px-8 py-8">
         <div className="bg-[#e8f0f8]/60 backdrop-blur-sm rounded-3xl p-6 md:p-8">
