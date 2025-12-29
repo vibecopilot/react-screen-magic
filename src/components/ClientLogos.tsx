@@ -59,10 +59,10 @@ const logosRow2 = [
 
 const ClientLogos = () => {
   return (
-    <section className="py-16 bg-muted/30">
+    <section className="pt-6 pb-16 bg-muted/30">
       <div className="container mx-auto px-4">
         <p className="text-muted-foreground text-center text-sm mb-10">
-          Trusted by 100+ top real estate developers and enterprises
+          Trusted by some of the biggest companies.
         </p>
         
         {/* First row - scrolling left */}
