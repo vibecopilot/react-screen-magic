@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import mycitiLogo from "@/assets/myciti-logo.png";
 
 const navLinks = [
-  { label: "Product & Features", href: "#features", isRoute: false },
-  { label: "Blogs", href: "#blog", isRoute: false },
-  { label: "FAQ", href: "#faq", isRoute: false },
+  { label: "Product & Features", href: "/#features", isRoute: false },
+  { label: "Blogs", href: "/#blog", isRoute: false },
+  { label: "FAQ", href: "/#faq", isRoute: false },
   { label: "New Collection", href: "/new-collection", isRoute: true },
 ];
 
