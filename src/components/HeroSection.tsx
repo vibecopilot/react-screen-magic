@@ -21,9 +21,6 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button variant="hero" size="lg">
-            Try Dreelio free
-          </Button>
           <Button variant="heroOutline" size="lg">
             See features
           </Button>
