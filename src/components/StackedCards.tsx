@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { BarChart3, Search, Users, FileText, TrendingUp, Settings, Bell, Calendar, Mail, PieChart, LucideIcon } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenPresalesMobile from "@/assets/screen-presales-mobile.png";
 
@@ -10,7 +9,6 @@ const cards = [
     description: "Streamline your lead management and inquiry handling with powerful CRM tools. Track prospects, manage follow-ups, and convert leads faster than ever.",
     barColor: "bg-[#4A9FE8]",
     icon: "📊",
-    floatingIcons: [BarChart3, TrendingUp, Users, Search, PieChart] as LucideIcon[],
     screenImage: screenPresales,
     mobileImage: screenPresalesMobile,
   },
@@ -19,7 +17,6 @@ const cards = [
     description: "Manage customer relationships after the deal closes. Handle documentation, payment tracking, and customer support seamlessly.",
     barColor: "bg-[#10B981]",
     icon: "🤝",
-    floatingIcons: [FileText, Users, Mail, Bell, Calendar] as LucideIcon[],
     screenImage: null,
     mobileImage: null as string | null,
   },
@@ -28,7 +25,6 @@ const cards = [
     description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
     barColor: "bg-[#F59E0B]",
     icon: "🏗️",
-    floatingIcons: [Calendar, Settings, BarChart3, FileText, TrendingUp] as LucideIcon[],
     screenImage: null,
     mobileImage: null as string | null,
   },
@@ -37,7 +33,6 @@ const cards = [
     description: "AI-powered assistant for your daily operations. Get intelligent insights, automate repetitive tasks, and boost productivity.",
     barColor: "bg-[#8B5CF6]",
     icon: "🤖",
-    floatingIcons: [Search, TrendingUp, PieChart, Settings, Bell] as LucideIcon[],
     screenImage: null,
     mobileImage: null as string | null,
   },
@@ -46,7 +41,6 @@ const cards = [
     description: "Complete human resource management solution. Manage employees, payroll, attendance, and performance all in one place.",
     barColor: "bg-[#EF4444]",
     icon: "👥",
-    floatingIcons: [Users, Calendar, FileText, Mail, Settings] as LucideIcon[],
     screenImage: null,
     mobileImage: null as string | null,
   },
@@ -55,48 +49,10 @@ const cards = [
     description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
     barColor: "bg-[#6366F1]",
     icon: "🔑",
-    floatingIcons: [FileText, Calendar, Bell, Users, TrendingUp] as LucideIcon[],
     screenImage: null,
     mobileImage: null as string | null,
   },
 ];
-
-// Floating icon positions around the laptop
-const floatingPositions = [
-  { top: "-10%", right: "-15%", delay: "0s" },
-  { top: "20%", right: "-20%", delay: "0.5s" },
-  { bottom: "10%", right: "-15%", delay: "1s" },
-  { top: "-5%", left: "-10%", delay: "1.5s" },
-  { bottom: "20%", left: "-15%", delay: "2s" },
-];
-
-const FloatingIcon = ({ 
-  Icon, 
-  position, 
-  color 
-}: { 
-  Icon: LucideIcon; 
-  position: { top?: string; bottom?: string; left?: string; right?: string; delay: string };
-  color: string;
-}) => (
-  <div 
-    className="absolute animate-float"
-    style={{ 
-      top: position.top, 
-      bottom: position.bottom, 
-      left: position.left, 
-      right: position.right,
-      animationDelay: position.delay,
-    }}
-  >
-    <div className={cn(
-      "p-3 rounded-xl backdrop-blur-md shadow-lg border border-white/40",
-      "bg-white/70"
-    )}>
-      <Icon className={cn("w-6 h-6", color.replace("bg-", "text-"))} />
-    </div>
-  </div>
-);
 
 const PhoneFrame = ({ icon, mobileImage }: { icon: string; mobileImage?: string | null }) => (
   <div className="relative w-[70px] md:w-[90px]">
@@ -129,24 +85,8 @@ const PhoneFrame = ({ icon, mobileImage }: { icon: string; mobileImage?: string 
   </div>
 );
 
-const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage, mobileImage }: { icon: string; floatingIcons: LucideIcon[]; barColor: string; screenImage?: string | null; mobileImage?: string | null }) => (
+const LaptopFrame = ({ icon, screenImage, mobileImage }: { icon: string; screenImage?: string | null; mobileImage?: string | null }) => (
   <div className="relative w-[280px] md:w-[380px]">
-    {/* Floating Icons - positioned within bounds */}
-    <div className="absolute inset-0 pointer-events-none">
-      {floatingIcons.slice(0, 3).map((IconComponent, index) => (
-        <FloatingIcon 
-          key={index} 
-          Icon={IconComponent} 
-          position={{
-            top: index === 0 ? "-5%" : index === 1 ? "30%" : undefined,
-            bottom: index === 2 ? "20%" : undefined,
-            right: index === 0 ? "0%" : index === 1 ? "-5%" : "-3%",
-            delay: `${index * 0.5}s`
-          }} 
-          color={barColor}
-        />
-      ))}
-    </div>
     
     {/* Laptop Screen */}
     <div className="relative">
@@ -305,24 +245,14 @@ const StackedCards = () => {
 
                     {/* Left Side - Text */}
                     <div className="flex-1 text-center md:text-left mb-4 md:mb-0 max-w-md relative z-10">
-                      <div className={cn("inline-flex items-center gap-3 rounded-xl px-4 py-2 mb-4 backdrop-blur-sm", card.barColor + '/20')}>
-                        <span className="text-3xl">{card.icon}</span>
-                      </div>
-                      <h3 className="text-3xl md:text-4xl font-serif font-bold mb-3 text-gray-800">
+                      <h3 className="text-3xl md:text-4xl font-semibold mb-3 text-gray-800">
                         {card.name}
                       </h3>
                       <p className="text-gray-600 text-base md:text-lg leading-relaxed">
                         {card.description}
                       </p>
-                      <div className="flex gap-3 mt-6 justify-center md:justify-start">
-                        <button className={cn(
-                          "px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-white text-base",
-                          card.barColor,
-                          "hover:opacity-90 hover:scale-105 shadow-lg"
-                        )}>
-                          Get Started
-                        </button>
-                        <button className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-gray-700 text-base bg-white/60 backdrop-blur-sm border border-white/80 hover:bg-white/80 hover:scale-105">
+                      <div className="flex mt-6 justify-center md:justify-start">
+                        <button className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-gray-700 text-base bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:scale-105 hover:shadow-md">
                           View Details
                         </button>
                       </div>
@@ -330,7 +260,7 @@ const StackedCards = () => {
 
                     {/* Right Side - Laptop Frame */}
                     <div className="flex-shrink-0 hidden md:block relative z-10">
-                      <LaptopFrame icon={card.icon} floatingIcons={card.floatingIcons} barColor={card.barColor} screenImage={card.screenImage} mobileImage={card.mobileImage} />
+                      <LaptopFrame icon={card.icon} screenImage={card.screenImage} mobileImage={card.mobileImage} />
                     </div>
                   </div>
                 </div>
