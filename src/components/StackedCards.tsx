@@ -252,7 +252,7 @@ const StackedCards = () => {
                         {card.description}
                       </p>
                       <div className="flex mt-6 justify-center md:justify-start">
-                        <button className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-gray-700 text-base bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:scale-105 hover:shadow-md">
+                        <button className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-white text-base bg-[#3B82F6] hover:bg-[#2563EB] hover:scale-105 hover:shadow-lg shadow-md">
                           View Details
                         </button>
                       </div>
