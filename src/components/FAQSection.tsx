@@ -32,19 +32,19 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-[#1a1a1a]">
+    <section className="py-20 px-4">
       <div className="max-w-3xl mx-auto">
         {faqs.map((faq, index) => (
-          <div key={index} className="border-b border-gray-700">
+          <div key={index} className="border-b border-gray-300">
             <button
               onClick={() => toggleFAQ(index)}
               className="w-full py-6 flex items-start justify-between text-left group"
             >
-              <span className="text-white font-medium text-base md:text-lg tracking-wide pr-4">
+              <span className="text-gray-900 font-medium text-base md:text-lg tracking-wide pr-4">
                 {index + 1}. {faq.question}
               </span>
               <ChevronUp 
-                className={`w-5 h-5 text-white flex-shrink-0 mt-1 transition-transform duration-300 ${
+                className={`w-5 h-5 text-gray-900 flex-shrink-0 mt-1 transition-transform duration-300 ${
                   openIndex === index ? 'rotate-180' : ''
                 }`}
               />
@@ -54,7 +54,7 @@ const FAQSection = () => {
                 openIndex === index ? 'max-h-96 pb-6' : 'max-h-0'
               }`}
             >
-              <p className="text-gray-400 text-sm md:text-base leading-relaxed pr-10">
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed pr-10">
                 {faq.answer}
               </p>
             </div>
