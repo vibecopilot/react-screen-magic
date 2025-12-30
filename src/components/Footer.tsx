@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
 import { Linkedin } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const Footer = () => {
+  const { ref: footerRef, isVisible: footerVisible } = useScrollAnimation({ threshold: 0.1 });
+
   return (
     <footer className="w-full">
       {/* Footer Content - Full Width */}
-      <div className="w-full px-4 md:px-8 py-8">
+      <div 
+        ref={footerRef}
+        className={cn(
+          "w-full px-4 md:px-8 py-8 transition-all duration-1000",
+          footerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+        )}
+      >
         <div className="bg-[#e8f0f8]/60 backdrop-blur-sm rounded-3xl p-6 md:p-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
