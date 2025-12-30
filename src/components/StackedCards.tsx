@@ -180,7 +180,7 @@ const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage, mobileImage }
 const StackedCards = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const cardHeight = 550;
+  const cardHeight = 420;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -227,7 +227,7 @@ const StackedCards = () => {
         </div>
 
         {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-6xl h-[550px]">
+        <div className="relative w-full max-w-5xl h-[420px]">
           {cards.map((card, index) => {
             // Calculate individual card progress
             const cardProgress = scrollProgress - index;
@@ -274,9 +274,9 @@ const StackedCards = () => {
                 }}
               >
                 {/* Main Card - Glassmorphism with opaque background */}
-                <div className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white h-full">
+                <div className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white h-full">
                   {/* Card Content */}
-                  <div className="relative h-[550px] flex flex-col md:flex-row items-center justify-between p-10 md:p-16 overflow-hidden">
+                  <div className="relative h-[420px] flex flex-col md:flex-row items-center justify-between p-6 md:p-10 overflow-hidden">
                     {/* Decorative gradient circles */}
                     <div className={cn("absolute -top-20 -right-20 w-72 h-72 rounded-full opacity-30 blur-3xl", card.barColor)} />
                     <div className={cn("absolute -bottom-20 -left-20 w-56 h-56 rounded-full opacity-20 blur-2xl", card.barColor)} />
