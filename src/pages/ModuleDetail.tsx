@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WorkflowGraph from "@/components/WorkflowGraph";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
 import { ArrowLeft } from "lucide-react";
 
@@ -127,25 +128,9 @@ const ModuleDetail = () => {
             </div>
           </div>
 
-          {/* Features Section */}
-          <div className="mt-12 grid md:grid-cols-3 gap-6">
-            {["Feature 1", "Feature 2", "Feature 3"].map((feature, idx) => (
-              <div 
-                key={idx}
-                className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-xl shadow-lg border border-white p-6"
-              >
-                <div 
-                  className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl mb-4"
-                  style={{ backgroundColor: module.color }}
-                >
-                  {idx + 1}
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{feature}</h3>
-                <p className="text-gray-600">
-                  Detailed description of this amazing feature that helps streamline your workflow.
-                </p>
-              </div>
-            ))}
+          {/* Workflow Graph Section */}
+          <div className="mt-12 bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-2xl shadow-lg border border-white p-6 md:p-10">
+            <WorkflowGraph color={module.color} />
           </div>
         </div>
       </main>
