@@ -99,79 +99,101 @@ const FloatingIcon = ({
 );
 
 const PhoneFrame = ({ icon, mobileImage }: { icon: string; mobileImage?: string | null }) => (
-  <div className="w-[90px] md:w-[120px] bg-[#1a1a2e] rounded-[20px] p-1.5 border-4 border-[#2d2d44] shadow-xl">
-    {/* Notch */}
-    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-[#1a1a2e] rounded-b-xl z-10" />
-    {/* Screen */}
-    <div className="bg-white rounded-[14px] aspect-[9/19] flex items-center justify-center overflow-hidden">
-      {mobileImage ? (
-        <img 
-          src={mobileImage} 
-          alt="Mobile preview" 
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        <div className="flex flex-col items-center gap-2 p-2">
-          <span className="text-2xl md:text-3xl">{icon}</span>
-          <div className="w-8 h-1 bg-slate-300 rounded" />
-          <div className="w-6 h-1 bg-slate-300 rounded" />
-        </div>
-      )}
-    </div>
-    {/* Home indicator */}
-    <div className="w-8 h-1 bg-[#3d3d54] rounded-full mx-auto mt-1" />
-  </div>
-);
-
-const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage, mobileImage }: { icon: string; floatingIcons: LucideIcon[]; barColor: string; screenImage?: string | null; mobileImage?: string | null }) => (
-  <div className="relative w-[320px] md:w-[450px]">
-    {/* Floating Icons */}
-    {floatingIcons.map((IconComponent, index) => (
-      <FloatingIcon 
-        key={index} 
-        Icon={IconComponent} 
-        position={floatingPositions[index]} 
-        color={barColor}
-      />
-    ))}
-    
-    {/* Laptop Screen */}
-    <div className="relative bg-[#1a1a2e] rounded-t-2xl p-2 border-4 border-[#2d2d44]">
-      {/* Screen bezel */}
-      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#2d2d44]" />
-      {/* Screen content */}
-      <div className="bg-white rounded-lg aspect-[16/10] flex items-center justify-center overflow-hidden">
-        {screenImage ? (
+  <div className="relative w-[70px] md:w-[90px]">
+    {/* Phone outer frame */}
+    <div className="bg-[#1f1f1f] rounded-[16px] md:rounded-[20px] p-[3px] shadow-xl border border-[#3a3a3a]">
+      {/* Dynamic Island / Notch */}
+      <div className="absolute top-[6px] md:top-[8px] left-1/2 -translate-x-1/2 w-[28px] md:w-[35px] h-[8px] md:h-[10px] bg-[#1f1f1f] rounded-full z-20" />
+      {/* Screen */}
+      <div className="bg-white rounded-[13px] md:rounded-[17px] aspect-[9/19] overflow-hidden relative">
+        {mobileImage ? (
           <img 
-            src={screenImage} 
-            alt="Screen preview" 
-            className="w-full h-full object-contain bg-white"
+            src={mobileImage} 
+            alt="Mobile preview" 
+            className="w-full h-full object-cover"
           />
         ) : (
-          <div className="flex flex-col items-center gap-4 p-4">
-            <span className="text-7xl md:text-8xl">{icon}</span>
-            <div className="flex gap-2">
-              <div className="w-20 h-3 bg-slate-300 rounded" />
-              <div className="w-14 h-3 bg-slate-300 rounded" />
-            </div>
-            <div className="flex gap-2">
-              <div className="w-12 h-12 bg-blue-200 rounded-lg" />
-              <div className="w-12 h-12 bg-green-200 rounded-lg" />
-              <div className="w-12 h-12 bg-purple-200 rounded-lg" />
+          <div className="flex flex-col items-center justify-center h-full gap-1 p-2 bg-gradient-to-b from-slate-50 to-white">
+            <span className="text-lg md:text-xl">{icon}</span>
+            <div className="space-y-1 w-full px-2">
+              <div className="w-full h-1 bg-slate-200 rounded" />
+              <div className="w-3/4 h-1 bg-slate-200 rounded" />
+              <div className="w-1/2 h-1 bg-slate-200 rounded" />
             </div>
           </div>
         )}
       </div>
+      {/* Home indicator */}
+      <div className="absolute bottom-[4px] left-1/2 -translate-x-1/2 w-[28px] md:w-[35px] h-[3px] md:h-[4px] bg-[#555] rounded-full" />
     </div>
-    {/* Laptop Base */}
-    <div className="relative h-4 bg-gradient-to-b from-[#2d2d44] to-[#1a1a2e] rounded-b-xl">
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-1.5 bg-[#3d3d54] rounded-t-full" />
+  </div>
+);
+
+const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage, mobileImage }: { icon: string; floatingIcons: LucideIcon[]; barColor: string; screenImage?: string | null; mobileImage?: string | null }) => (
+  <div className="relative w-[280px] md:w-[380px]">
+    {/* Floating Icons - positioned within bounds */}
+    <div className="absolute inset-0 pointer-events-none">
+      {floatingIcons.slice(0, 3).map((IconComponent, index) => (
+        <FloatingIcon 
+          key={index} 
+          Icon={IconComponent} 
+          position={{
+            top: index === 0 ? "-5%" : index === 1 ? "30%" : undefined,
+            bottom: index === 2 ? "20%" : undefined,
+            right: index === 0 ? "0%" : index === 1 ? "-5%" : "-3%",
+            delay: `${index * 0.5}s`
+          }} 
+          color={barColor}
+        />
+      ))}
     </div>
-    {/* Laptop Stand */}
-    <div className="h-1 bg-[#1a1a2e] mx-6 rounded-b-lg" />
+    
+    {/* Laptop Screen */}
+    <div className="relative">
+      {/* Screen bezel */}
+      <div className="bg-[#1f1f1f] rounded-t-xl p-[6px] md:p-[8px] border-t border-l border-r border-[#3a3a3a]">
+        {/* Camera */}
+        <div className="absolute top-[3px] md:top-[4px] left-1/2 -translate-x-1/2 w-[6px] h-[6px] md:w-[8px] md:h-[8px] rounded-full bg-[#2a2a2a] border border-[#444]">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[2px] h-[2px] md:w-[3px] md:h-[3px] rounded-full bg-[#1a3a5c]" />
+        </div>
+        {/* Screen content */}
+        <div className="bg-white rounded-[4px] aspect-[16/10] overflow-hidden">
+          {screenImage ? (
+            <img 
+              src={screenImage} 
+              alt="Screen preview" 
+              className="w-full h-full object-contain bg-white"
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full gap-2 p-3 bg-gradient-to-b from-slate-50 to-white">
+              <span className="text-4xl md:text-5xl">{icon}</span>
+              <div className="flex gap-1">
+                <div className="w-12 h-2 bg-slate-200 rounded" />
+                <div className="w-8 h-2 bg-slate-200 rounded" />
+              </div>
+              <div className="flex gap-1">
+                <div className="w-8 h-8 bg-blue-100 rounded" />
+                <div className="w-8 h-8 bg-green-100 rounded" />
+                <div className="w-8 h-8 bg-purple-100 rounded" />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {/* Laptop bottom hinge */}
+      <div className="relative h-[8px] md:h-[10px] bg-gradient-to-b from-[#2a2a2a] to-[#1f1f1f] rounded-b-sm">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[50px] md:w-[70px] h-[3px] md:h-[4px] bg-[#444] rounded-t-sm" />
+      </div>
+      
+      {/* Laptop base/keyboard */}
+      <div className="relative mx-[-8px] md:mx-[-12px]">
+        <div className="h-[6px] md:h-[8px] bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] rounded-b-xl border-b border-l border-r border-[#444]" />
+      </div>
+    </div>
 
     {/* iPhone Frame - Bottom Right */}
-    <div className="absolute -bottom-4 -right-8 md:-right-12 z-20 animate-float" style={{ animationDelay: "0.5s" }}>
+    <div className="absolute -bottom-2 -right-4 md:-right-6 z-20 animate-float" style={{ animationDelay: "0.5s" }}>
       <PhoneFrame icon={icon} mobileImage={mobileImage} />
     </div>
   </div>
@@ -227,7 +249,7 @@ const StackedCards = () => {
         </div>
 
         {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-5xl h-[420px]">
+        <div className="relative w-full max-w-5xl h-[420px] overflow-hidden">
           {cards.map((card, index) => {
             // Calculate individual card progress
             const cardProgress = scrollProgress - index;
@@ -282,25 +304,25 @@ const StackedCards = () => {
                     <div className={cn("absolute -bottom-20 -left-20 w-56 h-56 rounded-full opacity-20 blur-2xl", card.barColor)} />
 
                     {/* Left Side - Text */}
-                    <div className="flex-1 text-center md:text-left mb-6 md:mb-0 max-w-lg relative z-10">
-                      <div className={cn("inline-flex items-center gap-3 rounded-xl px-5 py-3 mb-6 backdrop-blur-sm", card.barColor + '/20')}>
-                        <span className="text-4xl">{card.icon}</span>
+                    <div className="flex-1 text-center md:text-left mb-4 md:mb-0 max-w-md relative z-10">
+                      <div className={cn("inline-flex items-center gap-3 rounded-xl px-4 py-2 mb-4 backdrop-blur-sm", card.barColor + '/20')}>
+                        <span className="text-3xl">{card.icon}</span>
                       </div>
-                      <h3 className="text-4xl md:text-5xl font-serif font-bold mb-5 text-gray-800">
+                      <h3 className="text-3xl md:text-4xl font-serif font-bold mb-3 text-gray-800">
                         {card.name}
                       </h3>
-                      <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
+                      <p className="text-gray-600 text-base md:text-lg leading-relaxed">
                         {card.description}
                       </p>
-                      <div className="flex gap-4 mt-8 justify-center md:justify-start">
+                      <div className="flex gap-3 mt-6 justify-center md:justify-start">
                         <button className={cn(
-                          "px-8 py-3 rounded-full font-medium transition-all duration-300 text-white text-lg",
+                          "px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-white text-base",
                           card.barColor,
                           "hover:opacity-90 hover:scale-105 shadow-lg"
                         )}>
                           Get Started
                         </button>
-                        <button className="px-8 py-3 rounded-full font-medium transition-all duration-300 text-gray-700 text-lg bg-white/60 backdrop-blur-sm border border-white/80 hover:bg-white/80 hover:scale-105">
+                        <button className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-gray-700 text-base bg-white/60 backdrop-blur-sm border border-white/80 hover:bg-white/80 hover:scale-105">
                           View Details
                         </button>
                       </div>
