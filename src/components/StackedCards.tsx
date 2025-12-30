@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import screenPresales from "@/assets/screen-presales.png";
 import screenPresalesMobile from "@/assets/screen-presales-mobile.png";
+import screenKonstruct from "@/assets/screen-konstruct.png";
 
 const cards = [
   {
@@ -29,7 +30,7 @@ const cards = [
     description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
     barColor: "bg-[#F59E0B]",
     icon: "🏗️",
-    screenImage: null,
+    screenImage: screenKonstruct,
     mobileImage: null as string | null,
   },
   {
