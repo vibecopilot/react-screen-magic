@@ -253,13 +253,15 @@ const StackedCards = () => {
               scale = 0.95 + (cardProgress * 0.05);
               opacity = 0.5 + (cardProgress * 0.5);
             } else if (isStacked) {
-              // Card is stacked and being covered by next card
-              // Subtle upward shift and scale down as it gets covered
-              const stackOffset = Math.min(cardProgress - 1, 1);
-              translateY = -stackOffset * 30;
-              scale = 1 - (stackOffset * 0.03);
-              opacity = 1 - (stackOffset * 0.3);
+              // Card is being covered - fade out and slide up slightly
+              const fadeProgress = Math.min(cardProgress - 1, 0.5) * 2; // Fade out over 0.5 scroll units
+              translateY = -fadeProgress * 60;
+              scale = 1 - (fadeProgress * 0.08);
+              opacity = 1 - fadeProgress; // Fully fade out
             }
+
+            // Don't render cards that are completely faded out
+            if (opacity <= 0) return null;
 
             return (
               <div
