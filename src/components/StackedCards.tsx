@@ -191,15 +191,14 @@ const StackedCards = () => {
         {/* Stacked Cards Container */}
         <div className="relative w-full max-w-5xl h-[420px] overflow-hidden">
           {cards.map((card, index) => {
-            // Calculate individual card progress - start from -1 so first card is visible
+            // Calculate individual card progress
             const cardProgress = scrollProgress - index;
             
             // Card states based on scroll
-            const isActive = cardProgress >= 0 && cardProgress < 1;
             const isStacked = cardProgress >= 1;
             const isUpcoming = cardProgress < 0;
             
-            // Smooth translateY - cards slide up from bottom
+            // Smooth translateY - cards pop up from bottom with scale
             let translateY = 0;
             let scale = 1;
             let opacity = 1;
@@ -208,25 +207,26 @@ const StackedCards = () => {
               // First card is always visible by default
               if (isStacked) {
                 const fadeProgress = Math.min(cardProgress - 1, 0.5) * 2;
-                translateY = -fadeProgress * 60;
-                scale = 1 - (fadeProgress * 0.08);
+                translateY = -fadeProgress * 80;
+                scale = 1 - (fadeProgress * 0.15);
                 opacity = 1 - fadeProgress;
               }
             } else if (isUpcoming) {
-              // Card is below viewport, waiting to slide up
-              translateY = cardHeight + 50;
+              // Card is below viewport, waiting to pop up - start smaller
+              translateY = cardHeight + 100;
               opacity = 0;
-              scale = 0.95;
-            } else if (isActive) {
-              // Card is sliding up into view
-              translateY = (1 - cardProgress) * (cardHeight + 50);
-              scale = 0.95 + (cardProgress * 0.05);
-              opacity = 0.5 + (cardProgress * 0.5);
+              scale = 0.7;
+            } else if (cardProgress >= 0 && cardProgress < 1) {
+              // Card is popping up into view - dramatic scale effect
+              const easeProgress = 1 - Math.pow(1 - cardProgress, 3); // Ease out cubic
+              translateY = (1 - easeProgress) * (cardHeight + 100);
+              scale = 0.7 + (easeProgress * 0.3); // Scale from 0.7 to 1
+              opacity = easeProgress;
             } else if (isStacked) {
-              // Card is being covered - fade out and slide up slightly
+              // Card is being covered - fade out and slide up
               const fadeProgress = Math.min(cardProgress - 1, 0.5) * 2;
-              translateY = -fadeProgress * 60;
-              scale = 1 - (fadeProgress * 0.08);
+              translateY = -fadeProgress * 80;
+              scale = 1 - (fadeProgress * 0.15);
               opacity = 1 - fadeProgress;
             }
 
@@ -239,7 +239,7 @@ const StackedCards = () => {
                 className="absolute inset-0 w-full will-change-transform transition-all duration-100 ease-out"
                 style={{
                   transform: `translateY(${translateY}px) scale(${scale})`,
-                  zIndex: cards.length - index + (isActive || isStacked ? 10 : 0),
+                  zIndex: cards.length - index + (cardProgress >= 0 ? 10 : 0),
                   opacity,
                 }}
               >
