@@ -87,7 +87,7 @@ const ModuleDetail = () => {
         <div className="max-w-5xl mx-auto">
           {/* Back Button */}
           <button 
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/")}
             className="inline-flex items-center gap-2 text-foreground/70 hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft size={20} />
