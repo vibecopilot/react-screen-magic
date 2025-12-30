@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -48,6 +49,11 @@ const ModuleDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const module = slug ? moduleData[slug] : null;
+
+  // Scroll to top when page loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (!module) {
     return (
@@ -115,16 +121,9 @@ const ModuleDetail = () => {
                 <h1 className="text-4xl md:text-5xl font-serif text-gray-800">{module.name}</h1>
               </div>
               
-              <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-3xl mb-8">
+              <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-3xl">
                 {module.description}
               </p>
-
-              <div 
-                className="inline-block px-6 py-3 rounded-full text-white font-medium"
-                style={{ backgroundColor: module.color }}
-              >
-                Coming Soon
-              </div>
             </div>
           </div>
 
