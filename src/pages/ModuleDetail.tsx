@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
@@ -45,6 +45,7 @@ const moduleData: Record<string, { name: string; description: string; icon: stri
 
 const ModuleDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const module = slug ? moduleData[slug] : null;
 
   if (!module) {
@@ -62,7 +63,7 @@ const ModuleDetail = () => {
         <div className="flex items-center justify-center min-h-[80vh]">
           <div className="text-center">
             <h1 className="text-4xl font-serif text-foreground mb-4">Module Not Found</h1>
-            <Link to="/" className="text-primary hover:underline">Go back home</Link>
+            <button onClick={() => navigate("/")} className="text-primary hover:underline">Go back home</button>
           </div>
         </div>
         <Footer />
@@ -85,13 +86,13 @@ const ModuleDetail = () => {
       <main className="pt-24 pb-20 px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
           {/* Back Button */}
-          <Link 
-            to="/#features" 
+          <button 
+            onClick={() => navigate(-1)}
             className="inline-flex items-center gap-2 text-foreground/70 hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft size={20} />
             Back to Features
-          </Link>
+          </button>
 
           {/* Hero Card */}
           <div 
