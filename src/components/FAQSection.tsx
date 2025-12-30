@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronUp } from "lucide-react";
 
 const faqs = [
@@ -26,22 +26,73 @@ const faqs = [
 
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [visibleItems, setVisibleItems] = useState<boolean[]>(new Array(faqs.length).fill(false));
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target === sectionRef.current && entry.isIntersecting) {
+            setHeaderVisible(true);
+          }
+          itemRefs.current.forEach((ref, index) => {
+            if (entry.target === ref && entry.isIntersecting) {
+              setTimeout(() => {
+                setVisibleItems(prev => {
+                  const newState = [...prev];
+                  newState[index] = true;
+                  return newState;
+                });
+              }, index * 100);
+            }
+          });
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    itemRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="py-20 px-4">
+    <section className="py-20 px-4" ref={sectionRef}>
       <div className="max-w-3xl mx-auto">
-        <p className="text-gray-500 text-sm uppercase tracking-widest text-center mb-3">
+        <p 
+          className={`text-gray-500 text-sm uppercase tracking-widest text-center mb-3 transition-all duration-700 ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
           FAQ
         </p>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
+        <h2 
+          className={`text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12 transition-all duration-700 delay-100 ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
           Frequently Asked Questions
         </h2>
         {faqs.map((faq, index) => (
-          <div key={index} className="border-b border-gray-300 hover:bg-gray-50 transition-colors duration-200">
+          <div 
+            key={index} 
+            ref={(el) => itemRefs.current[index] = el}
+            className={`border-b border-gray-300 hover:bg-gray-50 transition-all duration-500 ${
+              visibleItems[index] ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            }`}
+          >
             <button
               onClick={() => toggleFAQ(index)}
               className="w-full py-6 px-4 flex items-start justify-between text-left group"
@@ -60,7 +111,7 @@ const FAQSection = () => {
                 openIndex === index ? 'max-h-96 pb-6' : 'max-h-0'
               }`}
             >
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed pr-10">
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed pr-10 px-4">
                 {faq.answer}
               </p>
             </div>
