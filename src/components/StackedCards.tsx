@@ -260,8 +260,8 @@ const StackedCards = () => {
                   opacity: isInView ? 1 : 0,
                 }}
               >
-                {/* Main Card - Glass effect with blur */}
-                <div className="bg-white/40 backdrop-blur-xl rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/50 h-full">
+                {/* Main Card - Glassmorphism with opaque background */}
+                <div className="bg-[rgba(248,250,252,0.85)] backdrop-blur-[20px] rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white h-full">
                   {/* Card Content */}
                   <div className="relative h-[550px] flex flex-col md:flex-row items-center justify-between p-10 md:p-16 overflow-hidden">
                     {/* Decorative gradient circles */}
