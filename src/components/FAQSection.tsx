@@ -34,6 +34,9 @@ const FAQSection = () => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-3xl mx-auto">
+        <p className="text-gray-500 text-sm uppercase tracking-widest text-center mb-3">
+          FAQ
+        </p>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
           Frequently Asked Questions
         </h2>
