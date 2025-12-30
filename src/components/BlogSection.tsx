@@ -1,3 +1,6 @@
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
+
 const blogPosts = [
   {
     id: 1,
@@ -36,12 +39,22 @@ const blogPosts = [
 const BlogSection = () => {
   const featuredPost = blogPosts.find((post) => post.featured);
   const smallPosts = blogPosts.filter((post) => !post.featured);
+  
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: featuredRef, isVisible: featuredVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 });
 
   return (
     <section id="blog" className="py-16 px-4">
       <div className="container mx-auto max-w-5xl">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div 
+          ref={headerRef}
+          className={cn(
+            "text-center mb-10 transition-all duration-700",
+            headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          )}
+        >
           <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
             BLOG
           </span>
@@ -52,7 +65,15 @@ const BlogSection = () => {
 
         {/* Featured Post */}
         {featuredPost && (
-          <div className="bg-background/60 backdrop-blur-sm rounded-2xl p-4 md:p-6 mb-4">
+          <div 
+            ref={featuredRef}
+            className={cn(
+              "bg-background/60 backdrop-blur-sm rounded-2xl p-4 md:p-6 mb-4 transition-all duration-1000",
+              featuredVisible 
+                ? "opacity-100 translate-y-0 scale-100" 
+                : "opacity-0 translate-y-12 scale-95"
+            )}
+          >
             <div className="grid md:grid-cols-2 gap-6 items-center">
               <div className="aspect-[4/3] rounded-xl overflow-hidden">
                 <img
@@ -95,11 +116,17 @@ const BlogSection = () => {
         )}
 
         {/* Small Posts Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {smallPosts.map((post) => (
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {smallPosts.map((post, index) => (
             <div
               key={post.id}
-              className="bg-background/60 backdrop-blur-sm rounded-2xl p-3 group cursor-pointer hover:bg-background/80 transition-colors"
+              className={cn(
+                "bg-background/60 backdrop-blur-sm rounded-2xl p-3 group cursor-pointer hover:bg-background/80 transition-all duration-700",
+                gridVisible 
+                  ? "opacity-100 translate-y-0 scale-100" 
+                  : "opacity-0 translate-y-8 scale-95"
+              )}
+              style={{ transitionDelay: gridVisible ? `${index * 150}ms` : "0ms" }}
             >
               <div className="aspect-[4/3] rounded-xl overflow-hidden mb-3">
                 <img

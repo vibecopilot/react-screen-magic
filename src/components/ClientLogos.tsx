@@ -57,16 +57,35 @@ const logosRow2 = [
   { src: logoEastcourt, alt: "East Court" },
 ];
 
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
+
 const ClientLogos = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: row1Ref, isVisible: row1Visible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: row2Ref, isVisible: row2Visible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
     <section className="pt-6 pb-16 bg-muted/30">
       <div className="container mx-auto px-4">
-        <p className="text-muted-foreground text-center text-sm mb-10">
+        <p 
+          ref={headerRef}
+          className={cn(
+            "text-muted-foreground text-center text-sm mb-10 transition-all duration-700",
+            headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          )}
+        >
           Trusted by some of the biggest companies.
         </p>
         
         {/* First row - scrolling left */}
-        <div className="relative overflow-hidden mb-8">
+        <div 
+          ref={row1Ref}
+          className={cn(
+            "relative overflow-hidden mb-8 transition-all duration-1000",
+            row1Visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-16"
+          )}
+        >
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent z-10" />
           
@@ -93,7 +112,13 @@ const ClientLogos = () => {
         </div>
 
         {/* Second row - scrolling right */}
-        <div className="relative overflow-hidden">
+        <div 
+          ref={row2Ref}
+          className={cn(
+            "relative overflow-hidden transition-all duration-1000 delay-200",
+            row2Visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-16"
+          )}
+        >
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent z-10" />
           
