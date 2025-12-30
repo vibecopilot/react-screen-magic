@@ -180,7 +180,7 @@ const LaptopFrame = ({ icon, floatingIcons, barColor, screenImage, mobileImage }
 const StackedCards = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const cardHeight = 550; // Height of each card
+  const cardHeight = 550;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -196,7 +196,6 @@ const StackedCards = () => {
       if (scrolledIntoContainer < 0) {
         setScrollProgress(0);
       } else {
-        // Progress from 0 to cards.length
         const progress = (scrolledIntoContainer / scrollableHeight) * cards.length;
         setScrollProgress(Math.min(cards.length, Math.max(0, progress)));
       }
@@ -230,38 +229,50 @@ const StackedCards = () => {
         {/* Stacked Cards Container */}
         <div className="relative w-full max-w-6xl h-[550px]">
           {cards.map((card, index) => {
-            // Calculate how much this card should move based on scroll
-            // Each card starts at bottom and slides up to cover the previous card
-            const cardStartProgress = index; // When this card starts moving
-            const cardEndProgress = index + 1; // When this card is fully in position
+            // Calculate individual card progress
+            const cardProgress = scrollProgress - index;
             
-            // Progress for this specific card (0 = at bottom, 1 = fully visible)
-            // First card starts fully visible (translateY = 0)
-            const thisCardProgress = index === 0 
-              ? 1 
-              : Math.min(1, Math.max(0, scrollProgress - cardStartProgress + 1));
+            // Card states based on scroll
+            const isActive = cardProgress >= 0 && cardProgress < 1;
+            const isStacked = cardProgress >= 1;
+            const isUpcoming = cardProgress < 0;
             
-            // How far up to translate (from bottom to top)
-            const translateY = index === 0 ? 0 : (1 - thisCardProgress) * cardHeight;
+            // Smooth translateY - cards slide up from bottom
+            let translateY = 0;
+            let scale = 1;
+            let opacity = 1;
             
-            // Cards that haven't started should be below viewport (except first card)
-            const isInView = index === 0 || scrollProgress >= index - 1;
-            
-            // Z-index: later cards stack on top
-            const zIndex = index + 1;
+            if (isUpcoming) {
+              // Card is below viewport, waiting to slide up
+              translateY = cardHeight + 50;
+              opacity = 0;
+              scale = 0.95;
+            } else if (isActive) {
+              // Card is sliding up into view
+              translateY = (1 - cardProgress) * (cardHeight + 50);
+              scale = 0.95 + (cardProgress * 0.05);
+              opacity = 0.5 + (cardProgress * 0.5);
+            } else if (isStacked) {
+              // Card is stacked and being covered by next card
+              // Subtle upward shift and scale down as it gets covered
+              const stackOffset = Math.min(cardProgress - 1, 1);
+              translateY = -stackOffset * 30;
+              scale = 1 - (stackOffset * 0.03);
+              opacity = 1 - (stackOffset * 0.3);
+            }
 
             return (
               <div
                 key={card.name}
-                className="absolute inset-0 w-full will-change-transform"
+                className="absolute inset-0 w-full will-change-transform transition-all duration-100 ease-out"
                 style={{
-                  transform: `translateY(${isInView ? translateY : cardHeight}px)`,
-                  zIndex,
-                  opacity: isInView ? 1 : 0,
+                  transform: `translateY(${translateY}px) scale(${scale})`,
+                  zIndex: cards.length - index + (isActive || isStacked ? 10 : 0),
+                  opacity,
                 }}
               >
                 {/* Main Card - Glassmorphism with opaque background */}
-                <div className="bg-[rgba(248,250,252,0.85)] backdrop-blur-[20px] rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white h-full">
+                <div className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white h-full">
                   {/* Card Content */}
                   <div className="relative h-[550px] flex flex-col md:flex-row items-center justify-between p-10 md:p-16 overflow-hidden">
                     {/* Decorative gradient circles */}
