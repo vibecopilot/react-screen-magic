@@ -98,12 +98,13 @@ const LaptopFrame = ({ icon, screenImage, mobileImage }: { icon: string; screenI
         </div>
         {/* Screen content */}
         <div className="bg-white rounded-[4px] aspect-[16/10] overflow-hidden">
-          {screenImage ? (
-            <img 
-              src={screenImage} 
-              alt="Screen preview" 
-              className="w-full h-full object-contain bg-white"
-            />
+        {screenImage ? (
+          <img 
+            src={screenImage} 
+            alt="Screen preview" 
+            className="w-full h-full object-cover object-top bg-white"
+            style={{ imageRendering: 'crisp-edges' }}
+          />
           ) : (
             <div className="flex flex-col items-center justify-center h-full gap-2 p-3 bg-gradient-to-b from-slate-50 to-white">
               <span className="text-4xl md:text-5xl">{icon}</span>
