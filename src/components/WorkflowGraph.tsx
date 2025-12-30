@@ -43,6 +43,59 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
 
   return (
     <div className="w-full py-8">
+      {/* CSS Animations */}
+      <style>{`
+        @keyframes flowLeft {
+          0% { stroke-dashoffset: 24; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes flowRight {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: 24; }
+        }
+        @keyframes floatUp {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+        @keyframes floatDown {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(8px); }
+        }
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+        @keyframes rotate {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+        }
+        .flow-line-left {
+          animation: flowLeft 1.5s linear infinite;
+        }
+        .flow-line-right {
+          animation: flowRight 1.5s linear infinite;
+        }
+        .float-1 {
+          animation: floatUp 3s ease-in-out infinite;
+        }
+        .float-2 {
+          animation: floatDown 3.5s ease-in-out infinite;
+        }
+        .float-3 {
+          animation: floatUp 4s ease-in-out infinite;
+        }
+        .center-pulse {
+          animation: pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite;
+        }
+        .inner-rotate {
+          animation: rotate 8s linear infinite;
+        }
+      `}</style>
+
       {/* Workflow Diagram */}
       <div className="relative h-[400px] max-w-4xl mx-auto">
         {/* SVG Lines */}
@@ -51,18 +104,15 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
           viewBox="0 0 800 400"
           preserveAspectRatio="xMidYMid meet"
         >
-          {/* Left side lines */}
+          {/* Left side lines - flowing towards center */}
           <path
             d="M 120 80 Q 250 80 350 200"
             fill="none"
             stroke={color}
             strokeWidth="2"
             strokeDasharray="8 4"
-            className={`transition-all duration-1000 ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ 
-              strokeDashoffset: isVisible ? 0 : 100,
-              transition: 'stroke-dashoffset 2s ease-out, opacity 0.5s ease-out'
-            }}
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out' }}
           />
           <path
             d="M 120 200 Q 250 200 350 200"
@@ -70,7 +120,8 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
             stroke={color}
             strokeWidth="2"
             strokeDasharray="8 4"
-            className={`transition-all duration-1000 delay-200 ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.2s' }}
           />
           <path
             d="M 120 320 Q 250 320 350 200"
@@ -78,17 +129,19 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
             stroke={color}
             strokeWidth="2"
             strokeDasharray="8 4"
-            className={`transition-all duration-1000 delay-400 ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.4s' }}
           />
           
-          {/* Right side lines */}
+          {/* Right side lines - flowing away from center */}
           <path
             d="M 450 200 Q 550 80 680 80"
             fill="none"
             stroke={color}
             strokeWidth="2"
             strokeDasharray="8 4"
-            className={`transition-all duration-1000 delay-100 ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.1s' }}
           />
           <path
             d="M 450 200 Q 550 200 680 200"
@@ -96,7 +149,8 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
             stroke={color}
             strokeWidth="2"
             strokeDasharray="8 4"
-            className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.3s' }}
           />
           <path
             d="M 450 200 Q 550 320 680 320"
@@ -104,7 +158,8 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
             stroke={color}
             strokeWidth="2"
             strokeDasharray="8 4"
-            className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.5s' }}
           />
         </svg>
 
@@ -113,7 +168,7 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
           {leftIcons.map(({ Icon, delay }, idx) => (
             <div
               key={idx}
-              className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 hover:scale-110 hover:shadow-xl`}
+              className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''}`}
               style={{ 
                 transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
                 opacity: isVisible ? 1 : 0,
@@ -128,7 +183,7 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
         {/* Center Icon */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <div 
-            className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl flex items-center justify-center transition-all duration-700 hover:scale-110`}
+            className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl flex items-center justify-center transition-all duration-700 hover:scale-110 ${isVisible ? 'center-pulse' : ''}`}
             style={{ 
               backgroundColor: color,
               transform: isVisible ? 'scale(1)' : 'scale(0)',
@@ -136,15 +191,19 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
               transitionDelay: '0.3s'
             }}
           >
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center">
+            <div className={`w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
               <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded rotate-45" />
             </div>
           </div>
           
-          {/* Pulse animation */}
+          {/* Animated rings */}
           <div 
             className="absolute inset-0 rounded-2xl animate-ping opacity-20"
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: color, animationDuration: '2s' }}
+          />
+          <div 
+            className="absolute inset-[-8px] rounded-3xl animate-ping opacity-10"
+            style={{ backgroundColor: color, animationDuration: '2.5s', animationDelay: '0.5s' }}
           />
         </div>
 
@@ -153,7 +212,7 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
           {rightIcons.map(({ Icon, delay }, idx) => (
             <div
               key={idx}
-              className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 hover:scale-110 hover:shadow-xl`}
+              className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''}`}
               style={{ 
                 transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0.5)',
                 opacity: isVisible ? 1 : 0,
@@ -179,12 +238,22 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
             }}
           >
             <div className="relative">
-              <div className="absolute -left-8 top-1/2 w-6 border-t-2 border-dashed" style={{ borderColor: color, opacity: 0.4 }} />
-              <Icon size={18} style={{ color }} />
+              <div 
+                className="absolute -left-8 top-1/2 w-6 border-t-2 border-dashed" 
+                style={{ borderColor: color, opacity: 0.4 }} 
+              />
+              <Icon 
+                size={18} 
+                style={{ color }} 
+                className={idx === 0 ? 'animate-spin' : ''}
+              />
             </div>
             <span className="text-sm md:text-base font-medium">{label}</span>
             {idx < features.length - 1 && (
-              <div className="hidden md:block w-16 border-t-2 border-dashed ml-4" style={{ borderColor: color, opacity: 0.4 }} />
+              <div 
+                className="hidden md:block w-16 border-t-2 border-dashed ml-4" 
+                style={{ borderColor: color, opacity: 0.4 }} 
+              />
             )}
           </div>
         ))}
