@@ -13,34 +13,19 @@ const navLinks = [
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Show/hide navbar based on scroll direction
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      
-      setIsScrolled(currentScrollY > 50);
-      setLastScrollY(currentScrollY);
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   return (
     <header 
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-5 transition-all duration-500",
-        isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-      )}
+      className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-5 transition-all duration-500"
     >
       <nav
         className={cn(
