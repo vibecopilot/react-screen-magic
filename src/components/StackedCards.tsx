@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import screenPresales from "@/assets/screen-presales.png";
 import screenPresalesMobile from "@/assets/screen-presales-mobile.png";
@@ -6,6 +7,7 @@ import screenPresalesMobile from "@/assets/screen-presales-mobile.png";
 const cards = [
   {
     name: "Pre Sales",
+    slug: "pre-sales",
     description: "Streamline your lead management and inquiry handling with powerful CRM tools. Track prospects, manage follow-ups, and convert leads faster than ever.",
     barColor: "bg-[#4A9FE8]",
     icon: "📊",
@@ -14,6 +16,7 @@ const cards = [
   },
   {
     name: "Post Sales",
+    slug: "post-sales",
     description: "Manage customer relationships after the deal closes. Handle documentation, payment tracking, and customer support seamlessly.",
     barColor: "bg-[#10B981]",
     icon: "🤝",
@@ -22,6 +25,7 @@ const cards = [
   },
   {
     name: "Konstruct",
+    slug: "konstruct",
     description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
     barColor: "bg-[#F59E0B]",
     icon: "🏗️",
@@ -30,6 +34,7 @@ const cards = [
   },
   {
     name: "VibeCopilot",
+    slug: "vibecopilot",
     description: "AI-powered assistant for your daily operations. Get intelligent insights, automate repetitive tasks, and boost productivity.",
     barColor: "bg-[#8B5CF6]",
     icon: "🤖",
@@ -38,6 +43,7 @@ const cards = [
   },
   {
     name: "HRMS",
+    slug: "hrms",
     description: "Complete human resource management solution. Manage employees, payroll, attendance, and performance all in one place.",
     barColor: "bg-[#EF4444]",
     icon: "👥",
@@ -46,6 +52,7 @@ const cards = [
   },
   {
     name: "Possession",
+    slug: "possession",
     description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
     barColor: "bg-[#6366F1]",
     icon: "🔑",
@@ -261,9 +268,12 @@ const StackedCards = () => {
                         {card.description}
                       </p>
                       <div className="flex mt-6 justify-center md:justify-start">
-                        <button className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-white text-base bg-[#3B82F6] hover:bg-[#2563EB] hover:scale-105 hover:shadow-lg shadow-md">
+                        <Link 
+                          to={`/module/${card.slug}`}
+                          className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-white text-base bg-[#3B82F6] hover:bg-[#2563EB] hover:scale-105 hover:shadow-lg shadow-md inline-block"
+                        >
                           View Details
-                        </button>
+                        </Link>
                       </div>
                     </div>
 
