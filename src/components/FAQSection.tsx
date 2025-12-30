@@ -34,13 +34,16 @@ const FAQSection = () => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-3xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
+          Frequently Asked Questions
+        </h2>
         {faqs.map((faq, index) => (
-          <div key={index} className="border-b border-gray-300">
+          <div key={index} className="border-b border-gray-300 hover:bg-gray-50 transition-colors duration-200">
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full py-6 flex items-start justify-between text-left group"
+              className="w-full py-6 px-4 flex items-start justify-between text-left group"
             >
-              <span className="text-gray-900 font-medium text-base md:text-lg tracking-wide pr-4">
+              <span className="text-gray-900 font-medium text-base md:text-lg tracking-wide pr-4 group-hover:text-primary transition-colors duration-200">
                 {index + 1}. {faq.question}
               </span>
               <ChevronUp 
