@@ -245,10 +245,6 @@ const StackedCards = () => {
 
                     {/* Left Side - Text */}
                     <div className="flex-1 text-center md:text-left mb-4 md:mb-0 max-w-md relative z-10">
-                      {/* Icon Badge */}
-                      <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#e0f2fe] mb-4 shadow-sm">
-                        <span className="text-2xl md:text-3xl">{card.icon}</span>
-                      </div>
                       <h3 className="text-3xl md:text-4xl font-semibold mb-3 text-gray-800">
                         {card.name}
                       </h3>
