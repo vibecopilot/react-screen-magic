@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StackedCards from "@/components/StackedCards";
+import AnimatedCardsGrid from "@/components/AnimatedCardsGrid";
 import ClientLogos from "@/components/ClientLogos";
 import BlogSection from "@/components/BlogSection";
 import Footer from "@/components/Footer";
@@ -20,6 +21,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <StackedCards />
+      <AnimatedCardsGrid />
       <ClientLogos />
       <BlogSection />
       <Footer />
