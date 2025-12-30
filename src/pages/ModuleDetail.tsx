@@ -128,7 +128,7 @@ const ModuleDetail = () => {
           </div>
 
           {/* Workflow Graph Section */}
-          <div className="mt-12 bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-2xl shadow-lg border border-white p-6 md:p-10">
+          <div className="mt-12">
             <WorkflowGraph color={module.color} />
           </div>
         </div>
