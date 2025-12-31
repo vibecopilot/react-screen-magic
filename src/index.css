@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @import "@fontsource/dm-serif-display";
 
 /* MyCiti Design System */
