@@ -37,7 +37,7 @@ const Navbar = () => {
       >
         {/* Logo */}
         <Link to="/" className="hover:opacity-80 transition-opacity">
-          <img src={mycitiLogo} alt="My Citi Logo" className="h-12 w-auto" />
+          <img src={mycitiLogo} alt="My Citi Logo" className="h-16 w-auto" />
         </Link>
 
         {/* Navigation Links - Desktop */}
