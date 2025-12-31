@@ -101,19 +101,6 @@ const ModuleDetail = () => {
             Back to Features
           </button>
 
-          {/* Hero Card */}
-          <div 
-            className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white p-8 md:p-12"
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-5xl">{module.icon}</span>
-              <h1 className="text-4xl md:text-5xl font-serif text-gray-800">{module.name}</h1>
-            </div>
-            
-            <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-3xl">
-              {module.description}
-            </p>
-          </div>
 
           {/* Workflow Graph Section */}
           <div className="mt-12">
