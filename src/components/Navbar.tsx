@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import mycitiLogo from "@/assets/myciti-logo.png";
+import mycitiLogo from "@/assets/myciti-logo-new.png";
 
 const navLinks = [
   { label: "Product & Features", href: "/#features", isRoute: false },
