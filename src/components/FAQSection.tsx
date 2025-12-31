@@ -69,7 +69,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="py-20 px-4" ref={sectionRef}>
+    <section id="faq" className="py-20 px-4 scroll-mt-24" ref={sectionRef}>
       <div className="max-w-3xl mx-auto">
         <p 
           className={`text-gray-500 text-sm uppercase tracking-widest text-center mb-3 transition-all duration-700 ${
