@@ -103,28 +103,16 @@ const ModuleDetail = () => {
 
           {/* Hero Card */}
           <div 
-            className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white p-8 md:p-12 relative overflow-hidden"
+            className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white p-8 md:p-12"
           >
-            {/* Decorative gradient circles */}
-            <div 
-              className="absolute -top-20 -right-20 w-72 h-72 rounded-full opacity-30 blur-3xl"
-              style={{ backgroundColor: module.color }}
-            />
-            <div 
-              className="absolute -bottom-20 -left-20 w-56 h-56 rounded-full opacity-20 blur-2xl"
-              style={{ backgroundColor: module.color }}
-            />
-
-            <div className="relative z-10">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="text-5xl">{module.icon}</span>
-                <h1 className="text-4xl md:text-5xl font-serif text-gray-800">{module.name}</h1>
-              </div>
-              
-              <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-3xl">
-                {module.description}
-              </p>
+            <div className="flex items-center gap-4 mb-6">
+              <span className="text-5xl">{module.icon}</span>
+              <h1 className="text-4xl md:text-5xl font-serif text-gray-800">{module.name}</h1>
             </div>
+            
+            <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-3xl">
+              {module.description}
+            </p>
           </div>
 
           {/* Workflow Graph Section */}
