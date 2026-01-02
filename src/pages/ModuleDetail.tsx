@@ -93,10 +93,7 @@ const ModuleDetail = () => {
       <main className="pt-24 pb-20 px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
           {/* Module Title */}
-          <h1 
-            className="text-4xl md:text-5xl font-serif font-bold text-center mb-8"
-            style={{ color: module.color }}
-          >
+          <h1 className="text-2xl md:text-3xl font-serif font-bold text-center mb-8 mt-8 text-foreground">
             {module.name}
           </h1>
 
