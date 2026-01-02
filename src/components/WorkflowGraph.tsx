@@ -414,8 +414,40 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
           key={currentModule.id}
           className="mt-12 max-w-5xl mx-auto px-4 animate-fade-in scroll-mt-8"
         >
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Laptop Frame with Screen */}
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            {/* Features List - Now on Left */}
+            <div>
+              <h3 
+                className="text-2xl md:text-3xl font-bold mb-3"
+                style={{ color }}
+              >
+                {currentModule.title}
+              </h3>
+              <p className="text-gray-600 mb-6">{currentModule.description}</p>
+              
+              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Key Features</h4>
+              <ul className="space-y-3">
+                {currentModule.features.map((feature, idx) => (
+                  <li 
+                    key={idx}
+                    className="flex items-start gap-3 animate-fade-in"
+                    style={{ animationDelay: `${idx * 0.05}s` }}
+                  >
+                    <div 
+                      className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
+                      style={{ backgroundColor: color }}
+                    >
+                      <Check size={12} className="text-white" />
+                    </div>
+                    <span className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Laptop Frame with Screen - Now on Right */}
             <div className="flex items-center justify-center">
               <div className="relative mx-auto" style={{ maxWidth: "380px" }}>
                 {/* Laptop Screen */}
@@ -458,38 +490,6 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
                   style={{ backgroundColor: color }}
                 />
               </div>
-            </div>
-
-            {/* Features List */}
-            <div>
-              <h3 
-                className="text-2xl md:text-3xl font-bold mb-3"
-                style={{ color }}
-              >
-                {currentModule.title}
-              </h3>
-              <p className="text-gray-600 mb-6">{currentModule.description}</p>
-              
-              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Key Features</h4>
-              <ul className="space-y-3">
-                {currentModule.features.map((feature, idx) => (
-                  <li 
-                    key={idx}
-                    className="flex items-start gap-3 animate-fade-in"
-                    style={{ animationDelay: `${idx * 0.05}s` }}
-                  >
-                    <div 
-                      className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-                      style={{ backgroundColor: color }}
-                    >
-                      <Check size={12} className="text-white" />
-                    </div>
-                    <span className="text-gray-700 text-sm md:text-base leading-relaxed">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>
