@@ -14,6 +14,7 @@ import {
   ClipboardCheck,
   UserCog
 } from "lucide-react";
+import ModuleDetailModal from "./ModuleDetailModal";
 
 interface WorkflowGraphProps {
   color: string;
@@ -22,35 +23,36 @@ interface WorkflowGraphProps {
 
 const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedModule, setSelectedModule] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Pre-sales specific icons with labels
+  // Pre-sales specific icons with labels and module IDs
   const preSalesLeftIcons = [
-    { Icon: UserCheck, delay: 0, label: "Lead Management" },
-    { Icon: Handshake, delay: 0.2, label: "CP Management" },
-    { Icon: Calculator, delay: 0.4, label: "Cost Sheet Management" },
+    { Icon: UserCheck, delay: 0, label: "Lead Management", moduleId: "lead-management" },
+    { Icon: Handshake, delay: 0.2, label: "CP Management", moduleId: "cp-management" },
+    { Icon: Calculator, delay: 0.4, label: "Cost Sheet Management", moduleId: "cost-sheet-management" },
   ];
 
   const preSalesRightIcons = [
-    { Icon: ClipboardCheck, delay: 0.1, label: "Booking Approval" },
-    { Icon: UserCog, delay: 0.3, label: "Sales Executive Management" },
+    { Icon: ClipboardCheck, delay: 0.1, label: "Booking Approval", moduleId: "booking-approval" },
+    { Icon: UserCog, delay: 0.3, label: "Sales Executive Management", moduleId: "sales-executive-management" },
   ];
 
   // Default icons without labels
   const defaultLeftIcons = [
-    { Icon: Users, delay: 0, label: undefined },
-    { Icon: FileText, delay: 0.2, label: undefined },
-    { Icon: BarChart3, delay: 0.4, label: undefined },
+    { Icon: Users, delay: 0, label: undefined, moduleId: undefined },
+    { Icon: FileText, delay: 0.2, label: undefined, moduleId: undefined },
+    { Icon: BarChart3, delay: 0.4, label: undefined, moduleId: undefined },
   ];
 
   const defaultRightIcons = [
-    { Icon: BarChart3, delay: 0.1, label: undefined },
-    { Icon: MessageSquare, delay: 0.3, label: undefined },
-    { Icon: Bell, delay: 0.5, label: undefined },
+    { Icon: BarChart3, delay: 0.1, label: undefined, moduleId: undefined },
+    { Icon: MessageSquare, delay: 0.3, label: undefined, moduleId: undefined },
+    { Icon: Bell, delay: 0.5, label: undefined, moduleId: undefined },
   ];
 
   const leftIcons = showLabels ? preSalesLeftIcons : defaultLeftIcons;
@@ -61,6 +63,12 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
     { Icon: CheckCircle, label: "Real-Time Data Sync" },
     { Icon: Settings, label: "Customizable Solutions" },
   ];
+
+  const handleModuleClick = (moduleId: string | undefined) => {
+    if (showLabels && moduleId) {
+      setSelectedModule(moduleId);
+    }
+  };
 
   return (
     <div className="w-full py-8">
@@ -203,7 +211,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
 
         {/* Left Icons */}
         <div className="absolute left-4 md:left-8 top-0 h-full flex flex-col justify-around py-8">
-          {leftIcons.map(({ Icon, delay, label }, idx) => (
+          {leftIcons.map(({ Icon, delay, label, moduleId }, idx) => (
             <div
               key={idx}
               className="flex flex-col items-center gap-2"
@@ -215,12 +223,17 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               }}
             >
               <div
-                className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''}`}
+                onClick={() => handleModuleClick(moduleId)}
+                className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''}`}
+                style={showLabels ? { '--tw-ring-color': color } as React.CSSProperties : {}}
               >
                 <Icon size={24} className="text-gray-700" />
               </div>
               {showLabels && label && (
-                <span className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[100px] leading-tight">
+                <span 
+                  onClick={() => handleModuleClick(moduleId)}
+                  className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[100px] leading-tight cursor-pointer hover:underline"
+                >
                   {label}
                 </span>
               )}
@@ -257,7 +270,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
 
         {/* Right Icons */}
         <div className="absolute right-4 md:right-8 top-0 h-full flex flex-col justify-around py-8">
-          {rightIcons.map(({ Icon, delay, label }, idx) => (
+          {rightIcons.map(({ Icon, delay, label, moduleId }, idx) => (
             <div
               key={idx}
               className="flex flex-col items-center gap-2"
@@ -269,12 +282,17 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               }}
             >
               <div
-                className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''}`}
+                onClick={() => handleModuleClick(moduleId)}
+                className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''}`}
+                style={showLabels ? { '--tw-ring-color': color } as React.CSSProperties : {}}
               >
                 <Icon size={24} className="text-gray-700" />
               </div>
               {showLabels && label && (
-                <span className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[120px] leading-tight">
+                <span 
+                  onClick={() => handleModuleClick(moduleId)}
+                  className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[120px] leading-tight cursor-pointer hover:underline"
+                >
                   {label}
                 </span>
               )}
@@ -282,6 +300,14 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
           ))}
         </div>
       </div>
+
+      {/* Module Detail Modal */}
+      <ModuleDetailModal
+        moduleId={selectedModule}
+        isOpen={!!selectedModule}
+        onClose={() => setSelectedModule(null)}
+        color={color}
+      />
 
       {/* Bottom Features */}
       <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-8 px-4">
