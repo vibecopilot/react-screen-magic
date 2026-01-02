@@ -2,21 +2,25 @@ import { useEffect, useState } from "react";
 import { 
   Users, 
   FileText, 
-  Calendar, 
   BarChart3, 
   MessageSquare, 
   Bell,
   RefreshCw,
   CheckCircle,
-  Settings
+  Settings,
+  UserCheck,
+  Handshake,
+  Calculator,
+  ClipboardCheck,
+  UserCog
 } from "lucide-react";
 
 interface WorkflowGraphProps {
   color: string;
-  showTooltips?: boolean;
+  showLabels?: boolean;
 }
 
-const WorkflowGraph = ({ color, showTooltips = false }: WorkflowGraphProps) => {
+const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -24,17 +28,33 @@ const WorkflowGraph = ({ color, showTooltips = false }: WorkflowGraphProps) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const leftIcons = [
-    { Icon: Users, delay: 0, tooltip: "Lead Management" },
-    { Icon: FileText, delay: 0.2, tooltip: "CP Management" },
-    { Icon: Calendar, delay: 0.4, tooltip: null },
+  // Pre-sales specific icons with labels
+  const preSalesLeftIcons = [
+    { Icon: UserCheck, delay: 0, label: "Lead Management" },
+    { Icon: Handshake, delay: 0.2, label: "CP Management" },
+    { Icon: Calculator, delay: 0.4, label: "Cost Sheet Management" },
   ];
 
-  const rightIcons = [
-    { Icon: BarChart3, delay: 0.1 },
-    { Icon: MessageSquare, delay: 0.3 },
-    { Icon: Bell, delay: 0.5 },
+  const preSalesRightIcons = [
+    { Icon: ClipboardCheck, delay: 0.1, label: "Booking Approval" },
+    { Icon: UserCog, delay: 0.3, label: "Sales Executive Management" },
   ];
+
+  // Default icons without labels
+  const defaultLeftIcons = [
+    { Icon: Users, delay: 0, label: undefined },
+    { Icon: FileText, delay: 0.2, label: undefined },
+    { Icon: BarChart3, delay: 0.4, label: undefined },
+  ];
+
+  const defaultRightIcons = [
+    { Icon: BarChart3, delay: 0.1, label: undefined },
+    { Icon: MessageSquare, delay: 0.3, label: undefined },
+    { Icon: Bell, delay: 0.5, label: undefined },
+  ];
+
+  const leftIcons = showLabels ? preSalesLeftIcons : defaultLeftIcons;
+  const rightIcons = showLabels ? preSalesRightIcons : defaultRightIcons;
 
   const features = [
     { Icon: RefreshCw, label: "Seamless Automation" },
@@ -183,26 +203,26 @@ const WorkflowGraph = ({ color, showTooltips = false }: WorkflowGraphProps) => {
 
         {/* Left Icons */}
         <div className="absolute left-4 md:left-8 top-0 h-full flex flex-col justify-around py-8">
-          {leftIcons.map(({ Icon, delay, tooltip }, idx) => (
+          {leftIcons.map(({ Icon, delay, label }, idx) => (
             <div
               key={idx}
-              className={`group relative w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''}`}
+              className="flex flex-col items-center gap-2"
               style={{ 
                 transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
                 opacity: isVisible ? 1 : 0,
+                transition: 'all 0.7s ease-out',
                 transitionDelay: `${delay}s`
               }}
             >
-              <Icon size={24} className="text-gray-700" />
-              {showTooltips && tooltip && (
-                <div 
-                  className="absolute left-full ml-3 px-3 py-2 bg-gray-800 text-white text-sm font-medium rounded-lg whitespace-nowrap z-50 pointer-events-none opacity-0 translate-x-[-10px] scale-95 group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100 transition-all duration-300 ease-out"
-                >
-                  <div 
-                    className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[6px] border-r-gray-800"
-                  />
-                  {tooltip}
-                </div>
+              <div
+                className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''}`}
+              >
+                <Icon size={24} className="text-gray-700" />
+              </div>
+              {showLabels && label && (
+                <span className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[100px] leading-tight">
+                  {label}
+                </span>
               )}
             </div>
           ))}
@@ -237,17 +257,27 @@ const WorkflowGraph = ({ color, showTooltips = false }: WorkflowGraphProps) => {
 
         {/* Right Icons */}
         <div className="absolute right-4 md:right-8 top-0 h-full flex flex-col justify-around py-8">
-          {rightIcons.map(({ Icon, delay }, idx) => (
+          {rightIcons.map(({ Icon, delay, label }, idx) => (
             <div
               key={idx}
-              className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''}`}
+              className="flex flex-col items-center gap-2"
               style={{ 
                 transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0.5)',
                 opacity: isVisible ? 1 : 0,
+                transition: 'all 0.7s ease-out',
                 transitionDelay: `${delay}s`
               }}
             >
-              <Icon size={24} className="text-gray-700" />
+              <div
+                className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''}`}
+              >
+                <Icon size={24} className="text-gray-700" />
+              </div>
+              {showLabels && label && (
+                <span className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[120px] leading-tight">
+                  {label}
+                </span>
+              )}
             </div>
           ))}
         </div>
