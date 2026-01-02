@@ -24,9 +24,9 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
   }, []);
 
   const leftIcons = [
-    { Icon: Users, delay: 0 },
-    { Icon: FileText, delay: 0.2 },
-    { Icon: Calendar, delay: 0.4 },
+    { Icon: Users, delay: 0, tooltip: "Lead Management" },
+    { Icon: FileText, delay: 0.2, tooltip: "CP Management" },
+    { Icon: Calendar, delay: 0.4, tooltip: null },
   ];
 
   const rightIcons = [
@@ -73,6 +73,20 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
           0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
           50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
         }
+        @keyframes tooltipSlideIn {
+          0% { 
+            opacity: 0; 
+            transform: translateX(-10px) scale(0.9); 
+          }
+          100% { 
+            opacity: 1; 
+            transform: translateX(0) scale(1); 
+          }
+        }
+        @keyframes tooltipBounce {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(4px); }
+        }
         .flow-line-left {
           animation: flowLeft 1.5s linear infinite;
         }
@@ -93,6 +107,9 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
         }
         .inner-rotate {
           animation: rotate 8s linear infinite;
+        }
+        .tooltip-animate {
+          animation: tooltipSlideIn 0.3s ease-out forwards, tooltipBounce 2s ease-in-out 0.3s infinite;
         }
       `}</style>
 
@@ -165,10 +182,10 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
 
         {/* Left Icons */}
         <div className="absolute left-4 md:left-8 top-0 h-full flex flex-col justify-around py-8">
-          {leftIcons.map(({ Icon, delay }, idx) => (
+          {leftIcons.map(({ Icon, delay, tooltip }, idx) => (
             <div
               key={idx}
-              className={`w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''}`}
+              className={`group relative w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''}`}
               style={{ 
                 transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
                 opacity: isVisible ? 1 : 0,
@@ -176,6 +193,17 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
               }}
             >
               <Icon size={24} className="text-gray-700" />
+              {tooltip && (
+                <div 
+                  className="absolute left-full ml-3 px-3 py-1.5 bg-gray-800 text-white text-sm font-medium rounded-lg whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible tooltip-animate pointer-events-none z-10"
+                  style={{ animationPlayState: 'paused' }}
+                >
+                  <div 
+                    className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-r-4 border-r-gray-800"
+                  />
+                  {tooltip}
+                </div>
+              )}
             </div>
           ))}
         </div>
