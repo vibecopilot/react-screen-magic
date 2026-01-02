@@ -483,7 +483,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
 
             {/* Laptop Frame with Screen - Now on Right */}
             <div className="flex items-center justify-center">
-              <div className="relative mx-auto" style={{ maxWidth: "380px" }}>
+              <div className="relative mx-auto" style={{ maxWidth: "520px" }}>
                 {/* Laptop Screen */}
                 <div className="relative bg-gray-900 rounded-t-xl p-2 shadow-2xl">
                   {/* Screen bezel - camera */}
