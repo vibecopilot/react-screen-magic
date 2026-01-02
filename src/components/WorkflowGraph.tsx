@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { 
   Users, 
   FileText, 
@@ -156,9 +156,15 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
     { Icon: Settings, label: "Customizable Solutions" },
   ];
 
+  const detailsRef = useRef<HTMLDivElement>(null);
+
   const handleModuleClick = (moduleId: string | undefined) => {
     if (showLabels && moduleId) {
       setSelectedModule(moduleId);
+      // Smooth scroll to details section
+      setTimeout(() => {
+        detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
     }
   };
 
@@ -404,87 +410,86 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
       {/* Inline Module Details Section */}
       {showLabels && currentModule && (
         <div 
+          ref={detailsRef}
           key={currentModule.id}
-          className="mt-12 max-w-5xl mx-auto px-4 animate-fade-in"
+          className="mt-12 max-w-5xl mx-auto px-4 animate-fade-in scroll-mt-8"
         >
-          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-            <div className="grid md:grid-cols-2 gap-0">
-              {/* Laptop Frame with Screen */}
-              <div className="p-8 md:p-12 flex items-center justify-center" style={{ backgroundColor: `${color}08` }}>
-                <div className="relative mx-auto" style={{ maxWidth: "380px" }}>
-                  {/* Laptop Screen */}
-                  <div className="relative bg-gray-900 rounded-t-xl p-2 shadow-2xl">
-                    {/* Screen bezel - camera */}
-                    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-700 rounded-full" />
-                    {/* Screen content */}
-                    <div className="mt-2 rounded-lg overflow-hidden bg-white aspect-[16/10]">
-                      <img 
-                        src={currentModule.screenImage} 
-                        alt={`${currentModule.title} Screen`}
-                        className="w-full h-full object-cover object-top transition-all duration-500"
-                      />
-                    </div>
-                  </div>
-                  {/* Laptop Base */}
-                  <div className="relative">
-                    <div 
-                      className="h-4 rounded-b-xl mx-auto"
-                      style={{ 
-                        background: "linear-gradient(to bottom, #374151, #1f2937)",
-                        width: "100%"
-                      }}
-                    />
-                    <div 
-                      className="h-2 rounded-b-lg mx-auto -mt-0.5"
-                      style={{ 
-                        background: "linear-gradient(to bottom, #4b5563, #374151)",
-                        width: "60%"
-                      }}
-                    />
-                    {/* Laptop stand/hinge */}
-                    <div 
-                      className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-16 h-1 bg-gray-500 rounded-full"
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Laptop Frame with Screen */}
+            <div className="flex items-center justify-center">
+              <div className="relative mx-auto" style={{ maxWidth: "380px" }}>
+                {/* Laptop Screen */}
+                <div className="relative bg-gray-900 rounded-t-xl p-2 shadow-2xl">
+                  {/* Screen bezel - camera */}
+                  <div className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-700 rounded-full" />
+                  {/* Screen content */}
+                  <div className="mt-2 rounded-lg overflow-hidden bg-white aspect-[16/10]">
+                    <img 
+                      src={currentModule.screenImage} 
+                      alt={`${currentModule.title} Screen`}
+                      className="w-full h-full object-cover object-top transition-all duration-500"
                     />
                   </div>
-                  {/* Reflection/Glow effect */}
+                </div>
+                {/* Laptop Base */}
+                <div className="relative">
                   <div 
-                    className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl -z-10"
-                    style={{ backgroundColor: color }}
+                    className="h-4 rounded-b-xl mx-auto"
+                    style={{ 
+                      background: "linear-gradient(to bottom, #374151, #1f2937)",
+                      width: "100%"
+                    }}
+                  />
+                  <div 
+                    className="h-2 rounded-b-lg mx-auto -mt-0.5"
+                    style={{ 
+                      background: "linear-gradient(to bottom, #4b5563, #374151)",
+                      width: "60%"
+                    }}
+                  />
+                  {/* Laptop stand/hinge */}
+                  <div 
+                    className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-16 h-1 bg-gray-500 rounded-full"
                   />
                 </div>
+                {/* Reflection/Glow effect */}
+                <div 
+                  className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl -z-10"
+                  style={{ backgroundColor: color }}
+                />
               </div>
+            </div>
 
-              {/* Features List */}
-              <div className="p-8 md:p-12">
-                <h3 
-                  className="text-2xl md:text-3xl font-bold mb-3"
-                  style={{ color }}
-                >
-                  {currentModule.title}
-                </h3>
-                <p className="text-gray-600 mb-6">{currentModule.description}</p>
-                
-                <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Key Features</h4>
-                <ul className="space-y-3">
-                  {currentModule.features.map((feature, idx) => (
-                    <li 
-                      key={idx}
-                      className="flex items-start gap-3 animate-fade-in"
-                      style={{ animationDelay: `${idx * 0.05}s` }}
+            {/* Features List */}
+            <div>
+              <h3 
+                className="text-2xl md:text-3xl font-bold mb-3"
+                style={{ color }}
+              >
+                {currentModule.title}
+              </h3>
+              <p className="text-gray-600 mb-6">{currentModule.description}</p>
+              
+              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Key Features</h4>
+              <ul className="space-y-3">
+                {currentModule.features.map((feature, idx) => (
+                  <li 
+                    key={idx}
+                    className="flex items-start gap-3 animate-fade-in"
+                    style={{ animationDelay: `${idx * 0.05}s` }}
+                  >
+                    <div 
+                      className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
+                      style={{ backgroundColor: color }}
                     >
-                      <div 
-                        className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-                        style={{ backgroundColor: color }}
-                      >
-                        <Check size={12} className="text-white" />
-                      </div>
-                      <span className="text-gray-700 text-sm md:text-base leading-relaxed">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                      <Check size={12} className="text-white" />
+                    </div>
+                    <span className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
