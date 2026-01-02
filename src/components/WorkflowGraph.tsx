@@ -407,6 +407,40 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
         </div>
       </div>
 
+      {/* Features Bar - Between Workflow and Details */}
+      <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-8 px-4">
+        {features.map(({ Icon, label }, idx) => (
+          <div 
+            key={idx}
+            className={`flex items-center gap-2 text-gray-600 transition-all duration-700`}
+            style={{ 
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              opacity: isVisible ? 1 : 0,
+              transitionDelay: `${0.6 + idx * 0.1}s`
+            }}
+          >
+            <div className="relative">
+              <div 
+                className="absolute -left-8 top-1/2 w-6 border-t-2 border-dashed" 
+                style={{ borderColor: color, opacity: 0.4 }} 
+              />
+              <Icon 
+                size={18} 
+                style={{ color }} 
+                className={idx === 0 ? 'animate-spin' : ''}
+              />
+            </div>
+            <span className="text-sm md:text-base font-medium">{label}</span>
+            {idx < features.length - 1 && (
+              <div 
+                className="hidden md:block w-16 border-t-2 border-dashed ml-4" 
+                style={{ borderColor: color, opacity: 0.4 }} 
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
       {/* Inline Module Details Section */}
       {showLabels && currentModule && (
         <div 
@@ -494,40 +528,6 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
           </div>
         </div>
       )}
-
-      {/* Bottom Features */}
-      <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-8 px-4">
-        {features.map(({ Icon, label }, idx) => (
-          <div 
-            key={idx}
-            className={`flex items-center gap-2 text-gray-600 transition-all duration-700`}
-            style={{ 
-              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-              opacity: isVisible ? 1 : 0,
-              transitionDelay: `${0.6 + idx * 0.1}s`
-            }}
-          >
-            <div className="relative">
-              <div 
-                className="absolute -left-8 top-1/2 w-6 border-t-2 border-dashed" 
-                style={{ borderColor: color, opacity: 0.4 }} 
-              />
-              <Icon 
-                size={18} 
-                style={{ color }} 
-                className={idx === 0 ? 'animate-spin' : ''}
-              />
-            </div>
-            <span className="text-sm md:text-base font-medium">{label}</span>
-            {idx < features.length - 1 && (
-              <div 
-                className="hidden md:block w-16 border-t-2 border-dashed ml-4" 
-                style={{ borderColor: color, opacity: 0.4 }} 
-              />
-            )}
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
