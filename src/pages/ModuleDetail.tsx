@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WorkflowGraph from "@/components/WorkflowGraph";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
-import { ArrowLeft } from "lucide-react";
+
 
 const moduleData: Record<string, { name: string; description: string; icon: string; color: string }> = {
   "pre-sales": {
@@ -92,15 +92,13 @@ const ModuleDetail = () => {
       
       <main className="pt-24 pb-20 px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
-          {/* Back Button */}
-          <button 
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-2 text-foreground/70 hover:text-foreground mb-8 transition-colors"
+          {/* Module Title */}
+          <h1 
+            className="text-4xl md:text-5xl font-serif font-bold text-center mb-8"
+            style={{ color: module.color }}
           >
-            <ArrowLeft size={20} />
-            Back to Features
-          </button>
-
+            {module.name}
+          </h1>
 
           {/* Workflow Graph Section */}
           <div className="mt-12">
