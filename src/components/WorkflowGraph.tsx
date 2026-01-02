@@ -185,7 +185,7 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
           {leftIcons.map(({ Icon, delay, tooltip }, idx) => (
             <div
               key={idx}
-              className={`group relative w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''}`}
+              className={`group relative w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-700 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''}`}
               style={{ 
                 transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
                 opacity: isVisible ? 1 : 0,
@@ -195,11 +195,10 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
               <Icon size={24} className="text-gray-700" />
               {tooltip && (
                 <div 
-                  className="absolute left-full ml-3 px-3 py-1.5 bg-gray-800 text-white text-sm font-medium rounded-lg whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible tooltip-animate pointer-events-none z-10"
-                  style={{ animationPlayState: 'paused' }}
+                  className="absolute left-full ml-3 px-3 py-2 bg-gray-800 text-white text-sm font-medium rounded-lg whitespace-nowrap z-50 pointer-events-none opacity-0 translate-x-[-10px] scale-95 group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100 transition-all duration-300 ease-out"
                 >
                   <div 
-                    className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-r-4 border-r-gray-800"
+                    className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[6px] border-r-gray-800"
                   />
                   {tooltip}
                 </div>
