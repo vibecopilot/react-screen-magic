@@ -13,9 +13,10 @@ import {
 
 interface WorkflowGraphProps {
   color: string;
+  showTooltips?: boolean;
 }
 
-const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
+const WorkflowGraph = ({ color, showTooltips = false }: WorkflowGraphProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -193,7 +194,7 @@ const WorkflowGraph = ({ color }: WorkflowGraphProps) => {
               }}
             >
               <Icon size={24} className="text-gray-700" />
-              {tooltip && (
+              {showTooltips && tooltip && (
                 <div 
                   className="absolute left-full ml-3 px-3 py-2 bg-gray-800 text-white text-sm font-medium rounded-lg whitespace-nowrap z-50 pointer-events-none opacity-0 translate-x-[-10px] scale-95 group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100 transition-all duration-300 ease-out"
                 >

@@ -104,7 +104,7 @@ const ModuleDetail = () => {
 
           {/* Workflow Graph Section */}
           <div className="mt-12">
-            <WorkflowGraph color={module.color} />
+            <WorkflowGraph color={module.color} showTooltips={slug === "pre-sales"} />
           </div>
         </div>
       </main>
