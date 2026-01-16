@@ -19,29 +19,23 @@ const moduleData: Record<string, { name: string; description: string; icon: stri
     icon: "🤝",
     color: "#10B981",
   },
+  "possession": {
+    name: "Possession",
+    description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
+    icon: "🔑",
+    color: "#6366F1",
+  },
   "konstruct": {
     name: "Konstruct",
     description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
     icon: "🏗️",
     color: "#F59E0B",
   },
-  "vibecopilot": {
-    name: "VibeCopilot",
-    description: "AI-powered assistant for your daily operations. Get intelligent insights, automate repetitive tasks, and boost productivity.",
-    icon: "🤖",
+  "customer-portal": {
+    name: "Customer Portal",
+    description: "Empower your customers with a self-service portal. Access documents, track payments, raise requests, and stay updated on their property journey.",
+    icon: "🌐",
     color: "#8B5CF6",
-  },
-  "hrms": {
-    name: "HRMS",
-    description: "Complete human resource management solution. Manage employees, payroll, attendance, and performance all in one place.",
-    icon: "👥",
-    color: "#EF4444",
-  },
-  "possession": {
-    name: "Possession",
-    description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
-    icon: "🔑",
-    color: "#6366F1",
   },
 };
 
