@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenLeadManagement from "@/assets/screen-lead-management.png";
+import PreSalesMotionGraphic from "./PreSalesMotionGraphic";
 
 interface ModuleInfo {
   id: string;
@@ -243,204 +244,193 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
         }
       `}</style>
 
-      {/* Workflow Diagram */}
-      <div className="relative h-[400px] max-w-4xl mx-auto">
-        {/* SVG Lines */}
-        <svg 
-          className="absolute inset-0 w-full h-full" 
-          viewBox="0 0 800 400"
-          preserveAspectRatio="xMidYMid meet"
-        >
-          {/* Left side lines - flowing towards center */}
-          <path
-            d="M 120 80 Q 250 80 350 200"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out' }}
-          />
-          <path
-            d="M 120 200 Q 250 200 350 200"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.2s' }}
-          />
-          <path
-            d="M 120 320 Q 250 320 350 200"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.4s' }}
-          />
-          
-          {/* Right side lines - flowing away from center */}
-          <path
-            d="M 450 200 Q 550 80 680 80"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.1s' }}
-          />
-          <path
-            d="M 450 200 Q 550 200 680 200"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.3s' }}
-          />
-          <path
-            d="M 450 200 Q 550 320 680 320"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.5s' }}
-          />
-        </svg>
-
-        {/* Left Icons */}
-        <div className="absolute left-4 md:left-8 top-0 h-full flex flex-col justify-around py-8">
-          {leftIcons.map(({ Icon, delay, label, moduleId }, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col items-center gap-2"
-              style={{ 
-                transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
-                opacity: isVisible ? 1 : 0,
-                transition: 'all 0.7s ease-out',
-                transitionDelay: `${delay}s`
-              }}
+      {/* Old Workflow Diagram - Only show when NOT on pre-sales */}
+      {!showLabels && (
+        <>
+          <div className="relative h-[400px] max-w-4xl mx-auto">
+            {/* SVG Lines */}
+            <svg 
+              className="absolute inset-0 w-full h-full" 
+              viewBox="0 0 800 400"
+              preserveAspectRatio="xMidYMid meet"
             >
-              <div
-                onClick={() => handleModuleClick(moduleId)}
-                className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
-                style={{ 
-                  '--tw-ring-color': color,
-                  backgroundColor: selectedModule === moduleId ? color : 'white'
-                } as React.CSSProperties}
-              >
-                <Icon size={24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
-              </div>
-              {showLabels && label && (
-                <span 
-                  onClick={() => handleModuleClick(moduleId)}
-                  className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[100px] leading-tight cursor-pointer hover:underline"
-                >
-                  {label}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
+              {/* Left side lines - flowing towards center */}
+              <path
+                d="M 120 80 Q 250 80 350 200"
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeDasharray="8 4"
+                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                style={{ transition: 'opacity 0.5s ease-out' }}
+              />
+              <path
+                d="M 120 200 Q 250 200 350 200"
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeDasharray="8 4"
+                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.2s' }}
+              />
+              <path
+                d="M 120 320 Q 250 320 350 200"
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeDasharray="8 4"
+                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.4s' }}
+              />
+              
+              {/* Right side lines - flowing away from center */}
+              <path
+                d="M 450 200 Q 550 80 680 80"
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeDasharray="8 4"
+                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.1s' }}
+              />
+              <path
+                d="M 450 200 Q 550 200 680 200"
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeDasharray="8 4"
+                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.3s' }}
+              />
+              <path
+                d="M 450 200 Q 550 320 680 320"
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeDasharray="8 4"
+                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.5s' }}
+              />
+            </svg>
 
-        {/* Center Icon */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div 
-            className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl flex items-center justify-center transition-all duration-700 hover:scale-110 ${isVisible ? 'center-pulse' : ''}`}
-            style={{ 
-              backgroundColor: color,
-              transform: isVisible ? 'scale(1)' : 'scale(0)',
-              opacity: isVisible ? 1 : 0,
-              transitionDelay: '0.3s'
-            }}
-          >
-            <div className={`w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
-              <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded rotate-45" />
+            {/* Left Icons */}
+            <div className="absolute left-4 md:left-8 top-0 h-full flex flex-col justify-around py-8">
+              {leftIcons.map(({ Icon, delay, label, moduleId }, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col items-center gap-2"
+                  style={{ 
+                    transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
+                    opacity: isVisible ? 1 : 0,
+                    transition: 'all 0.7s ease-out',
+                    transitionDelay: `${delay}s`
+                  }}
+                >
+                  <div
+                    className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-xl bg-white ${isVisible ? `float-${idx + 1}` : ''}`}
+                  >
+                    <Icon size={24} className="text-gray-700" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Center Icon */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div 
+                className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl flex items-center justify-center transition-all duration-700 hover:scale-110 ${isVisible ? 'center-pulse' : ''}`}
+                style={{ 
+                  backgroundColor: color,
+                  transform: isVisible ? 'scale(1)' : 'scale(0)',
+                  opacity: isVisible ? 1 : 0,
+                  transitionDelay: '0.3s'
+                }}
+              >
+                <div className={`w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
+                  <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded rotate-45" />
+                </div>
+              </div>
+              
+              {/* Animated rings */}
+              <div 
+                className="absolute inset-0 rounded-2xl animate-ping opacity-20"
+                style={{ backgroundColor: color, animationDuration: '2s' }}
+              />
+              <div 
+                className="absolute inset-[-8px] rounded-3xl animate-ping opacity-10"
+                style={{ backgroundColor: color, animationDuration: '2.5s', animationDelay: '0.5s' }}
+              />
+            </div>
+
+            {/* Right Icons */}
+            <div className="absolute right-4 md:right-8 top-0 h-full flex flex-col justify-around py-8">
+              {rightIcons.map(({ Icon, delay }, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col items-center gap-2"
+                  style={{ 
+                    transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0.5)',
+                    opacity: isVisible ? 1 : 0,
+                    transition: 'all 0.7s ease-out',
+                    transitionDelay: `${delay}s`
+                  }}
+                >
+                  <div
+                    className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-xl bg-white ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''}`}
+                  >
+                    <Icon size={24} className="text-gray-700" />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          
-          {/* Animated rings */}
-          <div 
-            className="absolute inset-0 rounded-2xl animate-ping opacity-20"
-            style={{ backgroundColor: color, animationDuration: '2s' }}
-          />
-          <div 
-            className="absolute inset-[-8px] rounded-3xl animate-ping opacity-10"
-            style={{ backgroundColor: color, animationDuration: '2.5s', animationDelay: '0.5s' }}
-          />
-        </div>
 
-        {/* Right Icons */}
-        <div className="absolute right-4 md:right-8 top-0 h-full flex flex-col justify-around py-8">
-          {rightIcons.map(({ Icon, delay, label, moduleId }, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col items-center gap-2"
-              style={{ 
-                transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0.5)',
-                opacity: isVisible ? 1 : 0,
-                transition: 'all 0.7s ease-out',
-                transitionDelay: `${delay}s`
-              }}
-            >
-              <div
-                onClick={() => handleModuleClick(moduleId)}
-                className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
+          {/* Features Bar */}
+          <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-8 px-4">
+            {features.map(({ Icon, label }, idx) => (
+              <div 
+                key={idx}
+                className={`flex items-center gap-2 text-gray-600 transition-all duration-700`}
                 style={{ 
-                  '--tw-ring-color': color,
-                  backgroundColor: selectedModule === moduleId ? color : 'white'
-                } as React.CSSProperties}
+                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                  opacity: isVisible ? 1 : 0,
+                  transitionDelay: `${0.6 + idx * 0.1}s`
+                }}
               >
-                <Icon size={24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
+                <div className="relative">
+                  <div 
+                    className="absolute -left-8 top-1/2 w-6 border-t-2 border-dashed" 
+                    style={{ borderColor: color, opacity: 0.4 }} 
+                  />
+                  <Icon 
+                    size={18} 
+                    style={{ color }} 
+                    className={idx === 0 ? 'animate-spin' : ''}
+                  />
+                </div>
+                <span className="text-sm md:text-base font-medium">{label}</span>
+                {idx < features.length - 1 && (
+                  <div 
+                    className="hidden md:block w-16 border-t-2 border-dashed ml-4" 
+                    style={{ borderColor: color, opacity: 0.4 }} 
+                  />
+                )}
               </div>
-              {showLabels && label && (
-                <span 
-                  onClick={() => handleModuleClick(moduleId)}
-                  className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[120px] leading-tight cursor-pointer hover:underline"
-                >
-                  {label}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Features Bar - Between Workflow and Details */}
-      <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-8 px-4">
-        {features.map(({ Icon, label }, idx) => (
-          <div 
-            key={idx}
-            className={`flex items-center gap-2 text-gray-600 transition-all duration-700`}
-            style={{ 
-              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-              opacity: isVisible ? 1 : 0,
-              transitionDelay: `${0.6 + idx * 0.1}s`
-            }}
-          >
-            <div className="relative">
-              <div 
-                className="absolute -left-8 top-1/2 w-6 border-t-2 border-dashed" 
-                style={{ borderColor: color, opacity: 0.4 }} 
-              />
-              <Icon 
-                size={18} 
-                style={{ color }} 
-                className={idx === 0 ? 'animate-spin' : ''}
-              />
-            </div>
-            <span className="text-sm md:text-base font-medium">{label}</span>
-            {idx < features.length - 1 && (
-              <div 
-                className="hidden md:block w-16 border-t-2 border-dashed ml-4" 
-                style={{ borderColor: color, opacity: 0.4 }} 
-              />
-            )}
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
+
+      {/* Animated Motion Graphic for Pre-Sales */}
+      {showLabels && (
+        <div className="mt-12 max-w-6xl mx-auto px-4">
+          <PreSalesMotionGraphic 
+            color={color}
+            selectedModule={selectedModule}
+            onModuleSelect={(moduleId) => setSelectedModule(moduleId)}
+          />
+        </div>
+      )}
 
       {/* Inline Module Details Section */}
       {showLabels && currentModule && (
@@ -449,56 +439,33 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
           key={currentModule.id}
           className="mt-12 max-w-5xl mx-auto px-4 animate-fade-in scroll-mt-8"
         >
-          <div className="grid md:grid-cols-2 gap-8 items-start">
-            {/* Features List - Now on Left */}
-            <div>
-              <h3 
-                className="text-2xl md:text-3xl font-bold mb-3"
-                style={{ color }}
+          <h3 
+            className="text-2xl md:text-3xl font-bold mb-3"
+            style={{ color }}
+          >
+            {currentModule.title}
+          </h3>
+          <p className="text-gray-600 mb-6">{currentModule.description}</p>
+          
+          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Key Features</h4>
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
+            {currentModule.features.map((feature, idx) => (
+              <div 
+                key={idx}
+                className="flex items-start gap-3 animate-fade-in"
+                style={{ animationDelay: `${idx * 0.05}s` }}
               >
-                {currentModule.title}
-              </h3>
-              <p className="text-gray-600 mb-6">{currentModule.description}</p>
-              
-              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Key Features</h4>
-              <ul className="space-y-3">
-                {currentModule.features.map((feature, idx) => (
-                  <li 
-                    key={idx}
-                    className="flex items-start gap-3 animate-fade-in"
-                    style={{ animationDelay: `${idx * 0.05}s` }}
-                  >
-                    <div 
-                      className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-                      style={{ backgroundColor: color }}
-                    >
-                      <Check size={12} className="text-white" />
-                    </div>
-                    <span className="text-gray-700 text-sm md:text-base leading-relaxed">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Screen Image - No Frame */}
-            <div className="flex items-center justify-center md:col-span-1 lg:col-span-1">
-              <div className="relative mx-auto w-full">
-                <div className="rounded-xl overflow-hidden shadow-2xl">
-                  <img 
-                    src={currentModule.screenImage} 
-                    alt={`${currentModule.title} Screen`}
-                    className="w-full h-auto object-cover object-top transition-all duration-500"
-                  />
-                </div>
-                {/* Reflection/Glow effect */}
                 <div 
-                  className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl -z-10"
+                  className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
                   style={{ backgroundColor: color }}
-                />
+                >
+                  <Check size={12} className="text-white" />
+                </div>
+                <span className="text-gray-700 text-sm md:text-base leading-relaxed">
+                  {feature}
+                </span>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       )}
