@@ -481,27 +481,19 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               </ul>
             </div>
 
-            {/* Screen Image with Border */}
+            {/* Screen Image - No Frame */}
             <div className="flex items-center justify-center">
               <div className="relative mx-auto w-full">
-                <div 
-                  className="rounded-2xl p-3 shadow-2xl"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${color}15, ${color}08)`,
-                    border: `2px solid ${color}25`
-                  }}
-                >
-                  <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200/50">
-                    <img 
-                      src={currentModule.screenImage} 
-                      alt={`${currentModule.title} Screen`}
-                      className="w-full h-auto object-cover object-top transition-all duration-500"
-                    />
-                  </div>
+                <div className="rounded-xl overflow-hidden shadow-2xl">
+                  <img 
+                    src={currentModule.screenImage} 
+                    alt={`${currentModule.title} Screen`}
+                    className="w-full h-auto object-cover object-top transition-all duration-500"
+                  />
                 </div>
                 {/* Reflection/Glow effect */}
                 <div 
-                  className="absolute -inset-6 rounded-3xl opacity-25 blur-3xl -z-10"
+                  className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl -z-10"
                   style={{ backgroundColor: color }}
                 />
               </div>
