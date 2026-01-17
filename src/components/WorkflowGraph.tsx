@@ -451,9 +451,9 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
         <div 
           ref={detailsRef}
           key={currentModule.id}
-          className="mt-12 max-w-5xl mx-auto px-4 animate-fade-in scroll-mt-8"
+          className="mt-12 max-w-7xl mx-auto px-4 animate-fade-in scroll-mt-8"
         >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-8 lg:gap-12 items-center">
             {/* Features List - Left */}
             <div>
               <h3 
@@ -486,18 +486,18 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               </ul>
             </div>
 
-            {/* Screen Image - Right with 3D perspective */}
+            {/* Screen Image - Right with 3D perspective - Wider */}
             <div className="flex items-center justify-center">
               <div 
                 className="relative w-full"
                 style={{
-                  perspective: '1000px',
+                  perspective: '1200px',
                 }}
               >
                 <div 
-                  className="rounded-xl overflow-hidden shadow-2xl"
+                  className="rounded-xl overflow-hidden shadow-2xl border border-gray-200"
                   style={{
-                    transform: 'rotateY(-8deg) rotateX(2deg)',
+                    transform: 'rotateY(-6deg) rotateX(2deg)',
                     transformStyle: 'preserve-3d',
                   }}
                 >
@@ -505,6 +505,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
                     src={currentModule.screenImage} 
                     alt={`${currentModule.title} Screen`}
                     className="w-full h-auto object-contain"
+                    style={{ imageRendering: 'auto' }}
                   />
                 </div>
                 {/* Shadow effect */}
