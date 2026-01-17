@@ -451,10 +451,10 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
         <div 
           ref={detailsRef}
           key={currentModule.id}
-          className="mt-12 max-w-7xl mx-auto px-4 animate-fade-in scroll-mt-8"
+          className="mt-12 max-w-4xl mx-auto px-4 animate-fade-in scroll-mt-8"
         >
-          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-8 lg:gap-12 items-center">
-            {/* Features List - Left */}
+          <div>
+            {/* Features List */}
             <div>
               <h3 
                 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 underline decoration-2 underline-offset-8"
@@ -484,36 +484,6 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            {/* Screen Image - Right with 3D perspective - Wider */}
-            <div className="flex items-center justify-center">
-              <div 
-                className="relative w-full"
-                style={{
-                  perspective: '1200px',
-                }}
-              >
-                <div 
-                  className="rounded-xl overflow-hidden shadow-2xl border border-gray-200"
-                  style={{
-                    transform: 'rotateY(-6deg) rotateX(2deg)',
-                    transformStyle: 'preserve-3d',
-                  }}
-                >
-                  <img 
-                    src={currentModule.screenImage} 
-                    alt={`${currentModule.title} Screen`}
-                    className="w-full h-auto object-contain"
-                    style={{ imageRendering: 'auto' }}
-                  />
-                </div>
-                {/* Shadow effect */}
-                <div 
-                  className="absolute -inset-4 rounded-3xl opacity-10 blur-3xl -z-10"
-                  style={{ backgroundColor: color }}
-                />
-              </div>
             </div>
           </div>
         </div>
