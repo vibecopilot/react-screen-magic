@@ -484,7 +484,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
 
             {/* Screen Image - No Frame */}
             <div className="flex items-center justify-center md:col-span-1 lg:col-span-1">
-              <div className="relative mx-auto w-full max-w-[700px]">
+              <div className="relative mx-auto w-full">
                 <div className="rounded-xl overflow-hidden shadow-2xl">
                   <img 
                     src={currentModule.screenImage} 
