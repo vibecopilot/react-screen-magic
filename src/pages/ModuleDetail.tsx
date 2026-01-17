@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PreSales3DVisualization from "@/components/PreSales3DVisualization";
+import WorkflowGraph from "@/components/WorkflowGraph";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
 
 
@@ -85,19 +85,16 @@ const ModuleDetail = () => {
       <Navbar />
       
       <main className="pt-24 pb-20 px-4 md:px-6">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           {/* Module Title */}
-          <h1 className="text-2xl md:text-3xl font-serif font-bold text-center mb-4 mt-8 text-foreground">
+          <h1 className="text-2xl md:text-3xl font-serif font-bold text-center mb-8 mt-8 text-foreground">
             {module.name}
           </h1>
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            {module.description}
-          </p>
 
-          {/* Pre Sales 3D Visualization */}
-          {slug === "pre-sales" && (
-            <PreSales3DVisualization />
-          )}
+          {/* Workflow Graph Section */}
+          <div className="mt-12">
+            <WorkflowGraph color={module.color} showLabels={slug === "pre-sales"} />
+          </div>
         </div>
       </main>
 
