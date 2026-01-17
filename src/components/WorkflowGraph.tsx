@@ -16,6 +16,7 @@ import {
   Check
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
+import screenLeadManagement from "@/assets/screen-lead-management.png";
 
 interface ModuleInfo {
   id: string;
@@ -40,7 +41,7 @@ const moduleData: Record<string, ModuleInfo> = {
       "Integration with marketing campaigns",
       "Duplicate lead detection and merging"
     ],
-    screenImage: screenPresales
+    screenImage: screenLeadManagement
   },
   "cp-management": {
     id: "cp-management",
@@ -482,8 +483,8 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
             </div>
 
             {/* Screen Image - No Frame */}
-            <div className="flex items-center justify-center">
-              <div className="relative mx-auto w-full">
+            <div className="flex items-center justify-center md:col-span-1 lg:col-span-1">
+              <div className="relative mx-auto w-full max-w-[700px]">
                 <div className="rounded-xl overflow-hidden shadow-2xl">
                   <img 
                     src={currentModule.screenImage} 
