@@ -84,18 +84,8 @@ const ModuleDetail = () => {
     >
       <Navbar />
       
-      <main className="pt-24 pb-20 px-4 md:px-6">
-        <div className="max-w-5xl mx-auto">
-          {/* Module Title */}
-          <h1 className="text-2xl md:text-3xl font-serif font-bold text-center mb-8 mt-8 text-foreground">
-            {module.name}
-          </h1>
-
-          {/* Workflow Graph Section */}
-          <div className="mt-12">
-            <WorkflowGraph color={module.color} showLabels={slug === "pre-sales"} />
-          </div>
-        </div>
+      <main className="pt-24 pb-20 px-4 md:px-6 min-h-[80vh]">
+        {/* Blank page - content cleared */}
       </main>
 
       <Footer />
