@@ -481,41 +481,14 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               </ul>
             </div>
 
-            {/* Laptop Frame with Screen - Now on Right */}
+            {/* Screen Image - No Frame */}
             <div className="flex items-center justify-center">
-              <div className="relative mx-auto" style={{ maxWidth: "520px" }}>
-                {/* Laptop Screen */}
-                <div className="relative bg-gray-900 rounded-t-xl p-2 shadow-2xl">
-                  {/* Screen bezel - camera */}
-                  <div className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-700 rounded-full" />
-                  {/* Screen content */}
-                  <div className="mt-2 rounded-lg overflow-hidden bg-white aspect-[16/10]">
-                    <img 
-                      src={currentModule.screenImage} 
-                      alt={`${currentModule.title} Screen`}
-                      className="w-full h-full object-cover object-top transition-all duration-500"
-                    />
-                  </div>
-                </div>
-                {/* Laptop Base */}
-                <div className="relative">
-                  <div 
-                    className="h-4 rounded-b-xl mx-auto"
-                    style={{ 
-                      background: "linear-gradient(to bottom, #374151, #1f2937)",
-                      width: "100%"
-                    }}
-                  />
-                  <div 
-                    className="h-2 rounded-b-lg mx-auto -mt-0.5"
-                    style={{ 
-                      background: "linear-gradient(to bottom, #4b5563, #374151)",
-                      width: "60%"
-                    }}
-                  />
-                  {/* Laptop stand/hinge */}
-                  <div 
-                    className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-16 h-1 bg-gray-500 rounded-full"
+              <div className="relative mx-auto w-full">
+                <div className="rounded-xl overflow-hidden shadow-2xl">
+                  <img 
+                    src={currentModule.screenImage} 
+                    alt={`${currentModule.title} Screen`}
+                    className="w-full h-auto object-cover object-top transition-all duration-500"
                   />
                 </div>
                 {/* Reflection/Glow effect */}
