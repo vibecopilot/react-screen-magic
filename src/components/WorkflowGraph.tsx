@@ -17,6 +17,10 @@ import {
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenLeadManagement from "@/assets/screen-lead-management.png";
+import screenCpManagement from "@/assets/screen-cp-management.png";
+import screenCostSheet from "@/assets/screen-cost-sheet.png";
+import screenBookingApproval from "@/assets/screen-booking-approval.png";
+import screenSalesExecutive from "@/assets/screen-sales-executive.png";
 
 interface ModuleInfo {
   id: string;
@@ -57,7 +61,7 @@ const moduleData: Record<string, ModuleInfo> = {
       "CP hierarchy and team management",
       "Incentive programs and bonus tracking"
     ],
-    screenImage: screenPresales
+    screenImage: screenCpManagement
   },
   "cost-sheet-management": {
     id: "cost-sheet-management",
@@ -73,7 +77,7 @@ const moduleData: Record<string, ModuleInfo> = {
       "PDF export with company branding",
       "Version history and audit trail"
     ],
-    screenImage: screenPresales
+    screenImage: screenCostSheet
   },
   "booking-approval": {
     id: "booking-approval",
@@ -89,7 +93,7 @@ const moduleData: Record<string, ModuleInfo> = {
       "Audit trail for all approvals",
       "Mobile approval for on-the-go decisions"
     ],
-    screenImage: screenPresales
+    screenImage: screenBookingApproval
   },
   "sales-executive-management": {
     id: "sales-executive-management",
@@ -105,7 +109,7 @@ const moduleData: Record<string, ModuleInfo> = {
       "Training and certification management",
       "Attendance and location tracking"
     ],
-    screenImage: screenPresales
+    screenImage: screenSalesExecutive
   }
 };
 
@@ -449,7 +453,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
           key={currentModule.id}
           className="mt-12 max-w-5xl mx-auto px-4 animate-fade-in scroll-mt-8"
         >
-          <div className="grid md:grid-cols-2 gap-8 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
             {/* Features List - Now on Left */}
             <div>
               <h3 
@@ -489,7 +493,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
                   <img 
                     src={currentModule.screenImage} 
                     alt={`${currentModule.title} Screen`}
-                    className="w-full h-auto object-cover object-top transition-all duration-500"
+                    className="w-full h-auto min-h-[400px] md:min-h-[500px] object-contain transition-all duration-500"
                   />
                 </div>
                 {/* Reflection/Glow effect */}
