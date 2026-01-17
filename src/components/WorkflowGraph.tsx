@@ -453,19 +453,19 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
           key={currentModule.id}
           className="mt-12 max-w-5xl mx-auto px-4 animate-fade-in scroll-mt-8"
         >
-          <div className="grid lg:grid-cols-2 gap-8 items-start">
-            {/* Features List - Now on Left */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Features List - Left */}
             <div>
               <h3 
-                className="text-2xl md:text-3xl font-bold mb-3"
+                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 underline decoration-2 underline-offset-8"
                 style={{ color }}
               >
                 {currentModule.title}
               </h3>
-              <p className="text-gray-600 mb-6">{currentModule.description}</p>
+              <p className="text-gray-600 mb-8 text-base md:text-lg">{currentModule.description}</p>
               
-              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Key Features</h4>
-              <ul className="space-y-3">
+              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">Key Features</h4>
+              <ul className="space-y-4">
                 {currentModule.features.map((feature, idx) => (
                   <li 
                     key={idx}
@@ -486,19 +486,30 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               </ul>
             </div>
 
-            {/* Screen Image - No Frame */}
-            <div className="flex items-center justify-center md:col-span-1 lg:col-span-1">
-              <div className="relative mx-auto w-full">
-                <div className="rounded-xl overflow-hidden shadow-2xl">
+            {/* Screen Image - Right with 3D perspective */}
+            <div className="flex items-center justify-center">
+              <div 
+                className="relative w-full"
+                style={{
+                  perspective: '1000px',
+                }}
+              >
+                <div 
+                  className="rounded-xl overflow-hidden shadow-2xl"
+                  style={{
+                    transform: 'rotateY(-8deg) rotateX(2deg)',
+                    transformStyle: 'preserve-3d',
+                  }}
+                >
                   <img 
                     src={currentModule.screenImage} 
                     alt={`${currentModule.title} Screen`}
-                    className="w-full h-auto min-h-[400px] md:min-h-[500px] object-contain transition-all duration-500"
+                    className="w-full h-auto object-contain"
                   />
                 </div>
-                {/* Reflection/Glow effect */}
+                {/* Shadow effect */}
                 <div 
-                  className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl -z-10"
+                  className="absolute -inset-4 rounded-3xl opacity-10 blur-3xl -z-10"
                   style={{ backgroundColor: color }}
                 />
               </div>
