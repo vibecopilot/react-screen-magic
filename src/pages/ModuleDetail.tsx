@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PreSalesModuleVisualization from "@/components/PreSalesModuleVisualization";
+import PreSales3DVisualization from "@/components/PreSales3DVisualization";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
 
 
@@ -94,9 +94,9 @@ const ModuleDetail = () => {
             {module.description}
           </p>
 
-          {/* Pre Sales Module Visualization */}
+          {/* Pre Sales 3D Visualization */}
           {slug === "pre-sales" && (
-            <PreSalesModuleVisualization />
+            <PreSales3DVisualization />
           )}
         </div>
       </main>
