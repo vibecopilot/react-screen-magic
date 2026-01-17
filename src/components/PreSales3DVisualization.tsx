@@ -1,6 +1,6 @@
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Text, Line, Html } from "@react-three/drei";
+import { Float, Line, Html } from "@react-three/drei";
 import * as THREE from "three";
 
 interface ModuleData {
@@ -104,16 +104,12 @@ const CenterCube = () => {
           <lineBasicMaterial color="#60a5fa" transparent opacity={0.6} />
         </lineSegments>
         
-        <Text
-          position={[0, -0.8, 0]}
-          fontSize={0.18}
-          color="#334155"
-          anchorX="center"
-          anchorY="top"
-          font="/fonts/inter-medium.woff"
-        >
-          Pre Sales
-        </Text>
+        {/* Label using Html */}
+        <Html position={[0, -0.8, 0]} center>
+          <div className="text-slate-700 font-medium text-sm whitespace-nowrap">
+            Pre Sales
+          </div>
+        </Html>
       </group>
     </Float>
   );
@@ -159,15 +155,12 @@ const ModuleCube = ({ module, index }: { module: ModuleData; index: number }) =>
           <lineBasicMaterial color={hovered ? "#3b82f6" : "#94a3b8"} transparent opacity={0.5} />
         </lineSegments>
         
-        <Text
-          position={[0, -0.55, 0]}
-          fontSize={0.12}
-          color="#475569"
-          anchorX="center"
-          anchorY="top"
-        >
-          {module.shortName}
-        </Text>
+        {/* Label using Html */}
+        <Html position={[0, -0.55, 0]} center>
+          <div className="text-slate-600 text-xs whitespace-nowrap">
+            {module.shortName}
+          </div>
+        </Html>
 
         {/* Tooltip on hover */}
         {hovered && (
@@ -223,7 +216,9 @@ const PreSales3DVisualization = () => {
         style={{ background: "transparent" }}
         gl={{ alpha: true, antialias: true }}
       >
-        <Scene />
+        <Suspense fallback={null}>
+          <Scene />
+        </Suspense>
       </Canvas>
     </div>
   );
