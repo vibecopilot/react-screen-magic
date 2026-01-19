@@ -453,10 +453,10 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
         <div 
           ref={detailsRef}
           key={currentModule.id}
-          className="mt-12 max-w-7xl mx-auto px-4 animate-fade-in scroll-mt-8"
+          className="mt-12 max-w-4xl mx-auto px-4 animate-fade-in scroll-mt-8"
         >
-          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-8 lg:gap-12 items-center">
-            {/* Features List - Left */}
+          <div>
+            {/* Features List */}
             <div>
               <h3 
                 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 underline decoration-2 underline-offset-8"
@@ -487,74 +487,10 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
                 ))}
               </ul>
             </div>
-
-            {/* Screen Image - Right with 3D perspective */}
-            <div className="flex items-center justify-center">
-              <div 
-                className="relative w-full cursor-pointer group"
-                style={{ perspective: '1200px' }}
-                onClick={() => setLightboxOpen(true)}
-              >
-                <div 
-                  className="rounded-xl overflow-hidden shadow-2xl border border-gray-200 transition-transform duration-300 group-hover:scale-[1.02]"
-                  style={{
-                    transform: 'rotateY(-6deg) rotateX(2deg)',
-                    transformStyle: 'preserve-3d',
-                  }}
-                >
-                  <img 
-                    src={currentModule.screenImage} 
-                    alt={`${currentModule.title} Screen`}
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-                {/* Click hint */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  <span className="bg-black/60 text-white px-4 py-2 rounded-lg text-sm font-medium">
-                    Click to enlarge
-                  </span>
-                </div>
-                {/* Shadow effect */}
-                <div 
-                  className="absolute -inset-4 rounded-3xl opacity-10 blur-3xl -z-10"
-                  style={{ backgroundColor: color }}
-                />
-              </div>
-            </div>
           </div>
         </div>
       )}
 
-      {/* Lightbox Modal */}
-      {lightboxOpen && currentModule && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center animate-fade-in"
-          onClick={() => setLightboxOpen(false)}
-        >
-          {/* Blur background */}
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
-          
-          {/* Close button - Left side */}
-          <button
-            onClick={() => setLightboxOpen(false)}
-            className="absolute left-6 top-6 z-10 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors duration-200"
-          >
-            <X size={28} className="text-white" />
-          </button>
-
-          {/* Full screen image */}
-          <div 
-            className="relative z-10 max-w-[95vw] max-h-[90vh] p-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img 
-              src={currentModule.screenImage} 
-              alt={`${currentModule.title} Screen`}
-              className="w-full h-full object-contain rounded-lg shadow-2xl"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
