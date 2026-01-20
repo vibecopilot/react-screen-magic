@@ -1,7 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -36,7 +34,49 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    console.log("Sending contact email from:", email);
+    const resendKeyRaw = Deno.env.get("RESEND_API_KEY") ?? "";
+    const resendKey = resendKeyRaw
+      .trim()
+      .replace(/^Bearer\s+/i, "")
+      .replace(/^['\"]|['\"]$/g, "");
+
+    if (!resendKey) {
+      console.error("RESEND_API_KEY is missing or empty");
+      return new Response(
+        JSON.stringify({ error: "Email service is not configured" }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    if (!resendKey.startsWith("re_")) {
+      console.error("RESEND_API_KEY does not look like a Resend key", {
+        prefix: resendKey.slice(0, 3),
+        len: resendKey.length,
+      });
+      return new Response(
+        JSON.stringify({
+          error:
+            "Email service API key is invalid. Please paste your Resend API key (it starts with re_).",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    console.log(
+      "Sending contact email from:",
+      email,
+      "(resendKeyPrefix:",
+      resendKey.slice(0, 3),
+      "len:",
+      resendKey.length,
+      ")"
+    );
 
     const customerTypeText = customerType 
       ? `Customer Type: ${customerType === 'yes' ? 'Existing Customer' : customerType === 'no' ? 'New Customer' : 'On Trial'}`
@@ -47,7 +87,7 @@ const handler = async (req: Request): Promise<Response> => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        "Authorization": `Bearer ${resendKey}`,
       },
       body: JSON.stringify({
         from: "MyCiti Contact <onboarding@resend.dev>",
@@ -64,11 +104,24 @@ const handler = async (req: Request): Promise<Response> => {
       }),
     });
 
-    const data = await emailResponse.json();
+    const raw = await emailResponse.text();
+    let data: any = null;
+    try {
+      data = raw ? JSON.parse(raw) : null;
+    } catch {
+      data = { raw };
+    }
 
     if (!emailResponse.ok) {
-      console.error("Resend API error:", data);
-      throw new Error(data.message || "Failed to send email");
+      console.error("Resend API error:", {
+        status: emailResponse.status,
+        body: data,
+      });
+      throw new Error(
+        typeof data?.message === "string"
+          ? data.message
+          : "Failed to send email"
+      );
     }
 
     console.log("Email sent successfully:", data);
