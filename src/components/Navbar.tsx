@@ -63,22 +63,19 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* CTA Button */}
-        <div className="gap-2 mr-2">
-          <div className="hidden md:flex items-center gap-2">
+        {/* CTA Buttons */}
+        <div className="flex items-center gap-3">
           <Link to="/contact">
             <Button variant="hero" size={isScrolled ? "default" : "default"}>
               Contact us
             </Button>
           </Link>
-            <Link to="/app/login">
+            <a href="/app/login">
             <Button variant="heroOutline" size={isScrolled ? "default" : "default"}>
               Login
             </Button>
-            </Link>
+            </a>
         </div>
-        </div>
-
       </nav>
     </header>
   );
