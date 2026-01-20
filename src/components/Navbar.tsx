@@ -24,7 +24,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header 
+    <header
       className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-5 transition-all duration-500"
     >
       <nav
@@ -64,11 +64,21 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Link to="/contact">
-          <Button variant="hero" size={isScrolled ? "default" : "default"}>
-            Contact us
-          </Button>
-        </Link>
+        <div className="gap-2 mr-2">
+          <div className="hidden md:flex items-center gap-2">
+          <Link to="/contact">
+            <Button variant="hero" size={isScrolled ? "default" : "default"}>
+              Contact us
+            </Button>
+          </Link>
+            <Link to="/app/login">
+            <Button variant="heroOutline" size={isScrolled ? "default" : "default"}>
+              Login
+            </Button>
+            </Link>
+        </div>
+        </div>
+
       </nav>
     </header>
   );
