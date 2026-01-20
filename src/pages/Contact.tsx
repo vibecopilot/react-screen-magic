@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -31,8 +32,9 @@ const Contact = () => {
     customerType: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     const result = contactSchema.safeParse(formData);
@@ -49,12 +51,31 @@ const Contact = () => {
     }
     
     setErrors({});
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
-    
-    setFormData({ name: "", email: "", message: "", customerType: "" });
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you as soon as possible.",
+      });
+      
+      setFormData({ name: "", email: "", message: "", customerType: "" });
+    } catch (error: any) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -149,8 +170,12 @@ const Contact = () => {
               </Select>
             </div>
 
-            <Button type="submit" className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-full py-6 text-base">
-              Send a message
+            <Button 
+              type="submit" 
+              disabled={isSubmitting}
+              className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-full py-6 text-base"
+            >
+              {isSubmitting ? "Sending..." : "Send a message"}
             </Button>
           </form>
         </div>
