@@ -467,25 +467,48 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               <p className="text-gray-600 mb-8 text-base md:text-lg">{currentModule.description}</p>
               
               <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">Key Features</h4>
-              <ul className="space-y-4">
-                {currentModule.features.map((feature, idx) => (
-                  <li 
-                    key={idx}
-                    className="flex items-start gap-3 animate-fade-in"
-                    style={{ animationDelay: `${idx * 0.05}s` }}
-                  >
-                    <div 
-                      className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-                      style={{ backgroundColor: color }}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                {/* Left column - first 4 features */}
+                <ul className="space-y-4">
+                  {currentModule.features.slice(0, 4).map((feature, idx) => (
+                    <li 
+                      key={idx}
+                      className="flex items-start gap-3 animate-fade-in"
+                      style={{ animationDelay: `${idx * 0.05}s` }}
                     >
-                      <Check size={12} className="text-white" />
-                    </div>
-                    <span className="text-gray-700 text-sm md:text-base leading-relaxed">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+                      <div 
+                        className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
+                        style={{ backgroundColor: color }}
+                      >
+                        <Check size={12} className="text-white" />
+                      </div>
+                      <span className="text-gray-700 text-sm md:text-base leading-relaxed">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                {/* Right column - last 4 features */}
+                <ul className="space-y-4">
+                  {currentModule.features.slice(4, 8).map((feature, idx) => (
+                    <li 
+                      key={idx + 4}
+                      className="flex items-start gap-3 animate-fade-in"
+                      style={{ animationDelay: `${(idx + 4) * 0.05}s` }}
+                    >
+                      <div 
+                        className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
+                        style={{ backgroundColor: color }}
+                      >
+                        <Check size={12} className="text-white" />
+                      </div>
+                      <span className="text-gray-700 text-sm md:text-base leading-relaxed">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
