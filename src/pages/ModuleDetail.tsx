@@ -95,8 +95,8 @@ const ModuleDetail = () => {
           <div className="mt-12">
             <WorkflowGraph 
               color={module.color} 
-              showLabels={slug === "pre-sales" || slug === "post-sales"} 
-              moduleType={slug === "pre-sales" ? "pre-sales" : slug === "post-sales" ? "post-sales" : "default"}
+              showLabels={slug === "pre-sales" || slug === "post-sales" || slug === "possession"} 
+              moduleType={slug === "pre-sales" ? "pre-sales" : slug === "post-sales" ? "post-sales" : slug === "possession" ? "possession" : "default"}
             />
           </div>
         </div>
