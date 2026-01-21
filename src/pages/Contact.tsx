@@ -91,25 +91,25 @@ const Contact = () => {
       <Navbar />
       
       {/* Contact Hero */}
-      <section className="pt-32 pb-8 px-4">
+      <section className="pt-24 sm:pt-28 md:pt-32 pb-6 md:pb-8 px-3 sm:px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block px-4 py-1.5 bg-white/60 backdrop-blur-sm rounded-full text-xs font-medium text-foreground mb-6 animate-fade-in" style={{ animationDelay: "0.1s", animationFillMode: "backwards" }}>
+          <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 bg-white/60 backdrop-blur-sm rounded-full text-xs font-medium text-foreground mb-4 sm:mb-6 animate-fade-in" style={{ animationDelay: "0.1s", animationFillMode: "backwards" }}>
             CONTACT US
           </span>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold text-foreground mb-4 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "backwards" }}>
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold text-foreground mb-3 sm:mb-4 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "backwards" }}>
             Let's connect
           </h1>
-          <p className="text-foreground/70 text-lg max-w-md mx-auto animate-fade-in" style={{ animationDelay: "0.3s", animationFillMode: "backwards" }}>
+          <p className="text-foreground/70 text-base md:text-lg max-w-md mx-auto px-4 animate-fade-in" style={{ animationDelay: "0.3s", animationFillMode: "backwards" }}>
             Have questions about My Citi? Contact us and we'll be happy to help.
           </p>
         </div>
       </section>
 
       {/* Contact Form */}
-      <section className="pb-16 px-4">
+      <section className="pb-12 md:pb-16 px-3 sm:px-4">
         <div className="max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.4s", animationFillMode: "backwards" }}>
-          <form onSubmit={handleSubmit} className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-10 shadow-lg">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <form onSubmit={handleSubmit} className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Name
@@ -137,8 +137,8 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-foreground mb-2">
+            <div className="mb-4 sm:mb-6">
+              <label className="block text-sm font-medium text-foreground mb-1.5 sm:mb-2">
                 Message
               </label>
               <Textarea
@@ -151,8 +151,8 @@ const Contact = () => {
               {errors.message && <p className="text-destructive text-xs mt-1">{errors.message}</p>}
             </div>
 
-            <div className="mb-8">
-              <label className="block text-sm font-medium text-foreground mb-2">
+            <div className="mb-6 sm:mb-8">
+              <label className="block text-sm font-medium text-foreground mb-1.5 sm:mb-2">
                 Are you an existing customer?
               </label>
               <Select

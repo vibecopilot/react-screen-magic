@@ -13,19 +13,19 @@ const Footer = () => {
       <div 
         ref={footerRef}
         className={cn(
-          "w-full px-4 md:px-8 py-8 transition-all duration-1000",
+          "w-full px-3 sm:px-4 md:px-8 py-6 md:py-8 transition-all duration-1000",
           footerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
         )}
       >
-        <div className="bg-[#e8f0f8]/60 backdrop-blur-sm rounded-3xl p-6 md:p-8">
+        <div className="bg-[#e8f0f8]/60 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
               {/* Brand */}
-              <div className="md:col-span-1">
-                <div className="flex items-center gap-2 mb-3">
-                  <img src={logo} alt="MY CITI Logo" className="h-12" />
+              <div className="col-span-2 sm:col-span-2 md:col-span-1">
+                <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                  <img src={logo} alt="MY CITI Logo" className="h-10 sm:h-12" />
                 </div>
-                <p className="text-foreground/70 text-xs mb-4">
+                <p className="text-foreground/70 text-xs mb-3 sm:mb-4">
                   Your favourite business management software. Built for early startup founders.
                 </p>
                 <div className="flex gap-2">

@@ -45,20 +45,20 @@ const BlogSection = () => {
   const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation({ threshold: 0.1 });
 
   return (
-    <section id="blog" className="py-16 px-4">
+    <section id="blog" className="py-12 md:py-16 px-3 sm:px-4">
       <div className="container mx-auto max-w-5xl">
         {/* Header */}
         <div 
           ref={headerRef}
           className={cn(
-            "text-center mb-10 transition-all duration-700",
+            "text-center mb-8 md:mb-10 transition-all duration-700",
             headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}
         >
           <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
             BLOG
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-2">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mt-2">
             Ideas to level-up your life style
           </h2>
         </div>
@@ -116,7 +116,7 @@ const BlogSection = () => {
         )}
 
         {/* Small Posts Grid */}
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div ref={gridRef} className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
           {smallPosts.map((post, index) => (
             <div
               key={post.id}
