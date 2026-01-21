@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import screenPresales from "@/assets/screen-presales.png";
-import screenPresalesMobile from "@/assets/screen-presales-mobile.png";
+import screenPresalesOverview from "@/assets/screen-presales-overview.png";
 import screenKonstruct from "@/assets/screen-konstruct.png";
 
 const cards = [
@@ -12,8 +11,7 @@ const cards = [
     description: "Streamline your lead management and inquiry handling with powerful CRM tools. Track prospects, manage follow-ups, and convert leads faster than ever.",
     barColor: "bg-[#4A9FE8]",
     icon: "📊",
-    screenImage: screenPresales,
-    mobileImage: screenPresalesMobile,
+    screenImage: screenPresalesOverview,
   },
   {
     name: "Post Sales",
@@ -22,7 +20,6 @@ const cards = [
     barColor: "bg-[#10B981]",
     icon: "🤝",
     screenImage: null,
-    mobileImage: null as string | null,
   },
   {
     name: "Possession",
@@ -31,7 +28,6 @@ const cards = [
     barColor: "bg-[#6366F1]",
     icon: "🔑",
     screenImage: null,
-    mobileImage: null as string | null,
   },
   {
     name: "Konstruct",
@@ -40,7 +36,6 @@ const cards = [
     barColor: "bg-[#F59E0B]",
     icon: "🏗️",
     screenImage: screenKonstruct,
-    mobileImage: null as string | null,
   },
   {
     name: "Customer Portal",
@@ -49,43 +44,11 @@ const cards = [
     barColor: "bg-[#8B5CF6]",
     icon: "🌐",
     screenImage: null,
-    mobileImage: null as string | null,
   },
 ];
 
-const PhoneFrame = ({ icon, mobileImage }: { icon: string; mobileImage?: string | null }) => (
-  <div className="relative w-[70px] md:w-[90px]">
-    {/* Phone outer frame */}
-    <div className="bg-[#1f1f1f] rounded-[16px] md:rounded-[20px] p-[3px] shadow-xl border border-[#3a3a3a]">
-      {/* Dynamic Island / Notch */}
-      <div className="absolute top-[6px] md:top-[8px] left-1/2 -translate-x-1/2 w-[28px] md:w-[35px] h-[8px] md:h-[10px] bg-[#1f1f1f] rounded-full z-20" />
-      {/* Screen */}
-      <div className="bg-white rounded-[13px] md:rounded-[17px] aspect-[9/19] overflow-hidden relative">
-        {mobileImage ? (
-          <img 
-            src={mobileImage} 
-            alt="Mobile preview" 
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="flex flex-col items-center justify-center h-full gap-1 p-2 bg-gradient-to-b from-slate-50 to-white">
-            <span className="text-lg md:text-xl">{icon}</span>
-            <div className="space-y-1 w-full px-2">
-              <div className="w-full h-1 bg-slate-200 rounded" />
-              <div className="w-3/4 h-1 bg-slate-200 rounded" />
-              <div className="w-1/2 h-1 bg-slate-200 rounded" />
-            </div>
-          </div>
-        )}
-      </div>
-      {/* Home indicator */}
-      <div className="absolute bottom-[4px] left-1/2 -translate-x-1/2 w-[28px] md:w-[35px] h-[3px] md:h-[4px] bg-[#555] rounded-full" />
-    </div>
-  </div>
-);
-
-const LaptopFrame = ({ icon, screenImage, mobileImage }: { icon: string; screenImage?: string | null; mobileImage?: string | null }) => (
-  <div className="relative w-[280px] md:w-[380px]">
+const LaptopFrame = ({ icon, screenImage }: { icon: string; screenImage?: string | null }) => (
+  <div className="relative w-[340px] md:w-[480px]">
     
     {/* Laptop Screen */}
     <div className="relative">
@@ -130,11 +93,6 @@ const LaptopFrame = ({ icon, screenImage, mobileImage }: { icon: string; screenI
       <div className="relative mx-[-8px] md:mx-[-12px]">
         <div className="h-[6px] md:h-[8px] bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] rounded-b-xl border-b border-l border-r border-[#444]" />
       </div>
-    </div>
-
-    {/* iPhone Frame - Bottom Right */}
-    <div className="absolute -bottom-2 -right-4 md:-right-6 z-20 animate-float" style={{ animationDelay: "0.5s" }}>
-      <PhoneFrame icon={icon} mobileImage={mobileImage} />
     </div>
   </div>
 );
@@ -271,7 +229,7 @@ const StackedCards = () => {
 
                     {/* Right Side - Laptop Frame */}
                     <div className="flex-shrink-0 hidden md:block relative z-10">
-                      <LaptopFrame icon={card.icon} screenImage={card.screenImage} mobileImage={card.mobileImage} />
+                      <LaptopFrame icon={card.icon} screenImage={card.screenImage} />
                     </div>
                   </div>
                 </div>
