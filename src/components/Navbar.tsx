@@ -45,51 +45,58 @@ const Navbar = () => {
         isVisible ? "translate-y-0" : "-translate-y-full"
       )}
     >
-      <nav
-        className="w-full max-w-5xl mx-auto flex items-center justify-between transition-all duration-300 px-8 py-4 bg-white/60 backdrop-blur-2xl rounded-pill border border-white/40 shadow-lg"
-      >
-        {/* Logo */}
-        <Link to="/" className="hover:opacity-80 transition-opacity">
-          <img src={mycitiLogo} alt="My Citi Logo" className="h-16 w-auto" />
-        </Link>
+      <div className="w-full max-w-6xl mx-auto flex items-center justify-center gap-4">
+        {/* Navbar Pill */}
+        <nav
+          className="flex items-center justify-between transition-all duration-300 px-8 py-4 bg-white/60 backdrop-blur-2xl rounded-pill border border-white/40 shadow-lg flex-1 max-w-5xl"
+        >
+          {/* Logo */}
+          <Link to="/" className="hover:opacity-80 transition-opacity">
+            <img src={mycitiLogo} alt="My Citi Logo" className="h-16 w-auto" />
+          </Link>
 
-        {/* Navigation Links - Desktop (Centered) */}
-        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          {navLinks.map((link) => (
-            link.isRoute ? (
-              <Link
-                key={link.label}
-                to={link.href}
-                className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
-            ) : (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            )
-          ))}
-        </div>
+          {/* Navigation Links - Desktop (Centered) */}
+          <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+            {navLinks.map((link) => (
+              link.isRoute ? (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm text-foreground/80 hover:text-foreground transition-colors duration-200"
+                >
+                  {link.label}
+                </a>
+              )
+            ))}
+          </div>
 
-        {/* CTA Buttons */}
-        <div className="flex items-center gap-3">
+          {/* Contact us Button - Inside Pill */}
           <Link to="/contact">
-            <Button variant="hero" size={isScrolled ? "default" : "default"}>
+            <Button variant="hero" size="default">
               Contact us
             </Button>
           </Link>
-            <a href="/app/login">
-            <Button variant="heroOutline" size={isScrolled ? "default" : "default"}>
-              Login
-            </Button>
-            </a>
-        </div>
-      </nav>
+        </nav>
+
+        {/* Login Button - Outside Pill */}
+        <a href="/app/login" className="flex items-center">
+          <Button 
+            variant="outline" 
+            size="lg"
+            className="text-black text-lg font-medium border-gray-300 hover:bg-gray-100 rounded-full px-6"
+          >
+            Login
+          </Button>
+        </a>
+      </div>
     </header>
   );
 };
