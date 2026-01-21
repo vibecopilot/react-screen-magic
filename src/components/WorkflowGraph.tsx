@@ -514,6 +514,21 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     { Icon: TrendingUp, delay: 0.7, label: "Sales", moduleId: "sales" },
   ];
 
+  // Possession specific icons with labels and module IDs
+  const possessionLeftIcons = [
+    { Icon: Cog, delay: 0, label: "FM Modules", moduleId: "fm-modules" },
+    { Icon: ShieldCheck, delay: 0.15, label: "Safety", moduleId: "safety" },
+    { Icon: Lock, delay: 0.3, label: "Security", moduleId: "security" },
+    { Icon: CalendarCheck, delay: 0.45, label: "Booking Management", moduleId: "booking-management" },
+  ];
+
+  const possessionRightIcons = [
+    { Icon: Wallet, delay: 0.1, label: "Finance", moduleId: "finance" },
+    { Icon: HeartHandshake, delay: 0.25, label: "CRM", moduleId: "crm" },
+    { Icon: ArrowRightLeft, delay: 0.4, label: "Transitioning", moduleId: "transitioning" },
+    { Icon: UserCircle, delay: 0.55, label: "Employee Management", moduleId: "employee-management" },
+  ];
+
   // Default icons without labels
   const defaultLeftIcons = [
     { Icon: Users, delay: 0, label: undefined, moduleId: undefined },
@@ -531,6 +546,8 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
   const getIcons = () => {
     if (moduleType === 'post-sales') {
       return { leftIcons: postSalesLeftIcons, rightIcons: postSalesRightIcons };
+    } else if (moduleType === 'possession') {
+      return { leftIcons: possessionLeftIcons, rightIcons: possessionRightIcons };
     } else if (moduleType === 'pre-sales' || showLabels) {
       return { leftIcons: preSalesLeftIcons, rightIcons: preSalesRightIcons };
     }
@@ -548,7 +565,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const handleModuleClick = (moduleId: string | undefined) => {
-    if ((showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales') && moduleId) {
+    if ((showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession') && moduleId) {
       setSelectedModule(moduleId);
       // Smooth scroll to details section
       setTimeout(() => {
@@ -726,29 +743,24 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
       `}</style>
 
       {/* Workflow Diagram - Conditional layout */}
-      {(moduleType === 'post-sales' || moduleType === 'possession') ? (
-        /* Hexagonal Honeycomb Layout for Post-Sales and Possession */
-        <div className={`relative max-w-4xl mx-auto ${moduleType === 'possession' ? 'h-[450px] md:h-[500px]' : 'h-[600px] md:h-[650px]'}`}>
+      {moduleType === 'post-sales' ? (
+        /* Hexagonal Honeycomb Layout for Post-Sales */
+        <div className="relative max-w-4xl mx-auto h-[600px] md:h-[650px]">
           {/* SVG Connecting Lines */}
           <svg 
             className="absolute inset-0 w-full h-full pointer-events-none" 
-            viewBox={moduleType === 'possession' ? "0 0 800 500" : "0 0 800 650"}
+            viewBox="0 0 800 650"
             preserveAspectRatio="xMidYMid meet"
           >
             {hexData.map((_, idx) => {
               // Calculate hex positions (same logic as rendering)
               const centerX = 400;
-              const centerY = moduleType === 'possession' ? 250 : 325;
-              const radius = moduleType === 'possession' ? 28 * 4 : 32 * 4; // Scale for viewBox
+              const centerY = 325;
+              const radius = 32 * 4; // Scale for viewBox
               const totalItems = hexData.length;
               
               let x, y;
-              if (moduleType === 'possession') {
-                // 8 modules in a circle around center for possession
-                const angle = (idx * (360 / totalItems) - 90) * (Math.PI / 180);
-                x = centerX + radius * Math.cos(angle);
-                y = centerY + radius * Math.sin(angle) * 0.85;
-              } else if (idx < 6) {
+              if (idx < 6) {
                 const angle = (idx * 60 - 90) * (Math.PI / 180);
                 x = centerX + radius * Math.cos(angle);
                 y = centerY + radius * Math.sin(angle) * 0.9;
@@ -816,17 +828,12 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
             // Calculate positions in a honeycomb pattern
             const centerX = 50;
             const centerY = 50;
-            const radius = moduleType === 'possession' ? 28 : 32; // Distance from center
+            const radius = 32; // Distance from center
             const totalItems = hexData.length;
             
             // Position calculations for honeycomb
             let x, y;
-            if (moduleType === 'possession') {
-              // 8 modules in a circle around center
-              const angle = (idx * (360 / totalItems) - 90) * (Math.PI / 180);
-              x = centerX + radius * Math.cos(angle);
-              y = centerY + radius * Math.sin(angle) * 0.85;
-            } else if (idx < 6) {
+            if (idx < 6) {
               // Inner ring - 6 hexagons around center
               const angle = (idx * 60 - 90) * (Math.PI / 180);
               x = centerX + radius * Math.cos(angle);
