@@ -48,14 +48,14 @@ const cards = [
 ];
 
 const LaptopFrame = ({ icon, screenImage }: { icon: string; screenImage?: string | null }) => (
-  <div className="relative w-[340px] md:w-[480px]">
+  <div className="relative w-[280px] sm:w-[340px] md:w-[420px] lg:w-[480px]">
     
     {/* Laptop Screen */}
     <div className="relative">
       {/* Screen bezel */}
-      <div className="bg-[#1f1f1f] rounded-t-xl p-[6px] md:p-[8px] border-t border-l border-r border-[#3a3a3a]">
+      <div className="bg-[#1f1f1f] rounded-t-xl p-[5px] sm:p-[6px] md:p-[8px] border-t border-l border-r border-[#3a3a3a]">
         {/* Camera */}
-        <div className="absolute top-[3px] md:top-[4px] left-1/2 -translate-x-1/2 w-[6px] h-[6px] md:w-[8px] md:h-[8px] rounded-full bg-[#2a2a2a] border border-[#444]">
+        <div className="absolute top-[2px] sm:top-[3px] md:top-[4px] left-1/2 -translate-x-1/2 w-[5px] h-[5px] sm:w-[6px] sm:h-[6px] md:w-[8px] md:h-[8px] rounded-full bg-[#2a2a2a] border border-[#444]">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[2px] h-[2px] md:w-[3px] md:h-[3px] rounded-full bg-[#1a3a5c]" />
         </div>
         {/* Screen content */}
@@ -69,15 +69,15 @@ const LaptopFrame = ({ icon, screenImage }: { icon: string; screenImage?: string
           />
           ) : (
             <div className="flex flex-col items-center justify-center h-full gap-2 p-3 bg-gradient-to-b from-slate-50 to-white">
-              <span className="text-4xl md:text-5xl">{icon}</span>
+              <span className="text-3xl sm:text-4xl md:text-5xl">{icon}</span>
               <div className="flex gap-1">
-                <div className="w-12 h-2 bg-slate-200 rounded" />
-                <div className="w-8 h-2 bg-slate-200 rounded" />
+                <div className="w-10 sm:w-12 h-2 bg-slate-200 rounded" />
+                <div className="w-6 sm:w-8 h-2 bg-slate-200 rounded" />
               </div>
               <div className="flex gap-1">
-                <div className="w-8 h-8 bg-blue-100 rounded" />
-                <div className="w-8 h-8 bg-green-100 rounded" />
-                <div className="w-8 h-8 bg-purple-100 rounded" />
+                <div className="w-6 sm:w-8 h-6 sm:h-8 bg-blue-100 rounded" />
+                <div className="w-6 sm:w-8 h-6 sm:h-8 bg-green-100 rounded" />
+                <div className="w-6 sm:w-8 h-6 sm:h-8 bg-purple-100 rounded" />
               </div>
             </div>
           )}
@@ -85,13 +85,13 @@ const LaptopFrame = ({ icon, screenImage }: { icon: string; screenImage?: string
       </div>
       
       {/* Laptop bottom hinge */}
-      <div className="relative h-[8px] md:h-[10px] bg-gradient-to-b from-[#2a2a2a] to-[#1f1f1f] rounded-b-sm">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[50px] md:w-[70px] h-[3px] md:h-[4px] bg-[#444] rounded-t-sm" />
+      <div className="relative h-[6px] sm:h-[8px] md:h-[10px] bg-gradient-to-b from-[#2a2a2a] to-[#1f1f1f] rounded-b-sm">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40px] sm:w-[50px] md:w-[70px] h-[2px] sm:h-[3px] md:h-[4px] bg-[#444] rounded-t-sm" />
       </div>
       
       {/* Laptop base/keyboard */}
-      <div className="relative mx-[-8px] md:mx-[-12px]">
-        <div className="h-[6px] md:h-[8px] bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] rounded-b-xl border-b border-l border-r border-[#444]" />
+      <div className="relative mx-[-6px] sm:mx-[-8px] md:mx-[-12px]">
+        <div className="h-[5px] sm:h-[6px] md:h-[8px] bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] rounded-b-xl border-b border-l border-r border-[#444]" />
       </div>
     </div>
   </div>
@@ -132,22 +132,22 @@ const StackedCards = () => {
       ref={containerRef}
       className="relative min-h-[600vh] pt-8 pb-20"
     >
-      <div className="sticky top-16 flex flex-col items-center px-4 md:px-6 overflow-hidden">
+      <div className="sticky top-16 flex flex-col items-center px-3 sm:px-4 md:px-6 overflow-hidden">
         {/* Section Header */}
-        <div className="text-center mb-12 animate-fade-in">
+        <div className="text-center mb-8 md:mb-12 animate-fade-in">
           <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
             PRODUCT & FEATURES
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-4 mt-2">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-3 md:mb-4 mt-2">
             Our Powerful Modules
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto px-4">
             Everything you need to manage your operations, all in one place
           </p>
         </div>
 
         {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-5xl h-[420px] overflow-hidden">
+        <div className="relative w-full max-w-5xl h-[320px] sm:h-[360px] md:h-[420px] overflow-hidden">
           {cards.map((card, index) => {
             // Calculate individual card progress
             const cardProgress = scrollProgress - index;
@@ -202,25 +202,25 @@ const StackedCards = () => {
                 }}
               >
                 {/* Main Card - Glassmorphism with opaque background */}
-                <div className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white h-full">
+                <div className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-xl sm:rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white h-full">
                   {/* Card Content */}
-                  <div className="relative h-[420px] flex flex-col md:flex-row items-center justify-between p-6 md:p-10 overflow-hidden">
+                  <div className="relative h-[320px] sm:h-[360px] md:h-[420px] flex flex-col md:flex-row items-center justify-between p-4 sm:p-6 md:p-10 overflow-hidden">
                     {/* Decorative gradient circles */}
-                    <div className={cn("absolute -top-20 -right-20 w-72 h-72 rounded-full opacity-30 blur-3xl", card.barColor)} />
-                    <div className={cn("absolute -bottom-20 -left-20 w-56 h-56 rounded-full opacity-20 blur-2xl", card.barColor)} />
+                    <div className={cn("absolute -top-20 -right-20 w-48 sm:w-72 h-48 sm:h-72 rounded-full opacity-30 blur-3xl", card.barColor)} />
+                    <div className={cn("absolute -bottom-20 -left-20 w-40 sm:w-56 h-40 sm:h-56 rounded-full opacity-20 blur-2xl", card.barColor)} />
 
                     {/* Left Side - Text */}
                     <div className="flex-1 text-center md:text-left mb-4 md:mb-0 max-w-md relative z-10">
-                      <h3 className="text-3xl md:text-4xl font-semibold mb-3 text-gray-800">
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2 sm:mb-3 text-gray-800">
                         {card.name}
                       </h3>
-                      <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                      <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-none">
                         {card.description}
                       </p>
-                      <div className="flex mt-6 justify-center md:justify-start">
+                      <div className="flex mt-4 sm:mt-6 justify-center md:justify-start">
                         <Link 
                           to={`/module/${card.slug}`}
-                          className="px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-white text-base bg-[#3B82F6] hover:bg-[#2563EB] hover:scale-105 hover:shadow-lg shadow-md inline-block"
+                          className="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full font-medium transition-all duration-300 text-white text-sm sm:text-base bg-[#3B82F6] hover:bg-[#2563EB] hover:scale-105 hover:shadow-lg shadow-md inline-block"
                         >
                           View Details
                         </Link>
@@ -228,7 +228,7 @@ const StackedCards = () => {
                     </div>
 
                     {/* Right Side - Laptop Frame */}
-                    <div className="flex-shrink-0 hidden md:block relative z-10">
+                    <div className="flex-shrink-0 hidden sm:block relative z-10">
                       <LaptopFrame icon={card.icon} screenImage={card.screenImage} />
                     </div>
                   </div>

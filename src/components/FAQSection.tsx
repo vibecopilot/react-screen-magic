@@ -69,17 +69,17 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="faq" className="py-20 px-4 scroll-mt-24" ref={sectionRef}>
+    <section id="faq" className="py-12 md:py-20 px-3 sm:px-4 scroll-mt-24" ref={sectionRef}>
       <div className="max-w-3xl mx-auto">
         <p 
-          className={`text-gray-500 text-sm uppercase tracking-widest text-center mb-3 transition-all duration-700 ${
+          className={`text-gray-500 text-xs sm:text-sm uppercase tracking-widest text-center mb-2 sm:mb-3 transition-all duration-700 ${
             headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
           FAQ
         </p>
         <h2 
-          className={`text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12 transition-all duration-700 delay-100 ${
+          className={`text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8 md:mb-12 transition-all duration-700 delay-100 ${
             headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
@@ -95,9 +95,9 @@ const FAQSection = () => {
           >
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full py-6 px-4 flex items-start justify-between text-left group"
+              className="w-full py-4 sm:py-6 px-3 sm:px-4 flex items-start justify-between text-left group"
             >
-              <span className="text-gray-900 font-medium text-base md:text-lg tracking-wide pr-4 group-hover:text-primary transition-colors duration-200">
+              <span className="text-gray-900 font-medium text-sm sm:text-base md:text-lg tracking-wide pr-3 sm:pr-4 group-hover:text-primary transition-colors duration-200">
                 {index + 1}. {faq.question}
               </span>
               <ChevronUp 
@@ -108,10 +108,10 @@ const FAQSection = () => {
             </button>
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                openIndex === index ? 'max-h-96 pb-6' : 'max-h-0'
+                openIndex === index ? 'max-h-96 pb-4 sm:pb-6' : 'max-h-0'
               }`}
             >
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed pr-10 px-4">
+              <p className="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed pr-8 sm:pr-10 px-3 sm:px-4">
                 {faq.answer}
               </p>
             </div>
