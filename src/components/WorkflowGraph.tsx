@@ -600,6 +600,62 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
       {moduleType === 'post-sales' ? (
         /* Hexagonal Honeycomb Layout for Post-Sales */
         <div className="relative max-w-4xl mx-auto h-[600px] md:h-[650px]">
+          {/* SVG Connecting Lines */}
+          <svg 
+            className="absolute inset-0 w-full h-full pointer-events-none" 
+            viewBox="0 0 800 650"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {postSalesHexData.map((_, idx) => {
+              // Calculate hex positions (same logic as rendering)
+              const centerX = 400;
+              const centerY = 325;
+              const radius = 32 * 4; // Scale for viewBox
+              
+              let x, y;
+              if (idx < 6) {
+                const angle = (idx * 60 - 90) * (Math.PI / 180);
+                x = centerX + radius * Math.cos(angle);
+                y = centerY + radius * Math.sin(angle) * 0.9;
+              } else {
+                const outerIdx = idx - 6;
+                const positions = [
+                  { x: 12, y: 25 },
+                  { x: 88, y: 25 },
+                  { x: 5, y: 50 },
+                  { x: 95, y: 50 },
+                  { x: 12, y: 75 },
+                  { x: 88, y: 75 },
+                  { x: 30, y: 90 },
+                  { x: 70, y: 90 },
+                ];
+                x = (positions[outerIdx]?.x ?? 50) * 8;
+                y = (positions[outerIdx]?.y ?? 50) * 6.5;
+              }
+
+              // Create curved path from hex to center
+              const midX = (x + centerX) / 2;
+              const midY = (y + centerY) / 2;
+              const controlOffset = 30;
+              
+              return (
+                <path
+                  key={`line-${idx}`}
+                  d={`M ${x} ${y} Q ${midX + (idx % 2 === 0 ? controlOffset : -controlOffset)} ${midY} ${centerX} ${centerY}`}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="2"
+                  strokeDasharray="8 4"
+                  className={`flow-line-right ${isVisible ? 'opacity-50' : 'opacity-0'}`}
+                  style={{ 
+                    transition: 'opacity 0.5s ease-out', 
+                    transitionDelay: `${idx * 0.08}s` 
+                  }}
+                />
+              );
+            })}
+          </svg>
+
           {/* Center Hexagon */}
           <div 
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
@@ -626,7 +682,6 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
             const centerX = 50;
             const centerY = 50;
             const radius = 32; // Distance from center
-            const smallRadius = 42; // Outer ring distance
             
             // Position calculations for honeycomb
             let x, y;
