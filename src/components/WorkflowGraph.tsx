@@ -459,12 +459,12 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
             {/* Features List */}
             <div>
               <h3 
-                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 underline decoration-2 underline-offset-8"
+                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 underline decoration-2 underline-offset-8 text-center"
                 style={{ color }}
               >
                 {currentModule.title}
               </h3>
-              <p className="text-gray-600 mb-8 text-base md:text-lg">{currentModule.description}</p>
+              <p className="text-gray-600 mb-8 text-base md:text-lg text-center">{currentModule.description}</p>
               
               <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6 text-center">Key Features</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
