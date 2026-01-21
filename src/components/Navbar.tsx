@@ -82,7 +82,7 @@ const Navbar = () => {
           <Button 
             variant="outline" 
             size="default"
-            className="text-black text-lg font-medium border-gray-300 hover:bg-gray-100 rounded-full px-6"
+            className="text-black text-lg font-medium border-black hover:bg-gray-100 rounded-full px-6"
           >
             Login
           </Button>
