@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Product & Features", href: "/#features", isRoute: false },
   { label: "Blogs", href: "/#blog", isRoute: false },
   { label: "FAQ", href: "/#faq", isRoute: false },
+  { label: "Contact Us", href: "/contact", isRoute: true },
 ];
 
 const Navbar = () => {
@@ -76,23 +77,16 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* CTA Buttons - Inside Pill */}
-        <div className="flex items-center gap-3">
-          <Link to="/contact">
-            <Button variant="hero" size="default">
-              Contact us
-            </Button>
-          </Link>
-          <a href="/app/login">
-            <Button 
-              variant="outline" 
-              size="default"
-              className="text-black text-lg font-medium border-gray-300 hover:bg-gray-100 rounded-full px-6"
-            >
-              Login
-            </Button>
-          </a>
-        </div>
+        {/* Login Button - Inside Pill */}
+        <a href="/app/login">
+          <Button 
+            variant="outline" 
+            size="default"
+            className="text-black text-lg font-medium border-gray-300 hover:bg-gray-100 rounded-full px-6"
+          >
+            Login
+          </Button>
+        </a>
       </nav>
     </header>
   );
