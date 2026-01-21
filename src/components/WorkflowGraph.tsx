@@ -14,7 +14,9 @@ import {
   ClipboardCheck,
   UserCog,
   Check,
-  X
+  X,
+  Package,
+  Target
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenLeadManagement from "@/assets/screen-lead-management.png";
@@ -111,6 +113,38 @@ const moduleData: Record<string, ModuleInfo> = {
       "Attendance and location tracking"
     ],
     screenImage: screenSalesExecutive
+  },
+  "opportunities": {
+    id: "opportunities",
+    title: "Opportunities",
+    description: "Manage and convert potential deals efficiently with structured opportunity tracking and insights.",
+    features: [
+      "Track sales opportunities across different pipeline stages",
+      "Assign opportunities to sales representatives",
+      "Estimated deal value and expected closure tracking",
+      "Activity tracking for calls, meetings, and follow-ups",
+      "Opportunity performance analytics and forecasting",
+      "Automated reminders for next actions",
+      "Integration with leads and customer records",
+      "Improved win-rate with data-driven insights"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "inventory-tracking": {
+    id: "inventory-tracking",
+    title: "Inventory Tracking",
+    description: "Streamline your inventory monitoring and control with real-time tracking and intelligent stock management.",
+    features: [
+      "Track inventory levels in real time across multiple locations",
+      "Automatic stock updates for purchases, sales, and returns",
+      "Low-stock alerts and reorder notifications",
+      "Categorization and tagging of products for easy management",
+      "Inventory usage analytics and reporting",
+      "Integration with sales and procurement systems",
+      "Barcode / SKU-based inventory tracking",
+      "Reduce stock wastage with expiry and movement tracking"
+    ],
+    screenImage: screenSalesExecutive
   }
 };
 
@@ -132,13 +166,15 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
   // Pre-sales specific icons with labels and module IDs
   const preSalesLeftIcons = [
     { Icon: UserCheck, delay: 0, label: "Lead Management", moduleId: "lead-management" },
-    { Icon: Handshake, delay: 0.2, label: "CP Management", moduleId: "cp-management" },
-    { Icon: Calculator, delay: 0.4, label: "Cost Sheet Management", moduleId: "cost-sheet-management" },
+    { Icon: Handshake, delay: 0.15, label: "CP Management", moduleId: "cp-management" },
+    { Icon: Calculator, delay: 0.3, label: "Cost Sheet Management", moduleId: "cost-sheet-management" },
+    { Icon: Target, delay: 0.45, label: "Opportunities", moduleId: "opportunities" },
   ];
 
   const preSalesRightIcons = [
     { Icon: ClipboardCheck, delay: 0.1, label: "Booking Approval", moduleId: "booking-approval" },
-    { Icon: UserCog, delay: 0.3, label: "Sales Executive Management", moduleId: "sales-executive-management" },
+    { Icon: UserCog, delay: 0.25, label: "Sales Executive Management", moduleId: "sales-executive-management" },
+    { Icon: Package, delay: 0.4, label: "Inventory Tracking", moduleId: "inventory-tracking" },
   ];
 
   // Default icons without labels
@@ -250,16 +286,16 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
       `}</style>
 
       {/* Workflow Diagram */}
-      <div className="relative h-[400px] max-w-4xl mx-auto">
+      <div className="relative h-[450px] max-w-4xl mx-auto">
         {/* SVG Lines */}
         <svg 
           className="absolute inset-0 w-full h-full" 
-          viewBox="0 0 800 400"
+          viewBox="0 0 800 450"
           preserveAspectRatio="xMidYMid meet"
         >
-          {/* Left side lines - flowing towards center */}
+          {/* Left side lines - flowing towards center (4 lines) */}
           <path
-            d="M 120 80 Q 250 80 350 200"
+            d="M 120 60 Q 250 60 350 225"
             fill="none"
             stroke={color}
             strokeWidth="2"
@@ -268,36 +304,16 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
             style={{ transition: 'opacity 0.5s ease-out' }}
           />
           <path
-            d="M 120 200 Q 250 200 350 200"
+            d="M 120 160 Q 250 160 350 225"
             fill="none"
             stroke={color}
             strokeWidth="2"
             strokeDasharray="8 4"
             className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.2s' }}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.15s' }}
           />
           <path
-            d="M 120 320 Q 250 320 350 200"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.4s' }}
-          />
-          
-          {/* Right side lines - flowing away from center */}
-          <path
-            d="M 450 200 Q 550 80 680 80"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.1s' }}
-          />
-          <path
-            d="M 450 200 Q 550 200 680 200"
+            d="M 120 290 Q 250 290 350 225"
             fill="none"
             stroke={color}
             strokeWidth="2"
@@ -306,13 +322,42 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
             style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.3s' }}
           />
           <path
-            d="M 450 200 Q 550 320 680 320"
+            d="M 120 390 Q 250 390 350 225"
             fill="none"
             stroke={color}
             strokeWidth="2"
             strokeDasharray="8 4"
             className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.5s' }}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.45s' }}
+          />
+          
+          {/* Right side lines - flowing away from center (3 lines) */}
+          <path
+            d="M 450 225 Q 550 100 680 100"
+            fill="none"
+            stroke={color}
+            strokeWidth="2"
+            strokeDasharray="8 4"
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.1s' }}
+          />
+          <path
+            d="M 450 225 Q 550 225 680 225"
+            fill="none"
+            stroke={color}
+            strokeWidth="2"
+            strokeDasharray="8 4"
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.25s' }}
+          />
+          <path
+            d="M 450 225 Q 550 350 680 350"
+            fill="none"
+            stroke={color}
+            strokeWidth="2"
+            strokeDasharray="8 4"
+            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.4s' }}
           />
         </svg>
 
