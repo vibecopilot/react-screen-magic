@@ -80,9 +80,8 @@ const Navbar = () => {
         {/* Login Button - Inside Pill */}
         <a href="/app/login">
           <Button 
-            variant="outline" 
             size="default"
-            className="text-black text-lg font-medium border-black hover:bg-gray-100 rounded-full px-6"
+            className="bg-black text-white text-lg font-medium hover:bg-black/90 rounded-full px-6"
           >
             Login
           </Button>
