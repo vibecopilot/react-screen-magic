@@ -466,7 +466,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               </h3>
               <p className="text-gray-600 mb-8 text-base md:text-lg">{currentModule.description}</p>
               
-              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">Key Features</h4>
+              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6 text-center">Key Features</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                 {/* Left column - first 4 features */}
                 <ul className="space-y-4">
