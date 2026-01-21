@@ -30,7 +30,15 @@ import {
   Search,
   Construction,
   UserCog2,
-  TrendingUp
+  TrendingUp,
+  Cog,
+  ShieldCheck,
+  Lock,
+  CalendarCheck,
+  Wallet,
+  HeartHandshake,
+  ArrowRightLeft,
+  UserCircle
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenLeadManagement from "@/assets/screen-lead-management.png";
@@ -335,10 +343,110 @@ const postSalesModuleData: Record<string, ModuleInfo> = {
   }
 };
 
+// Possession module data
+const possessionModuleData: Record<string, ModuleInfo> = {
+  "fm-modules": {
+    id: "fm-modules",
+    title: "FM Modules",
+    description: "Comprehensive facility management modules for seamless property operations and maintenance.",
+    features: [
+      "Integrated facility management dashboard",
+      "Asset lifecycle management",
+      "Service request automation",
+      "Vendor coordination and tracking"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "safety": {
+    id: "safety",
+    title: "Safety",
+    description: "Ensure safety compliance and incident management across all properties.",
+    features: [
+      "Safety audit scheduling and tracking",
+      "Incident reporting and investigation",
+      "Safety compliance monitoring",
+      "Emergency response protocols"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "security": {
+    id: "security",
+    title: "Security",
+    description: "Manage security operations, access control, and surveillance across properties.",
+    features: [
+      "Access control management",
+      "Visitor management system",
+      "Security personnel scheduling",
+      "Surveillance and monitoring"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "booking-management": {
+    id: "booking-management",
+    title: "Booking Management",
+    description: "Streamline amenity bookings, common area reservations, and facility scheduling.",
+    features: [
+      "Amenity and facility booking",
+      "Calendar-based slot management",
+      "Automated booking confirmations",
+      "Conflict resolution and waitlists"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "finance": {
+    id: "finance",
+    title: "Finance",
+    description: "Manage financial operations including maintenance charges, billing, and collections.",
+    features: [
+      "Maintenance charge management",
+      "Invoice generation and tracking",
+      "Payment collection and receipts",
+      "Financial reporting and analytics"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "crm": {
+    id: "crm",
+    title: "CRM",
+    description: "Customer relationship management for resident communication and service requests.",
+    features: [
+      "Resident profile management",
+      "Communication history tracking",
+      "Service request handling",
+      "Feedback and satisfaction surveys"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "transitioning": {
+    id: "transitioning",
+    title: "Transitioning",
+    description: "Seamless property handover and transition management for new residents.",
+    features: [
+      "Move-in and move-out workflows",
+      "Property inspection checklists",
+      "Documentation and handover tracking",
+      "Transition status monitoring"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "employee-management": {
+    id: "employee-management",
+    title: "Employee Management",
+    description: "Manage facility staff, contractors, and their assignments across properties.",
+    features: [
+      "Staff roster and scheduling",
+      "Attendance and leave management",
+      "Task assignment and tracking",
+      "Performance monitoring"
+    ],
+    screenImage: screenSalesExecutive
+  }
+};
+
 interface WorkflowGraphProps {
   color: string;
   showLabels?: boolean;
-  moduleType?: 'pre-sales' | 'post-sales' | 'default';
+  moduleType?: 'pre-sales' | 'post-sales' | 'possession' | 'default';
 }
 
 const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: WorkflowGraphProps) => {
@@ -347,7 +455,11 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   // Get the appropriate module data based on type
-  const moduleData = moduleType === 'post-sales' ? postSalesModuleData : preSalesModuleData;
+  const moduleData = moduleType === 'post-sales' 
+    ? postSalesModuleData 
+    : moduleType === 'possession' 
+      ? possessionModuleData 
+      : preSalesModuleData;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -356,11 +468,13 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
 
   // Set default selected module based on type
   useEffect(() => {
-    if (showLabels) {
+    if (showLabels || moduleType === 'post-sales' || moduleType === 'possession') {
       if (moduleType === 'post-sales') {
         setSelectedModule("engineering");
       } else if (moduleType === 'pre-sales') {
         setSelectedModule("lead-management");
+      } else if (moduleType === 'possession') {
+        setSelectedModule("fm-modules");
       }
     }
   }, [showLabels, moduleType]);
@@ -504,6 +618,21 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     { Icon: TrendingUp, label: "Sales", moduleId: "sales" },
   ];
 
+  // Possession modules for hexagon layout (8 modules)
+  const possessionHexData = [
+    { Icon: Cog, label: "FM Modules", moduleId: "fm-modules" },
+    { Icon: ShieldCheck, label: "Safety", moduleId: "safety" },
+    { Icon: Lock, label: "Security", moduleId: "security" },
+    { Icon: CalendarCheck, label: "Booking\nManagement", moduleId: "booking-management" },
+    { Icon: Wallet, label: "Finance", moduleId: "finance" },
+    { Icon: HeartHandshake, label: "CRM", moduleId: "crm" },
+    { Icon: ArrowRightLeft, label: "Transitioning", moduleId: "transitioning" },
+    { Icon: UserCircle, label: "Employee\nManagement", moduleId: "employee-management" },
+  ];
+
+  // Get hex data based on module type
+  const hexData = moduleType === 'possession' ? possessionHexData : postSalesHexData;
+
   // Hexagon SVG path
   const hexPath = "M50 0L93.3 25V75L50 100L6.7 75V25Z";
 
@@ -597,23 +726,29 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
       `}</style>
 
       {/* Workflow Diagram - Conditional layout */}
-      {moduleType === 'post-sales' ? (
-        /* Hexagonal Honeycomb Layout for Post-Sales */
-        <div className="relative max-w-4xl mx-auto h-[600px] md:h-[650px]">
+      {(moduleType === 'post-sales' || moduleType === 'possession') ? (
+        /* Hexagonal Honeycomb Layout for Post-Sales and Possession */
+        <div className={`relative max-w-4xl mx-auto ${moduleType === 'possession' ? 'h-[450px] md:h-[500px]' : 'h-[600px] md:h-[650px]'}`}>
           {/* SVG Connecting Lines */}
           <svg 
             className="absolute inset-0 w-full h-full pointer-events-none" 
-            viewBox="0 0 800 650"
+            viewBox={moduleType === 'possession' ? "0 0 800 500" : "0 0 800 650"}
             preserveAspectRatio="xMidYMid meet"
           >
-            {postSalesHexData.map((_, idx) => {
+            {hexData.map((_, idx) => {
               // Calculate hex positions (same logic as rendering)
               const centerX = 400;
-              const centerY = 325;
-              const radius = 32 * 4; // Scale for viewBox
+              const centerY = moduleType === 'possession' ? 250 : 325;
+              const radius = moduleType === 'possession' ? 28 * 4 : 32 * 4; // Scale for viewBox
+              const totalItems = hexData.length;
               
               let x, y;
-              if (idx < 6) {
+              if (moduleType === 'possession') {
+                // 8 modules in a circle around center for possession
+                const angle = (idx * (360 / totalItems) - 90) * (Math.PI / 180);
+                x = centerX + radius * Math.cos(angle);
+                y = centerY + radius * Math.sin(angle) * 0.85;
+              } else if (idx < 6) {
                 const angle = (idx * 60 - 90) * (Math.PI / 180);
                 x = centerX + radius * Math.cos(angle);
                 y = centerY + radius * Math.sin(angle) * 0.9;
@@ -677,15 +812,21 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
           </div>
 
           {/* Surrounding Hexagons in honeycomb pattern */}
-          {postSalesHexData.map(({ Icon, label, moduleId }, idx) => {
+          {hexData.map(({ Icon, label, moduleId }, idx) => {
             // Calculate positions in a honeycomb pattern
             const centerX = 50;
             const centerY = 50;
-            const radius = 32; // Distance from center
+            const radius = moduleType === 'possession' ? 28 : 32; // Distance from center
+            const totalItems = hexData.length;
             
             // Position calculations for honeycomb
             let x, y;
-            if (idx < 6) {
+            if (moduleType === 'possession') {
+              // 8 modules in a circle around center
+              const angle = (idx * (360 / totalItems) - 90) * (Math.PI / 180);
+              x = centerX + radius * Math.cos(angle);
+              y = centerY + radius * Math.sin(angle) * 0.85;
+            } else if (idx < 6) {
               // Inner ring - 6 hexagons around center
               const angle = (idx * 60 - 90) * (Math.PI / 180);
               x = centerX + radius * Math.cos(angle);
@@ -945,7 +1086,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
       </div>
 
       {/* Inline Module Details Section */}
-      {(showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales') && currentModule && (
+      {(showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession') && currentModule && (
         <div 
           ref={detailsRef}
           key={currentModule.id}
