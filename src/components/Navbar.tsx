@@ -46,12 +46,7 @@ const Navbar = () => {
       )}
     >
       <nav
-        className={cn(
-          "w-full flex items-center justify-between transition-all duration-300 px-8 py-4",
-          isScrolled
-            ? "max-w-5xl mx-auto bg-white/50 backdrop-blur-2xl rounded-pill border border-white/40 shadow-lg"
-            : "max-w-7xl mx-auto bg-transparent"
-        )}
+        className="w-full max-w-5xl mx-auto flex items-center justify-between transition-all duration-300 px-8 py-4 bg-white/60 backdrop-blur-2xl rounded-pill border border-white/40 shadow-lg"
       >
         {/* Logo */}
         <Link to="/" className="hover:opacity-80 transition-opacity">
