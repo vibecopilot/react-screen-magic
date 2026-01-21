@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WorkflowGraph from "@/components/WorkflowGraph";
-import KeyFeatures from "@/components/KeyFeatures";
+
 import heroBg from "@/assets/hero-clouds-bg.jpg";
 
 
@@ -165,13 +165,6 @@ const ModuleDetail = () => {
             <WorkflowGraph color={module.color} showLabels={slug === "pre-sales"} />
           </div>
         </div>
-
-        {/* Key Features Section */}
-        <KeyFeatures 
-          title={module.featureTitle}
-          subtitle={module.featureSubtitle}
-          features={module.features}
-        />
       </main>
 
       <Footer />
