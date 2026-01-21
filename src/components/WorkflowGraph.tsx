@@ -38,7 +38,15 @@ import {
   Wallet,
   HeartHandshake,
   ArrowRightLeft,
-  UserCircle
+  UserCircle,
+  CreditCard,
+  Receipt,
+  FileCheck,
+  Ticket,
+  Phone,
+  LayoutDashboard,
+  ClipboardList,
+  Megaphone
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenLeadManagement from "@/assets/screen-lead-management.png";
@@ -443,10 +451,110 @@ const possessionModuleData: Record<string, ModuleInfo> = {
   }
 };
 
+// Customer Portal module data
+const customerPortalModuleData: Record<string, ModuleInfo> = {
+  "my-dashboard": {
+    id: "my-dashboard",
+    title: "My Dashboard",
+    description: "Personalized dashboard for customers to view their property details, payments, and updates at a glance.",
+    features: [
+      "Property overview and status",
+      "Payment summary and dues",
+      "Recent activity and notifications",
+      "Quick access to key features"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "payment-history": {
+    id: "payment-history",
+    title: "Payment History",
+    description: "Complete payment records with transaction history, receipts, and payment schedules.",
+    features: [
+      "Transaction history and records",
+      "Download receipts and invoices",
+      "Payment schedule tracking",
+      "Outstanding dues summary"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "document-access": {
+    id: "document-access",
+    title: "Document Access",
+    description: "Access and download all property-related documents including agreements, approvals, and certificates.",
+    features: [
+      "Agreement and contract access",
+      "Approval letters and NOCs",
+      "Property registration documents",
+      "Tax and compliance certificates"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "service-requests": {
+    id: "service-requests",
+    title: "Service Requests",
+    description: "Raise and track service requests for maintenance, repairs, and other property-related issues.",
+    features: [
+      "Submit new service requests",
+      "Track request status",
+      "Priority and escalation management",
+      "Service history and feedback"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "construction-updates": {
+    id: "construction-updates",
+    title: "Construction Updates",
+    description: "Stay updated with real-time construction progress, milestones, and project timeline.",
+    features: [
+      "Real-time progress tracking",
+      "Milestone completion updates",
+      "Photo and video galleries",
+      "Expected completion timelines"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "contact-support": {
+    id: "contact-support",
+    title: "Contact Support",
+    description: "Connect with customer support through multiple channels for queries and assistance.",
+    features: [
+      "Live chat support",
+      "Email and ticket support",
+      "Phone support scheduling",
+      "FAQ and knowledge base"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "referral-program": {
+    id: "referral-program",
+    title: "Referral Program",
+    description: "Refer friends and family to earn rewards and track your referral status and earnings.",
+    features: [
+      "Generate referral links",
+      "Track referral status",
+      "View earned rewards",
+      "Referral leaderboard"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "announcements": {
+    id: "announcements",
+    title: "Announcements",
+    description: "Stay informed with important announcements, updates, and news about your property and community.",
+    features: [
+      "Project announcements",
+      "Community updates",
+      "Event notifications",
+      "Important notices"
+    ],
+    screenImage: screenSalesExecutive
+  }
+};
+
 interface WorkflowGraphProps {
   color: string;
   showLabels?: boolean;
-  moduleType?: 'pre-sales' | 'post-sales' | 'possession' | 'default';
+  moduleType?: 'pre-sales' | 'post-sales' | 'possession' | 'customer-portal' | 'default';
 }
 
 const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: WorkflowGraphProps) => {
@@ -459,7 +567,9 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     ? postSalesModuleData 
     : moduleType === 'possession' 
       ? possessionModuleData 
-      : preSalesModuleData;
+      : moduleType === 'customer-portal'
+        ? customerPortalModuleData
+        : preSalesModuleData;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -468,13 +578,15 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
 
   // Set default selected module based on type
   useEffect(() => {
-    if (showLabels || moduleType === 'post-sales' || moduleType === 'possession') {
+    if (showLabels || moduleType === 'post-sales' || moduleType === 'possession' || moduleType === 'customer-portal') {
       if (moduleType === 'post-sales') {
         setSelectedModule("engineering");
       } else if (moduleType === 'pre-sales') {
         setSelectedModule("lead-management");
       } else if (moduleType === 'possession') {
         setSelectedModule("fm-modules");
+      } else if (moduleType === 'customer-portal') {
+        setSelectedModule("my-dashboard");
       }
     }
   }, [showLabels, moduleType]);
@@ -529,6 +641,21 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     { Icon: UserCircle, delay: 0.55, label: "Employee Management", moduleId: "employee-management" },
   ];
 
+  // Customer Portal specific icons with labels and module IDs
+  const customerPortalLeftIcons = [
+    { Icon: LayoutDashboard, delay: 0, label: "My Dashboard", moduleId: "my-dashboard" },
+    { Icon: CreditCard, delay: 0.15, label: "Payment History", moduleId: "payment-history" },
+    { Icon: FileCheck, delay: 0.3, label: "Document Access", moduleId: "document-access" },
+    { Icon: Ticket, delay: 0.45, label: "Service Requests", moduleId: "service-requests" },
+  ];
+
+  const customerPortalRightIcons = [
+    { Icon: Construction, delay: 0.1, label: "Construction Updates", moduleId: "construction-updates" },
+    { Icon: Phone, delay: 0.25, label: "Contact Support", moduleId: "contact-support" },
+    { Icon: Users, delay: 0.4, label: "Referral Program", moduleId: "referral-program" },
+    { Icon: Megaphone, delay: 0.55, label: "Announcements", moduleId: "announcements" },
+  ];
+
   // Default icons without labels
   const defaultLeftIcons = [
     { Icon: Users, delay: 0, label: undefined, moduleId: undefined },
@@ -548,6 +675,8 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
       return { leftIcons: postSalesLeftIcons, rightIcons: postSalesRightIcons };
     } else if (moduleType === 'possession') {
       return { leftIcons: possessionLeftIcons, rightIcons: possessionRightIcons };
+    } else if (moduleType === 'customer-portal') {
+      return { leftIcons: customerPortalLeftIcons, rightIcons: customerPortalRightIcons };
     } else if (moduleType === 'pre-sales' || showLabels) {
       return { leftIcons: preSalesLeftIcons, rightIcons: preSalesRightIcons };
     }
@@ -565,7 +694,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const handleModuleClick = (moduleId: string | undefined) => {
-    if ((showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession') && moduleId) {
+    if ((showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession' || moduleType === 'customer-portal') && moduleId) {
       setSelectedModule(moduleId);
       // Smooth scroll to details section
       setTimeout(() => {
