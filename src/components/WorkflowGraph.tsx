@@ -16,7 +16,21 @@ import {
   Check,
   X,
   Package,
-  Target
+  Target,
+  Wrench,
+  FileSignature,
+  DollarSign,
+  FolderOpen,
+  Home,
+  Building2,
+  Mail,
+  CalendarClock,
+  Zap,
+  HelpCircle,
+  Search,
+  Construction,
+  UserCog2,
+  TrendingUp
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenLeadManagement from "@/assets/screen-lead-management.png";
@@ -33,7 +47,8 @@ interface ModuleInfo {
   screenImage: string;
 }
 
-const moduleData: Record<string, ModuleInfo> = {
+// Pre-sales module data
+const preSalesModuleData: Record<string, ModuleInfo> = {
   "lead-management": {
     id: "lead-management",
     title: "Lead Management",
@@ -148,20 +163,207 @@ const moduleData: Record<string, ModuleInfo> = {
   }
 };
 
+// Post-sales module data
+const postSalesModuleData: Record<string, ModuleInfo> = {
+  "engineering": {
+    id: "engineering",
+    title: "Engineering",
+    description: "Track engineering tasks and technical work orders with comprehensive team management.",
+    features: [
+      "Track engineering tasks and work orders",
+      "Assign jobs to technical teams",
+      "Monitor task status and completion",
+      "Maintenance scheduling and alerts"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "contract": {
+    id: "contract",
+    title: "Contract",
+    description: "Centralized contract management with validity tracking and secure document handling.",
+    features: [
+      "Centralized contract storage",
+      "Contract validity and renewal tracking",
+      "Approval and version control",
+      "Secure document access"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "financial": {
+    id: "financial",
+    title: "Financial",
+    description: "Complete financial tracking with payments, invoicing, and integration with accounting systems.",
+    features: [
+      "Track payments, dues, and receipts",
+      "Invoice and receipt generation",
+      "Financial reporting and summaries",
+      "Integration with accounting systems"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "dms": {
+    id: "dms",
+    title: "DMS (Document Management System)",
+    description: "Centralized document repository with role-based access and comprehensive audit trails.",
+    features: [
+      "Centralized document repository",
+      "Role-based access control",
+      "Version history and audit logs",
+      "Quick search and retrieval"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "rent-module": {
+    id: "rent-module",
+    title: "Rent Module",
+    description: "Complete rental agreement management with automated scheduling and payment reminders.",
+    features: [
+      "Rental agreement management",
+      "Rent schedule and invoicing",
+      "Automated payment reminders",
+      "Lease renewal tracking"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "facilities": {
+    id: "facilities",
+    title: "Facilities",
+    description: "Comprehensive facility asset management with maintenance tracking and vendor monitoring.",
+    features: [
+      "Facility asset management",
+      "Maintenance request tracking",
+      "Vendor and service monitoring",
+      "Inspection and service schedules"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "communication": {
+    id: "communication",
+    title: "Communication",
+    description: "Centralized communication hub with email, SMS, and internal team messaging.",
+    features: [
+      "Email and SMS notifications",
+      "Centralized communication logs",
+      "Automated customer updates",
+      "Internal team messaging"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "appointment-slot": {
+    id: "appointment-slot",
+    title: "Appointment Slot",
+    description: "Slot-based appointment booking with calendar integration and automated reminders.",
+    features: [
+      "Slot-based appointment booking",
+      "Auto-confirmation and reminders",
+      "Calendar integration",
+      "Reschedule and cancellation management"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "utilities": {
+    id: "utilities",
+    title: "Utilities",
+    description: "Track utility consumption with meter reading management and detailed billing reports.",
+    features: [
+      "Utility consumption tracking",
+      "Meter reading management",
+      "Utility billing and reports",
+      "Cost analysis and monitoring"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "help-desk": {
+    id: "help-desk",
+    title: "Help-Desk",
+    description: "Complete ticket management system with SLA-based issue handling and support history.",
+    features: [
+      "Ticket creation and tracking",
+      "SLA-based issue management",
+      "Priority and status updates",
+      "Customer support history"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "explore-properties": {
+    id: "explore-properties",
+    title: "Explore Properties",
+    description: "Property details and availability with floor plans, media access, and real-time status updates.",
+    features: [
+      "Property details and availability view",
+      "Floor plans and media access",
+      "Status updates in real time",
+      "Easy property search and filters"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "construction-update": {
+    id: "construction-update",
+    title: "Construction Update",
+    description: "Real-time construction progress tracking with milestone management and customer notifications.",
+    features: [
+      "Real-time construction progress updates",
+      "Milestone and phase tracking",
+      "Photo and document sharing",
+      "Customer notifications"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "hr": {
+    id: "hr",
+    title: "HR",
+    description: "Employee record management with attendance tracking, performance monitoring, and access control.",
+    features: [
+      "Employee record management",
+      "Attendance and role tracking",
+      "Task and performance monitoring",
+      "Access control and permissions"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "sales": {
+    id: "sales",
+    title: "Sales",
+    description: "Track post-sale sales activities with upsell management and performance analytics.",
+    features: [
+      "Track post-sale sales activities",
+      "Upsell and add-on management",
+      "Customer interaction history",
+      "Sales performance analytics"
+    ],
+    screenImage: screenSalesExecutive
+  }
+};
+
 interface WorkflowGraphProps {
   color: string;
   showLabels?: boolean;
+  moduleType?: 'pre-sales' | 'post-sales' | 'default';
 }
 
-const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
+const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: WorkflowGraphProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedModule, setSelectedModule] = useState<string | null>(showLabels ? "lead-management" : null);
+  const [selectedModule, setSelectedModule] = useState<string | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  // Get the appropriate module data based on type
+  const moduleData = moduleType === 'post-sales' ? postSalesModuleData : preSalesModuleData;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  // Set default selected module based on type
+  useEffect(() => {
+    if (showLabels) {
+      if (moduleType === 'post-sales') {
+        setSelectedModule("engineering");
+      } else if (moduleType === 'pre-sales') {
+        setSelectedModule("lead-management");
+      }
+    }
+  }, [showLabels, moduleType]);
 
   // Pre-sales specific icons with labels and module IDs
   const preSalesLeftIcons = [
@@ -177,6 +379,27 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
     { Icon: Package, delay: 0.4, label: "Inventory Tracking", moduleId: "inventory-tracking" },
   ];
 
+  // Post-sales specific icons with labels and module IDs
+  const postSalesLeftIcons = [
+    { Icon: Wrench, delay: 0, label: "Engineering", moduleId: "engineering" },
+    { Icon: FileSignature, delay: 0.1, label: "Contract", moduleId: "contract" },
+    { Icon: DollarSign, delay: 0.2, label: "Financial", moduleId: "financial" },
+    { Icon: FolderOpen, delay: 0.3, label: "DMS", moduleId: "dms" },
+    { Icon: Home, delay: 0.4, label: "Rent Module", moduleId: "rent-module" },
+    { Icon: Building2, delay: 0.5, label: "Facilities", moduleId: "facilities" },
+    { Icon: Mail, delay: 0.6, label: "Communication", moduleId: "communication" },
+  ];
+
+  const postSalesRightIcons = [
+    { Icon: CalendarClock, delay: 0.1, label: "Appointment Slot", moduleId: "appointment-slot" },
+    { Icon: Zap, delay: 0.2, label: "Utilities", moduleId: "utilities" },
+    { Icon: HelpCircle, delay: 0.3, label: "Help-Desk", moduleId: "help-desk" },
+    { Icon: Search, delay: 0.4, label: "Explore Properties", moduleId: "explore-properties" },
+    { Icon: Construction, delay: 0.5, label: "Construction Update", moduleId: "construction-update" },
+    { Icon: UserCog2, delay: 0.6, label: "HR", moduleId: "hr" },
+    { Icon: TrendingUp, delay: 0.7, label: "Sales", moduleId: "sales" },
+  ];
+
   // Default icons without labels
   const defaultLeftIcons = [
     { Icon: Users, delay: 0, label: undefined, moduleId: undefined },
@@ -190,8 +413,17 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
     { Icon: Bell, delay: 0.5, label: undefined, moduleId: undefined },
   ];
 
-  const leftIcons = showLabels ? preSalesLeftIcons : defaultLeftIcons;
-  const rightIcons = showLabels ? preSalesRightIcons : defaultRightIcons;
+  // Select icons based on module type
+  const getIcons = () => {
+    if (moduleType === 'post-sales') {
+      return { leftIcons: postSalesLeftIcons, rightIcons: postSalesRightIcons };
+    } else if (moduleType === 'pre-sales' || showLabels) {
+      return { leftIcons: preSalesLeftIcons, rightIcons: preSalesRightIcons };
+    }
+    return { leftIcons: defaultLeftIcons, rightIcons: defaultRightIcons };
+  };
+
+  const { leftIcons, rightIcons } = getIcons();
 
   const features = [
     { Icon: RefreshCw, label: "Seamless Automation" },
@@ -202,7 +434,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const handleModuleClick = (moduleId: string | undefined) => {
-    if (showLabels && moduleId) {
+    if ((showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales') && moduleId) {
       setSelectedModule(moduleId);
       // Smooth scroll to details section
       setTimeout(() => {
@@ -286,79 +518,54 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
       `}</style>
 
       {/* Workflow Diagram */}
-      <div className="relative h-[450px] max-w-4xl mx-auto">
-        {/* SVG Lines */}
+      <div className={`relative max-w-4xl mx-auto ${moduleType === 'post-sales' ? 'h-[650px]' : 'h-[450px]'}`}>
+        {/* SVG Lines - dynamically generated based on icon count */}
         <svg 
           className="absolute inset-0 w-full h-full" 
-          viewBox="0 0 800 450"
+          viewBox={moduleType === 'post-sales' ? "0 0 800 650" : "0 0 800 450"}
           preserveAspectRatio="xMidYMid meet"
         >
-          {/* Left side lines - flowing towards center (4 lines) */}
-          <path
-            d="M 120 60 Q 250 60 350 225"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out' }}
-          />
-          <path
-            d="M 120 160 Q 250 160 350 225"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.15s' }}
-          />
-          <path
-            d="M 120 290 Q 250 290 350 225"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.3s' }}
-          />
-          <path
-            d="M 120 390 Q 250 390 350 225"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.45s' }}
-          />
+          {/* Left side lines - dynamically generated */}
+          {leftIcons.map((_, idx) => {
+            const totalIcons = leftIcons.length;
+            const centerY = moduleType === 'post-sales' ? 325 : 225;
+            const spacing = moduleType === 'post-sales' ? 80 : 110;
+            const startOffset = (totalIcons - 1) * spacing / 2;
+            const yPos = centerY - startOffset + idx * spacing;
+            return (
+              <path
+                key={`left-${idx}`}
+                d={`M 120 ${yPos} Q 250 ${yPos} 350 ${centerY}`}
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeDasharray="8 4"
+                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: `${idx * 0.1}s` }}
+              />
+            );
+          })}
           
-          {/* Right side lines - flowing away from center (3 lines) */}
-          <path
-            d="M 450 225 Q 550 100 680 100"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.1s' }}
-          />
-          <path
-            d="M 450 225 Q 550 225 680 225"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.25s' }}
-          />
-          <path
-            d="M 450 225 Q 550 350 680 350"
-            fill="none"
-            stroke={color}
-            strokeWidth="2"
-            strokeDasharray="8 4"
-            className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-            style={{ transition: 'opacity 0.5s ease-out', transitionDelay: '0.4s' }}
-          />
+          {/* Right side lines - dynamically generated */}
+          {rightIcons.map((_, idx) => {
+            const totalIcons = rightIcons.length;
+            const centerY = moduleType === 'post-sales' ? 325 : 225;
+            const spacing = moduleType === 'post-sales' ? 80 : 110;
+            const startOffset = (totalIcons - 1) * spacing / 2;
+            const yPos = centerY - startOffset + idx * spacing;
+            return (
+              <path
+                key={`right-${idx}`}
+                d={`M 450 ${centerY} Q 550 ${yPos} 680 ${yPos}`}
+                fill="none"
+                stroke={color}
+                strokeWidth="2"
+                strokeDasharray="8 4"
+                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: `${idx * 0.1}s` }}
+              />
+            );
+          })}
         </svg>
 
         {/* Left Icons */}
@@ -366,7 +573,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
           {leftIcons.map(({ Icon, delay, label, moduleId }, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center gap-2"
+              className="flex flex-col items-center gap-1"
               style={{ 
                 transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
                 opacity: isVisible ? 1 : 0,
@@ -376,18 +583,18 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
             >
               <div
                 onClick={() => handleModuleClick(moduleId)}
-                className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
+                className={`${moduleType === 'post-sales' ? 'w-12 h-12 md:w-14 md:h-14' : 'w-14 h-14 md:w-16 md:h-16'} rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${(idx % 3) + 1}` : ''} ${(showLabels || moduleType === 'post-sales') ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
                 style={{ 
                   '--tw-ring-color': color,
                   backgroundColor: selectedModule === moduleId ? color : 'white'
                 } as React.CSSProperties}
               >
-                <Icon size={24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
+                <Icon size={moduleType === 'post-sales' ? 20 : 24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
               </div>
-              {showLabels && label && (
+              {(showLabels || moduleType === 'post-sales') && label && (
                 <span 
                   onClick={() => handleModuleClick(moduleId)}
-                  className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[100px] leading-tight cursor-pointer hover:underline"
+                  className={`text-xs font-medium text-gray-600 text-center max-w-[90px] leading-tight cursor-pointer hover:underline ${moduleType === 'post-sales' ? 'md:text-xs' : 'md:text-sm'}`}
                 >
                   {label}
                 </span>
@@ -428,7 +635,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
           {rightIcons.map(({ Icon, delay, label, moduleId }, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center gap-2"
+              className="flex flex-col items-center gap-1"
               style={{ 
                 transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0.5)',
                 opacity: isVisible ? 1 : 0,
@@ -438,18 +645,18 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
             >
               <div
                 onClick={() => handleModuleClick(moduleId)}
-                className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
+                className={`${moduleType === 'post-sales' ? 'w-12 h-12 md:w-14 md:h-14' : 'w-14 h-14 md:w-16 md:h-16'} rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''} ${(showLabels || moduleType === 'post-sales') ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
                 style={{ 
                   '--tw-ring-color': color,
                   backgroundColor: selectedModule === moduleId ? color : 'white'
                 } as React.CSSProperties}
               >
-                <Icon size={24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
+                <Icon size={moduleType === 'post-sales' ? 20 : 24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
               </div>
-              {showLabels && label && (
+              {(showLabels || moduleType === 'post-sales') && label && (
                 <span 
                   onClick={() => handleModuleClick(moduleId)}
-                  className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[120px] leading-tight cursor-pointer hover:underline"
+                  className={`text-xs font-medium text-gray-600 text-center max-w-[100px] leading-tight cursor-pointer hover:underline ${moduleType === 'post-sales' ? 'md:text-xs' : 'md:text-sm'}`}
                 >
                   {label}
                 </span>
@@ -494,7 +701,7 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
       </div>
 
       {/* Inline Module Details Section */}
-      {showLabels && currentModule && (
+      {(showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales') && currentModule && (
         <div 
           ref={detailsRef}
           key={currentModule.id}
@@ -513,9 +720,9 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
               
               <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6 text-center">Key Features</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-                {/* Left column - first 4 features */}
+                {/* Left column - first half of features */}
                 <ul className="space-y-4">
-                  {currentModule.features.slice(0, 4).map((feature, idx) => (
+                  {currentModule.features.slice(0, Math.ceil(currentModule.features.length / 2)).map((feature, idx) => (
                     <li 
                       key={idx}
                       className="flex items-start gap-3 animate-fade-in"
@@ -533,13 +740,13 @@ const WorkflowGraph = ({ color, showLabels = false }: WorkflowGraphProps) => {
                     </li>
                   ))}
                 </ul>
-                {/* Right column - last 4 features */}
+                {/* Right column - second half of features */}
                 <ul className="space-y-4">
-                  {currentModule.features.slice(4, 8).map((feature, idx) => (
+                  {currentModule.features.slice(Math.ceil(currentModule.features.length / 2)).map((feature, idx) => (
                     <li 
-                      key={idx + 4}
+                      key={idx + Math.ceil(currentModule.features.length / 2)}
                       className="flex items-start gap-3 animate-fade-in"
-                      style={{ animationDelay: `${(idx + 4) * 0.05}s` }}
+                      style={{ animationDelay: `${(idx + Math.ceil(currentModule.features.length / 2)) * 0.05}s` }}
                     >
                       <div 
                         className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
