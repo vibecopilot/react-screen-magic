@@ -39,8 +39,8 @@ const Navbar = () => {
           <img src={mycitiLogo} alt="My Citi Logo" className="h-16 w-auto" />
         </Link>
 
-        {/* Navigation Links - Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Navigation Links - Desktop (Centered) */}
+        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           {navLinks.map((link) => (
             link.isRoute ? (
               <Link
