@@ -445,6 +445,68 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
 
   const currentModule = selectedModule ? moduleData[selectedModule] : null;
 
+  // Hexagon positions for post-sales honeycomb layout (14 modules around center)
+  const hexagonPositions = [
+    // Top row
+    { x: 50, y: 5, delay: 0 },
+    { x: 50, y: 5, delay: 0.1 },
+    // Upper middle row
+    { x: 15, y: 20, delay: 0.15 },
+    { x: 50, y: 20, delay: 0.2 },
+    { x: 85, y: 20, delay: 0.25 },
+    // Middle row (around center)
+    { x: 8, y: 42, delay: 0.3 },
+    { x: 92, y: 42, delay: 0.35 },
+    // Lower middle row
+    { x: 15, y: 64, delay: 0.4 },
+    { x: 50, y: 64, delay: 0.45 },
+    { x: 85, y: 64, delay: 0.5 },
+    // Bottom row
+    { x: 25, y: 82, delay: 0.55 },
+    { x: 50, y: 82, delay: 0.6 },
+    { x: 75, y: 82, delay: 0.65 },
+    { x: 50, y: 95, delay: 0.7 },
+  ];
+
+  // All post-sales modules for hexagon layout
+  const postSalesHexModules = [
+    { Icon: Wrench, label: "Engineering", moduleId: "engineering" },
+    { Icon: ClipboardCheck, label: "Booking\nApproval", moduleId: "contract" },
+    { Icon: UserCheck, label: "Lead", moduleId: "financial" },
+    { Icon: Package, label: "Inventory\nTracking", moduleId: "dms" },
+    { Icon: Calculator, label: "Cost Sheet\nManagement", moduleId: "rent-module" },
+    { Icon: Handshake, label: "CP\nManagement", moduleId: "facilities" },
+    { Icon: Calculator, label: "Cost Sheet\nManagement", moduleId: "communication" },
+    { Icon: ClipboardCheck, label: "Booking\nApproval", moduleId: "appointment-slot" },
+    { Icon: UserCog, label: "Sales Executive\nManagement", moduleId: "utilities" },
+    { Icon: Search, label: "Explore\nProperties", moduleId: "help-desk" },
+    { Icon: Home, label: "Rent\nModule", moduleId: "explore-properties" },
+    { Icon: Construction, label: "Construction\nUpdate", moduleId: "construction-update" },
+    { Icon: UserCog2, label: "HR", moduleId: "hr" },
+    { Icon: TrendingUp, label: "Sales", moduleId: "sales" },
+  ];
+
+  // Actual Post-Sales modules with correct mapping
+  const postSalesHexData = [
+    { Icon: Wrench, label: "Engineering", moduleId: "engineering" },
+    { Icon: FileSignature, label: "Contract", moduleId: "contract" },
+    { Icon: DollarSign, label: "Financial", moduleId: "financial" },
+    { Icon: FolderOpen, label: "DMS", moduleId: "dms" },
+    { Icon: Home, label: "Rent Module", moduleId: "rent-module" },
+    { Icon: Building2, label: "Facilities", moduleId: "facilities" },
+    { Icon: Mail, label: "Communication", moduleId: "communication" },
+    { Icon: CalendarClock, label: "Appointment\nSlot", moduleId: "appointment-slot" },
+    { Icon: Zap, label: "Utilities", moduleId: "utilities" },
+    { Icon: HelpCircle, label: "Help-Desk", moduleId: "help-desk" },
+    { Icon: Search, label: "Explore\nProperties", moduleId: "explore-properties" },
+    { Icon: Construction, label: "Construction\nUpdate", moduleId: "construction-update" },
+    { Icon: UserCog2, label: "HR", moduleId: "hr" },
+    { Icon: TrendingUp, label: "Sales", moduleId: "sales" },
+  ];
+
+  // Hexagon SVG path
+  const hexPath = "M50 0L93.3 25V75L50 100L6.7 75V25Z";
+
   return (
     <div className="w-full py-8">
       {/* CSS Animations */}
@@ -477,6 +539,14 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
           0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
           50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
         }
+        @keyframes hexFloat {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-6px) scale(1.02); }
+        }
+        @keyframes hexPulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
         @keyframes tooltipSlideIn {
           0% { 
             opacity: 0; 
@@ -506,6 +576,12 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
         .float-3 {
           animation: floatUp 4s ease-in-out infinite;
         }
+        .hex-float {
+          animation: hexFloat 3s ease-in-out infinite;
+        }
+        .hex-float-delayed {
+          animation: hexFloat 3.5s ease-in-out infinite 0.5s;
+        }
         .center-pulse {
           animation: pulse 2s ease-in-out infinite, glow 2s ease-in-out infinite;
         }
@@ -515,156 +591,269 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
         .tooltip-animate {
           animation: tooltipSlideIn 0.3s ease-out forwards, tooltipBounce 2s ease-in-out 0.3s infinite;
         }
+        .hexagon-shape {
+          clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
       `}</style>
 
-      {/* Workflow Diagram */}
-      <div className={`relative max-w-4xl mx-auto ${moduleType === 'post-sales' ? 'h-[650px]' : 'h-[450px]'}`}>
-        {/* SVG Lines - dynamically generated based on icon count */}
-        <svg 
-          className="absolute inset-0 w-full h-full" 
-          viewBox={moduleType === 'post-sales' ? "0 0 800 650" : "0 0 800 450"}
-          preserveAspectRatio="xMidYMid meet"
-        >
-          {/* Left side lines - dynamically generated */}
-          {leftIcons.map((_, idx) => {
-            const totalIcons = leftIcons.length;
-            const centerY = moduleType === 'post-sales' ? 325 : 225;
-            const spacing = moduleType === 'post-sales' ? 80 : 110;
-            const startOffset = (totalIcons - 1) * spacing / 2;
-            const yPos = centerY - startOffset + idx * spacing;
-            return (
-              <path
-                key={`left-${idx}`}
-                d={`M 120 ${yPos} Q 250 ${yPos} 350 ${centerY}`}
-                fill="none"
-                stroke={color}
-                strokeWidth="2"
-                strokeDasharray="8 4"
-                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: `${idx * 0.1}s` }}
-              />
-            );
-          })}
-          
-          {/* Right side lines - dynamically generated */}
-          {rightIcons.map((_, idx) => {
-            const totalIcons = rightIcons.length;
-            const centerY = moduleType === 'post-sales' ? 325 : 225;
-            const spacing = moduleType === 'post-sales' ? 80 : 110;
-            const startOffset = (totalIcons - 1) * spacing / 2;
-            const yPos = centerY - startOffset + idx * spacing;
-            return (
-              <path
-                key={`right-${idx}`}
-                d={`M 450 ${centerY} Q 550 ${yPos} 680 ${yPos}`}
-                fill="none"
-                stroke={color}
-                strokeWidth="2"
-                strokeDasharray="8 4"
-                className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
-                style={{ transition: 'opacity 0.5s ease-out', transitionDelay: `${idx * 0.1}s` }}
-              />
-            );
-          })}
-        </svg>
-
-        {/* Left Icons */}
-        <div className="absolute left-4 md:left-8 top-0 h-full flex flex-col justify-around py-8">
-          {leftIcons.map(({ Icon, delay, label, moduleId }, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col items-center gap-1"
-              style={{ 
-                transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
-                opacity: isVisible ? 1 : 0,
-                transition: 'all 0.7s ease-out',
-                transitionDelay: `${delay}s`
-              }}
-            >
-              <div
-                onClick={() => handleModuleClick(moduleId)}
-                className={`${moduleType === 'post-sales' ? 'w-12 h-12 md:w-14 md:h-14' : 'w-14 h-14 md:w-16 md:h-16'} rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${(idx % 3) + 1}` : ''} ${(showLabels || moduleType === 'post-sales') ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
-                style={{ 
-                  '--tw-ring-color': color,
-                  backgroundColor: selectedModule === moduleId ? color : 'white'
-                } as React.CSSProperties}
-              >
-                <Icon size={moduleType === 'post-sales' ? 20 : 24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
-              </div>
-              {(showLabels || moduleType === 'post-sales') && label && (
-                <span 
-                  onClick={() => handleModuleClick(moduleId)}
-                  className={`text-xs font-medium text-gray-600 text-center max-w-[90px] leading-tight cursor-pointer hover:underline ${moduleType === 'post-sales' ? 'md:text-xs' : 'md:text-sm'}`}
-                >
-                  {label}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Center Icon */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      {/* Workflow Diagram - Conditional layout */}
+      {moduleType === 'post-sales' ? (
+        /* Hexagonal Honeycomb Layout for Post-Sales */
+        <div className="relative max-w-4xl mx-auto h-[600px] md:h-[650px]">
+          {/* Center Hexagon */}
           <div 
-            className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl flex items-center justify-center transition-all duration-700 hover:scale-110 ${isVisible ? 'center-pulse' : ''}`}
-            style={{ 
-              backgroundColor: color,
-              transform: isVisible ? 'scale(1)' : 'scale(0)',
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+            style={{
+              transform: isVisible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)',
               opacity: isVisible ? 1 : 0,
+              transition: 'all 0.7s ease-out',
               transitionDelay: '0.3s'
             }}
           >
-            <div className={`w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
-              <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded rotate-45" />
+            <div 
+              className={`w-24 h-28 md:w-28 md:h-32 hexagon-shape shadow-xl flex items-center justify-center ${isVisible ? 'center-pulse' : ''}`}
+              style={{ backgroundColor: color }}
+            >
+              <div className={`w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded rotate-45" />
+              </div>
             </div>
           </div>
-          
-          {/* Animated rings */}
-          <div 
-            className="absolute inset-0 rounded-2xl animate-ping opacity-20"
-            style={{ backgroundColor: color, animationDuration: '2s' }}
-          />
-          <div 
-            className="absolute inset-[-8px] rounded-3xl animate-ping opacity-10"
-            style={{ backgroundColor: color, animationDuration: '2.5s', animationDelay: '0.5s' }}
-          />
-        </div>
 
-        {/* Right Icons */}
-        <div className="absolute right-4 md:right-8 top-0 h-full flex flex-col justify-around py-8">
-          {rightIcons.map(({ Icon, delay, label, moduleId }, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col items-center gap-1"
+          {/* Surrounding Hexagons in honeycomb pattern */}
+          {postSalesHexData.map(({ Icon, label, moduleId }, idx) => {
+            // Calculate positions in a honeycomb pattern
+            const centerX = 50;
+            const centerY = 50;
+            const radius = 32; // Distance from center
+            const smallRadius = 42; // Outer ring distance
+            
+            // Position calculations for honeycomb
+            let x, y;
+            if (idx < 6) {
+              // Inner ring - 6 hexagons around center
+              const angle = (idx * 60 - 90) * (Math.PI / 180);
+              x = centerX + radius * Math.cos(angle);
+              y = centerY + radius * Math.sin(angle) * 0.9;
+            } else {
+              // Outer ring - remaining hexagons
+              const outerIdx = idx - 6;
+              const positions = [
+                { x: 12, y: 25 },  // far left top
+                { x: 88, y: 25 },  // far right top
+                { x: 5, y: 50 },   // far left middle
+                { x: 95, y: 50 },  // far right middle
+                { x: 12, y: 75 },  // far left bottom
+                { x: 88, y: 75 },  // far right bottom
+                { x: 30, y: 90 },  // bottom left
+                { x: 70, y: 90 },  // bottom right
+              ];
+              x = positions[outerIdx]?.x ?? centerX;
+              y = positions[outerIdx]?.y ?? centerY;
+            }
+
+            const isSelected = selectedModule === moduleId;
+            const floatClass = idx % 2 === 0 ? 'hex-float' : 'hex-float-delayed';
+
+            return (
+              <div
+                key={moduleId}
+                className="absolute"
+                style={{
+                  left: `${x}%`,
+                  top: `${y}%`,
+                  transform: isVisible 
+                    ? 'translate(-50%, -50%) scale(1)' 
+                    : 'translate(-50%, -50%) scale(0)',
+                  opacity: isVisible ? 1 : 0,
+                  transition: 'all 0.7s ease-out',
+                  transitionDelay: `${idx * 0.08}s`,
+                  zIndex: isSelected ? 5 : 1
+                }}
+              >
+                <div
+                  onClick={() => handleModuleClick(moduleId)}
+                  className={`group cursor-pointer ${isVisible ? floatClass : ''}`}
+                >
+                  <div 
+                    className={`w-20 h-24 md:w-24 md:h-28 hexagon-shape flex flex-col items-center justify-center transition-all duration-300 hover:scale-110 ${
+                      isSelected 
+                        ? 'shadow-xl' 
+                        : 'bg-white/90 backdrop-blur-sm shadow-lg border-2 hover:shadow-xl'
+                    }`}
+                    style={{ 
+                      backgroundColor: isSelected ? color : 'white',
+                      borderColor: isSelected ? color : `${color}40`
+                    }}
+                  >
+                    <Icon 
+                      size={22} 
+                      className={`mb-1 ${isSelected ? 'text-white' : 'text-gray-700'}`}
+                      style={{ color: isSelected ? 'white' : color }}
+                    />
+                    <span 
+                      className={`text-[10px] md:text-xs font-medium text-center leading-tight px-1 whitespace-pre-line ${
+                        isSelected ? 'text-white' : 'text-gray-700'
+                      }`}
+                    >
+                      {label}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        /* Original Left-Right Layout for Pre-Sales and Default */
+        <div className={`relative max-w-4xl mx-auto h-[450px]`}>
+          {/* SVG Lines - dynamically generated based on icon count */}
+          <svg 
+            className="absolute inset-0 w-full h-full" 
+            viewBox="0 0 800 450"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {/* Left side lines - dynamically generated */}
+            {leftIcons.map((_, idx) => {
+              const totalIcons = leftIcons.length;
+              const centerY = 225;
+              const spacing = 110;
+              const startOffset = (totalIcons - 1) * spacing / 2;
+              const yPos = centerY - startOffset + idx * spacing;
+              return (
+                <path
+                  key={`left-${idx}`}
+                  d={`M 120 ${yPos} Q 250 ${yPos} 350 ${centerY}`}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="2"
+                  strokeDasharray="8 4"
+                  className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                  style={{ transition: 'opacity 0.5s ease-out', transitionDelay: `${idx * 0.1}s` }}
+                />
+              );
+            })}
+            
+            {/* Right side lines - dynamically generated */}
+            {rightIcons.map((_, idx) => {
+              const totalIcons = rightIcons.length;
+              const centerY = 225;
+              const spacing = 110;
+              const startOffset = (totalIcons - 1) * spacing / 2;
+              const yPos = centerY - startOffset + idx * spacing;
+              return (
+                <path
+                  key={`right-${idx}`}
+                  d={`M 450 ${centerY} Q 550 ${yPos} 680 ${yPos}`}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="2"
+                  strokeDasharray="8 4"
+                  className={`flow-line-right ${isVisible ? 'opacity-60' : 'opacity-0'}`}
+                  style={{ transition: 'opacity 0.5s ease-out', transitionDelay: `${idx * 0.1}s` }}
+                />
+              );
+            })}
+          </svg>
+
+          {/* Left Icons */}
+          <div className="absolute left-4 md:left-8 top-0 h-full flex flex-col justify-around py-8">
+            {leftIcons.map(({ Icon, delay, label, moduleId }, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center gap-1"
+                style={{ 
+                  transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
+                  opacity: isVisible ? 1 : 0,
+                  transition: 'all 0.7s ease-out',
+                  transitionDelay: `${delay}s`
+                }}
+              >
+                <div
+                  onClick={() => handleModuleClick(moduleId)}
+                  className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${(idx % 3) + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
+                  style={{ 
+                    '--tw-ring-color': color,
+                    backgroundColor: selectedModule === moduleId ? color : 'white'
+                  } as React.CSSProperties}
+                >
+                  <Icon size={24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
+                </div>
+                {showLabels && label && (
+                  <span 
+                    onClick={() => handleModuleClick(moduleId)}
+                    className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[90px] leading-tight cursor-pointer hover:underline"
+                  >
+                    {label}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Center Icon */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div 
+              className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl flex items-center justify-center transition-all duration-700 hover:scale-110 ${isVisible ? 'center-pulse' : ''}`}
               style={{ 
-                transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0.5)',
+                backgroundColor: color,
+                transform: isVisible ? 'scale(1)' : 'scale(0)',
                 opacity: isVisible ? 1 : 0,
-                transition: 'all 0.7s ease-out',
-                transitionDelay: `${delay}s`
+                transitionDelay: '0.3s'
               }}
             >
-              <div
-                onClick={() => handleModuleClick(moduleId)}
-                className={`${moduleType === 'post-sales' ? 'w-12 h-12 md:w-14 md:h-14' : 'w-14 h-14 md:w-16 md:h-16'} rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''} ${(showLabels || moduleType === 'post-sales') ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
-                style={{ 
-                  '--tw-ring-color': color,
-                  backgroundColor: selectedModule === moduleId ? color : 'white'
-                } as React.CSSProperties}
-              >
-                <Icon size={moduleType === 'post-sales' ? 20 : 24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
+              <div className={`w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded rotate-45" />
               </div>
-              {(showLabels || moduleType === 'post-sales') && label && (
-                <span 
-                  onClick={() => handleModuleClick(moduleId)}
-                  className={`text-xs font-medium text-gray-600 text-center max-w-[100px] leading-tight cursor-pointer hover:underline ${moduleType === 'post-sales' ? 'md:text-xs' : 'md:text-sm'}`}
-                >
-                  {label}
-                </span>
-              )}
             </div>
-          ))}
+            
+            {/* Animated rings */}
+            <div 
+              className="absolute inset-0 rounded-2xl animate-ping opacity-20"
+              style={{ backgroundColor: color, animationDuration: '2s' }}
+            />
+            <div 
+              className="absolute inset-[-8px] rounded-3xl animate-ping opacity-10"
+              style={{ backgroundColor: color, animationDuration: '2.5s', animationDelay: '0.5s' }}
+            />
+          </div>
+
+          {/* Right Icons */}
+          <div className="absolute right-4 md:right-8 top-0 h-full flex flex-col justify-around py-8">
+            {rightIcons.map(({ Icon, delay, label, moduleId }, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center gap-1"
+                style={{ 
+                  transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0.5)',
+                  opacity: isVisible ? 1 : 0,
+                  transition: 'all 0.7s ease-out',
+                  transitionDelay: `${delay}s`
+                }}
+              >
+                <div
+                  onClick={() => handleModuleClick(moduleId)}
+                  className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${((idx + 1) % 3) + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`}
+                  style={{ 
+                    '--tw-ring-color': color,
+                    backgroundColor: selectedModule === moduleId ? color : 'white'
+                  } as React.CSSProperties}
+                >
+                  <Icon size={24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
+                </div>
+                {showLabels && label && (
+                  <span 
+                    onClick={() => handleModuleClick(moduleId)}
+                    className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[100px] leading-tight cursor-pointer hover:underline"
+                  >
+                    {label}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Features Bar - Between Workflow and Details */}
       <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-8 px-4">
