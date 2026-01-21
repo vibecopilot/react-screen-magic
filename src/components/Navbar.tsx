@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import mycitiLogo from "@/assets/myciti-logo-new.png";
@@ -12,10 +12,26 @@ const navLinks = [
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      
+      // Update scrolled state for styling
+      setIsScrolled(currentScrollY > 50);
+      
+      // Show navbar when scrolling down, hide when scrolling up
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Scrolling up - hide navbar
+        setIsVisible(false);
+      } else {
+        // Scrolling down or at top - show navbar
+        setIsVisible(true);
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -24,7 +40,10 @@ const Navbar = () => {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-5 transition-all duration-500"
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-5 transition-transform duration-300",
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      )}
     >
       <nav
         className={cn(
