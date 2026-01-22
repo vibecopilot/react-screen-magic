@@ -51,24 +51,24 @@ const Footer = () => {
                 <h3 className="font-semibold text-foreground mb-3 text-sm">PAGES</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link to="/" className="text-foreground/70 hover:text-foreground transition-colors text-xs">
-                      Home
-                    </Link>
-                  </li>
-                  <li>
                     <a href="/#features" className="text-foreground/70 hover:text-foreground transition-colors text-xs">
-                      Features
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/#pricing" className="text-foreground/70 hover:text-foreground transition-colors text-xs">
-                      Pricing
+                      Product & Features
                     </a>
                   </li>
                   <li>
                     <a href="/#blog" className="text-foreground/70 hover:text-foreground transition-colors text-xs">
-                      Blog
+                      Blogs
                     </a>
+                  </li>
+                  <li>
+                    <a href="/#faq" className="text-foreground/70 hover:text-foreground transition-colors text-xs">
+                      FAQ
+                    </a>
+                  </li>
+                  <li>
+                    <Link to="/contact" className="text-foreground/70 hover:text-foreground transition-colors text-xs">
+                      Contact Us
+                    </Link>
                   </li>
                 </ul>
               </div>
