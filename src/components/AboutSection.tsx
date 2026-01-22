@@ -15,16 +15,19 @@ const AboutSection = () => {
     }
     return () => observer.disconnect();
   }, []);
-  return <section id="about" ref={sectionRef} className="py-20 px-4">
+  return <section id="about" ref={sectionRef} className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
       <div className={`max-w-4xl mx-auto text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <h2 className="text-3xl md:text-4xl text-foreground mb-6 font-medium font-serif">
+        <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
+          ABOUT US
+        </span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl text-foreground mb-4 sm:mb-6 font-medium font-serif mt-2">
           About Us
         </h2>
-        <div className="bg-muted/50 rounded-2xl p-12 border border-border">
-          <p className="text-xl md:text-2xl text-muted-foreground font-medium">
+        <div className="bg-muted/50 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 border border-border">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium">
             Coming Soon
           </p>
-          <p className="text-muted-foreground mt-4">
+          <p className="text-sm sm:text-base text-muted-foreground mt-3 sm:mt-4">
             We're working on something exciting. Stay tuned!
           </p>
         </div>
