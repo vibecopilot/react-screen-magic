@@ -4,6 +4,7 @@ import StackedCards from "@/components/StackedCards";
 import ClientLogos from "@/components/ClientLogos";
 import BlogSection from "@/components/BlogSection";
 import FAQSection from "@/components/FAQSection";
+import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
 
@@ -24,6 +25,7 @@ const Index = () => {
       <ClientLogos />
       <BlogSection />
       <FAQSection />
+      <AboutSection />
       <Footer />
     </div>
   );
