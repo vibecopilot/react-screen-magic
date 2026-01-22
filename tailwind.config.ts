@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         sans: ["var(--font-primary)"],
         primary: ["var(--font-primary)"],
+        heading: ["var(--font-heading)"],
       },
       colors: {
         border: "hsl(var(--border))",
