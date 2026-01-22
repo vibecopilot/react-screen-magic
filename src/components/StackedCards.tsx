@@ -176,7 +176,7 @@ const StackedCards = () => {
 
                     {/* Left Side - Text */}
                     <div className="flex-1 text-center md:text-left mb-4 md:mb-0 max-w-md relative z-10">
-                      <h3 className="text-2xl sm:text-3xl mb-2 sm:mb-3 text-gray-800 font-semibold md:text-3xl">
+                      <h3 className="text-2xl sm:text-3xl mb-2 sm:mb-3 text-gray-800 md:text-3xl font-normal">
                         {card.name}
                       </h3>
                       <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-none">
