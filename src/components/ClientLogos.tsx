@@ -64,12 +64,12 @@ const ClientLogos = () => {
   const { ref: row2Ref, isVisible: row2Visible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section className="pt-6 pb-16 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section className="pt-4 sm:pt-6 pb-10 sm:pb-12 md:pb-16 bg-muted/30">
+      <div className="container mx-auto px-3 sm:px-4">
         <p 
           ref={headerRef}
           className={cn(
-            "text-muted-foreground text-center text-sm mb-10 transition-all duration-700",
+            "text-muted-foreground text-center text-xs sm:text-sm mb-6 sm:mb-8 md:mb-10 transition-all duration-700",
             headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           )}
         >
@@ -80,29 +80,29 @@ const ClientLogos = () => {
         <div 
           ref={row1Ref}
           className={cn(
-            "relative overflow-hidden mb-8 transition-all duration-1000",
+            "relative overflow-hidden mb-4 sm:mb-6 md:mb-8 transition-all duration-1000",
             row1Visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-16"
           )}
         >
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 md:w-20 bg-gradient-to-r from-muted/30 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 md:w-20 bg-gradient-to-l from-muted/30 to-transparent z-10" />
           
           <div className="flex animate-scroll-slow">
             {logosRow1.map((logo, index) => (
-              <div key={index} className="flex-shrink-0 mx-6 flex items-center justify-center w-24 md:w-28 h-14">
+              <div key={index} className="flex-shrink-0 mx-3 sm:mx-4 md:mx-6 flex items-center justify-center w-16 sm:w-20 md:w-28 h-10 sm:h-12 md:h-14">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="max-h-12 max-w-full object-contain"
+                  className="max-h-8 sm:max-h-10 md:max-h-12 max-w-full object-contain"
                 />
               </div>
             ))}
             {logosRow1.map((logo, index) => (
-              <div key={`dup-${index}`} className="flex-shrink-0 mx-6 flex items-center justify-center w-24 md:w-28 h-14">
+              <div key={`dup-${index}`} className="flex-shrink-0 mx-3 sm:mx-4 md:mx-6 flex items-center justify-center w-16 sm:w-20 md:w-28 h-10 sm:h-12 md:h-14">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="max-h-12 max-w-full object-contain"
+                  className="max-h-8 sm:max-h-10 md:max-h-12 max-w-full object-contain"
                 />
               </div>
             ))}
@@ -117,25 +117,25 @@ const ClientLogos = () => {
             row2Visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-16"
           )}
         >
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 md:w-20 bg-gradient-to-r from-muted/30 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 md:w-20 bg-gradient-to-l from-muted/30 to-transparent z-10" />
           
           <div className="flex animate-scroll-reverse">
             {logosRow2.map((logo, index) => (
-              <div key={index} className="flex-shrink-0 mx-6 flex items-center justify-center w-24 md:w-28 h-14">
+              <div key={index} className="flex-shrink-0 mx-3 sm:mx-4 md:mx-6 flex items-center justify-center w-16 sm:w-20 md:w-28 h-10 sm:h-12 md:h-14">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="max-h-12 max-w-full object-contain"
+                  className="max-h-8 sm:max-h-10 md:max-h-12 max-w-full object-contain"
                 />
               </div>
             ))}
             {logosRow2.map((logo, index) => (
-              <div key={`dup-${index}`} className="flex-shrink-0 mx-6 flex items-center justify-center w-24 md:w-28 h-14">
+              <div key={`dup-${index}`} className="flex-shrink-0 mx-3 sm:mx-4 md:mx-6 flex items-center justify-center w-16 sm:w-20 md:w-28 h-10 sm:h-12 md:h-14">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="max-h-12 max-w-full object-contain"
+                  className="max-h-8 sm:max-h-10 md:max-h-12 max-w-full object-contain"
                 />
               </div>
             ))}

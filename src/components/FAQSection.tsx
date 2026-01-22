@@ -84,22 +84,25 @@ const FAQSection = () => {
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-  return <section id="faq" className="py-12 md:py-20 px-3 sm:px-4 scroll-mt-24" ref={sectionRef}>
+  return <section id="faq" className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 scroll-mt-20 sm:scroll-mt-24" ref={sectionRef}>
       <div className="max-w-3xl mx-auto">
-        <p className={`text-gray-500 text-xs sm:text-sm uppercase tracking-widest text-center mb-2 sm:mb-3 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-      </p>
-        <h2 className="text-4xl font-serif text-center font-medium">
-          Frequently Asked Questions
-        </h2>
-        {faqs.map((faq, index) => <div key={index} ref={el => itemRefs.current[index] = el} className={`border-b border-gray-300 hover:bg-gray-50 transition-all duration-500 ${visibleItems[index] ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
-            <button onClick={() => toggleFAQ(index)} className="w-full py-4 sm:py-6 px-3 sm:px-4 flex items-start justify-between text-left group">
-              <span className="text-gray-900 font-medium text-sm sm:text-base md:text-lg tracking-wide pr-3 sm:pr-4 group-hover:text-primary transition-colors duration-200">
+        <div className={`text-center mb-6 sm:mb-8 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
+            FAQ
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-center font-medium mt-2">
+            Frequently Asked Questions
+          </h2>
+        </div>
+        {faqs.map((faq, index) => <div key={index} ref={el => itemRefs.current[index] = el} className={`border-b border-border hover:bg-muted/30 transition-all duration-500 ${visibleItems[index] ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
+            <button onClick={() => toggleFAQ(index)} className="w-full py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-4 flex items-start justify-between text-left group min-h-[48px]">
+              <span className="text-foreground font-medium text-xs sm:text-sm md:text-base lg:text-lg tracking-wide pr-2 sm:pr-3 md:pr-4 group-hover:text-primary transition-colors duration-200 leading-snug">
                 {index + 1}. {faq.question}
               </span>
-              <ChevronUp className={`w-5 h-5 text-gray-900 flex-shrink-0 mt-1 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} />
+              <ChevronUp className={`w-4 h-4 sm:w-5 sm:h-5 text-foreground flex-shrink-0 mt-0.5 sm:mt-1 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} />
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-96 pb-4 sm:pb-6' : 'max-h-0'}`}>
-              <p className="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed pr-8 sm:pr-10 px-3 sm:px-4">
+            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] pb-4 sm:pb-5 md:pb-6' : 'max-h-0'}`}>
+              <p className="text-muted-foreground text-xs sm:text-sm md:text-base leading-relaxed pr-6 sm:pr-8 md:pr-10 px-2 sm:px-3 md:px-4">
                 {faq.answer}
               </p>
             </div>
