@@ -7,35 +7,35 @@ const cards = [{
   name: "Pre Sales",
   slug: "pre-sales",
   description: "Streamline your lead management and inquiry handling with powerful CRM tools. Track prospects, manage follow-ups, and convert leads faster than ever.",
-  barColor: "bg-[#4A9FE8]",
+  barColor: "bg-[#3B82F6]",
   icon: "📊",
   screenImage: screenPresalesOverview
 }, {
   name: "Post Sales",
   slug: "post-sales",
   description: "Manage customer relationships after the deal closes. Handle documentation, payment tracking, and customer support seamlessly.",
-  barColor: "bg-[#10B981]",
+  barColor: "bg-[#3B82F6]",
   icon: "🤝",
   screenImage: null
 }, {
   name: "Possession",
   slug: "possession",
   description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
-  barColor: "bg-[#6366F1]",
+  barColor: "bg-[#3B82F6]",
   icon: "🔑",
   screenImage: null
 }, {
   name: "Konstruct",
   slug: "konstruct",
   description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
-  barColor: "bg-[#F59E0B]",
+  barColor: "bg-[#3B82F6]",
   icon: "🏗️",
   screenImage: screenKonstruct
 }, {
   name: "Customer Portal",
   slug: "customer-portal",
   description: "Empower your customers with a self-service portal. Access documents, track payments, raise requests, and stay updated on their property journey.",
-  barColor: "bg-[#8B5CF6]",
+  barColor: "bg-[#3B82F6]",
   icon: "🌐",
   screenImage: null
 }];
