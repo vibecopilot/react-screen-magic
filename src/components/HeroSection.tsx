@@ -31,15 +31,13 @@ const HeroSection = () => {
         <div ref={titleRef} style={{
         transform: `translateY(${-offset}px)`
       }} className={cn("transition-all duration-1000 ease-out", titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12")}>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal leading-tight text-foreground mb-6 text-center xl:text-4xl">
-            Manage your real estate journey on a single platform from Pre-sales to possession.
-          </h1>
+          <h1 className="font-serif text-4xl md:text-5xl font-normal leading-tight text-foreground mb-6 text-center xl:text-4xl lg:text-4xl">Manage your real estate journey on a single platform from Pre-sales to Possession.</h1>
         </div>
 
         <div ref={descRef} style={{
         transform: `translateY(${-offset * 0.5}px)`
       }} className={cn("transition-all duration-1000 delay-200 ease-out", descVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed text-center">
             Digitize sales pipelines, control finances, automate handovers, and deliver a seamless, connected resident experience — all from one unified dashboard.
           </p>
         </div>
