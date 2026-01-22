@@ -17,7 +17,7 @@ const AboutSection = () => {
   }, []);
   return <section id="about" ref={sectionRef} className="py-20 px-4">
       <div className={`max-w-4xl mx-auto text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        <h2 className="text-3xl md:text-4xl text-foreground mb-6 font-medium">
+        <h2 className="text-3xl md:text-4xl text-foreground mb-6 font-medium font-serif">
           About Us
         </h2>
         <div className="bg-muted/50 rounded-2xl p-12 border border-border">

@@ -89,7 +89,7 @@ const FAQSection = () => {
         <p className={`text-gray-500 text-xs sm:text-sm uppercase tracking-widest text-center mb-2 sm:mb-3 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           FAQ
         </p>
-        <h2 className="text-4xl font-serif font-normal text-center">
+        <h2 className="text-4xl font-serif text-center font-medium">
           Frequently Asked Questions
         </h2>
         {faqs.map((faq, index) => <div key={index} ref={el => itemRefs.current[index] = el} className={`border-b border-gray-300 hover:bg-gray-50 transition-all duration-500 ${visibleItems[index] ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
