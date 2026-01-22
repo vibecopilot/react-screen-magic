@@ -25,7 +25,7 @@ const AboutSection = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="py-20 px-4 bg-white/80 backdrop-blur-sm"
+      className="py-20 px-4"
     >
       <div
         className={`max-w-4xl mx-auto text-center transition-all duration-700 ${
