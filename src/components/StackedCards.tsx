@@ -61,7 +61,7 @@ const LaptopFrame = ({
           imageRendering: 'crisp-edges'
         }} /> : <div className="flex items-center justify-center h-full p-4 sm:p-6 md:p-8 bg-gradient-to-b from-[#e8f4fc] to-[#d4e8f5]">
               <p className="font-serif text-[10px] sm:text-sm md:text-lg lg:text-xl text-[#1a3a5c] text-center leading-snug italic">
-                Manage your entire real estate journey on a single platform from Pre-sales to possession.
+                Manage your real estate journey on a single platform from Pre-sales to possession.
               </p>
             </div>}
         </div>
