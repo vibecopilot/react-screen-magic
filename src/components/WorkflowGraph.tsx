@@ -856,6 +856,19 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
 
   const currentModule = selectedModule ? moduleData[selectedModule] : null;
 
+  // Konstruct modules for hexagon layout (9 modules) with unique colors - defined early for color lookup
+  const konstructHexData = [
+    { Icon: SearchCheck, label: "QC", moduleId: "qc", color: "#10B981" },           // Emerald green
+    { Icon: BadgeCheck, label: "QA", moduleId: "qa", color: "#3B82F6" },            // Blue
+    { Icon: HeartPulse, label: "QHC", moduleId: "qhc", color: "#EC4899" },          // Pink
+    { Icon: StickyNote, label: "Snagging", moduleId: "snagging", color: "#F59E0B" }, // Amber
+    { Icon: KeyRound, label: "Flat Handover\nApp", moduleId: "flat-handover-app", color: "#8B5CF6" }, // Purple
+    { Icon: ShieldAlert, label: "Safety", moduleId: "safety", color: "#EF4444" },   // Red
+    { Icon: BookOpen, label: "Tool Box\nTraining", moduleId: "toolbox-training", color: "#06B6D4" }, // Cyan
+    { Icon: Activity, label: "Construction\nMonitoring", moduleId: "construction-monitoring", color: "#F97316" }, // Orange
+    { Icon: PieChart, label: "Reports", moduleId: "reports", color: "#6366F1" },    // Indigo
+  ];
+
   // Get color for current selected module (for Konstruct with unique colors)
   const getCurrentModuleColor = () => {
     if (moduleType === 'konstruct' && selectedModule) {
@@ -937,18 +950,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     { Icon: UserCircle, label: "Employee\nManagement", moduleId: "employee-management" },
   ];
 
-  // Konstruct modules for hexagon layout (9 modules) with unique colors
-  const konstructHexData = [
-    { Icon: SearchCheck, label: "QC", moduleId: "qc", color: "#10B981" },           // Emerald green
-    { Icon: BadgeCheck, label: "QA", moduleId: "qa", color: "#3B82F6" },            // Blue
-    { Icon: HeartPulse, label: "QHC", moduleId: "qhc", color: "#EC4899" },          // Pink
-    { Icon: StickyNote, label: "Snagging", moduleId: "snagging", color: "#F59E0B" }, // Amber
-    { Icon: KeyRound, label: "Flat Handover\nApp", moduleId: "flat-handover-app", color: "#8B5CF6" }, // Purple
-    { Icon: ShieldAlert, label: "Safety", moduleId: "safety", color: "#EF4444" },   // Red
-    { Icon: BookOpen, label: "Tool Box\nTraining", moduleId: "toolbox-training", color: "#06B6D4" }, // Cyan
-    { Icon: Activity, label: "Construction\nMonitoring", moduleId: "construction-monitoring", color: "#F97316" }, // Orange
-    { Icon: PieChart, label: "Reports", moduleId: "reports", color: "#6366F1" },    // Indigo
-  ];
+  // konstructHexData is defined earlier in the component for color lookup
 
   // Get hex data based on module type
   const getHexData = () => {
