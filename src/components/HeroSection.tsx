@@ -25,12 +25,8 @@ const HeroSection = () => {
               : "opacity-0 translate-y-12"
           )}
         >
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal leading-tight text-foreground mb-6">
-            Manage your entire real estate
-            <br />
-            journey on a single platform
-            <br />
-            from Pre-sales to possession.
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal leading-tight text-foreground mb-6 text-justify">
+            Manage your entire real estate journey on a single platform from Pre-sales to possession.
           </h1>
         </div>
 
