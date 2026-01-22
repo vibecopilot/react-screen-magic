@@ -11,31 +11,31 @@ const moduleData: Record<string, { name: string; description: string; icon: stri
     name: "Pre Sales",
     description: "Streamline your lead management and inquiry handling with powerful CRM tools. Track prospects, manage follow-ups, and convert leads faster than ever.",
     icon: "📊",
-    color: "#4A9FE8",
+    color: "#3B82F6",
   },
   "post-sales": {
     name: "Post Sales",
     description: "Manage customer relationships after the deal closes. Handle documentation, payment tracking, and customer support seamlessly.",
     icon: "🤝",
-    color: "#10B981",
+    color: "#3B82F6",
   },
   "possession": {
     name: "Possession",
     description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
     icon: "🔑",
-    color: "#6366F1",
+    color: "#3B82F6",
   },
   "konstruct": {
     name: "Konstruct",
     description: "Track construction progress and project milestones in real-time. Monitor budgets, timelines, and resource allocation efficiently.",
     icon: "🏗️",
-    color: "#F59E0B",
+    color: "#3B82F6",
   },
   "customer-portal": {
     name: "Customer Portal",
     description: "Empower your customers with a self-service portal. Access documents, track payments, raise requests, and stay updated on their property journey.",
     icon: "🌐",
-    color: "#8B5CF6",
+    color: "#3B82F6",
   },
 };
 
