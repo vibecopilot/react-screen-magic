@@ -59,17 +59,10 @@ const LaptopFrame = ({
         <div className="bg-white rounded-[4px] aspect-[16/10] overflow-hidden">
         {screenImage ? <img src={screenImage} alt="Screen preview" className="w-full h-full object-cover object-top bg-white" style={{
           imageRendering: 'crisp-edges'
-        }} /> : <div className="flex flex-col items-center justify-center h-full gap-2 p-3 bg-gradient-to-b from-slate-50 to-white">
-              <span className="text-3xl sm:text-4xl md:text-5xl">{icon}</span>
-              <div className="flex gap-1">
-                <div className="w-10 sm:w-12 h-2 bg-slate-200 rounded" />
-                <div className="w-6 sm:w-8 h-2 bg-slate-200 rounded" />
-              </div>
-              <div className="flex gap-1">
-                <div className="w-6 sm:w-8 h-6 sm:h-8 bg-blue-100 rounded" />
-                <div className="w-6 sm:w-8 h-6 sm:h-8 bg-green-100 rounded" />
-                <div className="w-6 sm:w-8 h-6 sm:h-8 bg-purple-100 rounded" />
-              </div>
+        }} /> : <div className="flex items-center justify-center h-full p-4 sm:p-6 md:p-8 bg-gradient-to-b from-[#e8f4fc] to-[#d4e8f5]">
+              <p className="font-serif text-[10px] sm:text-sm md:text-lg lg:text-xl text-[#1a3a5c] text-center leading-snug italic">
+                Manage your entire real estate journey on a single platform from Pre-sales to possession.
+              </p>
             </div>}
         </div>
       </div>
