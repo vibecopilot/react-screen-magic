@@ -21,7 +21,7 @@ const Footer = () => {
                 <div className="flex items-center gap-2 mb-2 sm:mb-3">
                   <img src={logo} alt="MY CITI Logo" className="h-10 sm:h-12" />
                 </div>
-                <p className="text-foreground/70 text-xs mb-3 sm:mb-4">Your favourite business management software. Built for early types of properties.</p>
+                <p className="text-foreground/70 text-xs mb-3 sm:mb-4">Your favourite residential management software. Built for early types of properties.</p>
                 <div className="flex gap-2">
                   <a href="#" className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center hover:bg-foreground/80 transition-colors">
                     <Linkedin className="w-4 h-4 text-background" />
