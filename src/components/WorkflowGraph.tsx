@@ -1232,7 +1232,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
             {/* Features List */}
             <div>
               <h3 
-                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 underline decoration-2 underline-offset-8 text-center"
+                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-center"
                 style={{ color }}
               >
                 {currentModule.title}
