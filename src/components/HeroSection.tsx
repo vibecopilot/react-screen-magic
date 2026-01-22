@@ -31,7 +31,7 @@ const HeroSection = () => {
         <div ref={titleRef} style={{
         transform: `translateY(${-offset}px)`
       }} className={cn("transition-all duration-1000 ease-out", titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12")}>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal leading-tight text-foreground mb-6 text-center">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal leading-tight text-foreground mb-6 text-center xl:text-4xl">
             Manage your real estate journey on a single platform from Pre-sales to possession.
           </h1>
         </div>
