@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation, useParallax } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 const HeroSection = () => {
   const {
     ref: titleRef,
@@ -44,8 +45,8 @@ const HeroSection = () => {
         </div>
 
         <div ref={btnRef} className={cn("flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-1000 delay-400 ease-out", btnVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95")}>
-          <Button variant="heroOutline" size="lg">
-            Book a Demo
+          <Button variant="heroOutline" size="lg" asChild>
+            <Link to="/contact">Book a Demo</Link>
           </Button>
         </div>
       </div>
