@@ -46,7 +46,15 @@ import {
   Phone,
   LayoutDashboard,
   ClipboardList,
-  Megaphone
+  Megaphone,
+  CheckSquare,
+  ClipboardX,
+  HardHat,
+  AlertTriangle,
+  Smartphone,
+  GraduationCap,
+  Eye,
+  FileBarChart
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenLeadManagement from "@/assets/screen-lead-management.png";
@@ -451,6 +459,118 @@ const possessionModuleData: Record<string, ModuleInfo> = {
   }
 };
 
+// Konstruct module data
+const konstructModuleData: Record<string, ModuleInfo> = {
+  "qc": {
+    id: "qc",
+    title: "QC (Quality Control)",
+    description: "Ensure construction quality standards with comprehensive quality control checks and inspections.",
+    features: [
+      "Quality inspection checklists",
+      "Defect identification and tracking",
+      "Quality metrics and reporting",
+      "Compliance verification"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "qa": {
+    id: "qa",
+    title: "QA (Quality Assurance)",
+    description: "Maintain quality assurance protocols across all construction phases and processes.",
+    features: [
+      "Quality assurance protocols",
+      "Process compliance monitoring",
+      "Quality audit scheduling",
+      "Corrective action tracking"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "qhc": {
+    id: "qhc",
+    title: "QHC (Quality Health Check)",
+    description: "Conduct regular quality health checks to ensure project standards are maintained.",
+    features: [
+      "Periodic quality health assessments",
+      "Health check scheduling",
+      "Issue identification and resolution",
+      "Quality score tracking"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "snagging": {
+    id: "snagging",
+    title: "Snagging",
+    description: "Track and resolve snagging issues before handover with comprehensive punch list management.",
+    features: [
+      "Punch list creation and tracking",
+      "Photo documentation of defects",
+      "Contractor assignment for fixes",
+      "Resolution status monitoring"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "flat-handover-app": {
+    id: "flat-handover-app",
+    title: "Flat Handover App",
+    description: "Streamline the flat handover process with mobile app for inspections and documentation.",
+    features: [
+      "Mobile inspection checklists",
+      "Digital signature capture",
+      "Photo and video documentation",
+      "Real-time handover status"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "safety": {
+    id: "safety",
+    title: "Safety",
+    description: "Ensure workplace safety compliance with incident tracking and safety protocols.",
+    features: [
+      "Safety incident reporting",
+      "PPE compliance tracking",
+      "Safety audit management",
+      "Hazard identification"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "toolbox-training": {
+    id: "toolbox-training",
+    title: "Tool Box Training",
+    description: "Manage daily toolbox talks and training sessions for construction workforce.",
+    features: [
+      "Daily toolbox talk scheduling",
+      "Training attendance tracking",
+      "Topic management and library",
+      "Training completion reports"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "construction-monitoring": {
+    id: "construction-monitoring",
+    title: "Construction Monitoring",
+    description: "Real-time construction progress monitoring with milestone tracking and site updates.",
+    features: [
+      "Real-time progress tracking",
+      "Milestone completion monitoring",
+      "Site photo updates",
+      "Delay alerts and notifications"
+    ],
+    screenImage: screenSalesExecutive
+  },
+  "reports": {
+    id: "reports",
+    title: "Reports",
+    description: "Comprehensive reporting and analytics for all construction activities and metrics.",
+    features: [
+      "Daily progress reports",
+      "Quality metrics dashboard",
+      "Safety compliance reports",
+      "Custom report generation"
+    ],
+    screenImage: screenSalesExecutive
+  }
+};
+
 // Customer Portal module data
 const customerPortalModuleData: Record<string, ModuleInfo> = {
   "my-dashboard": {
@@ -554,7 +674,7 @@ const customerPortalModuleData: Record<string, ModuleInfo> = {
 interface WorkflowGraphProps {
   color: string;
   showLabels?: boolean;
-  moduleType?: 'pre-sales' | 'post-sales' | 'possession' | 'customer-portal' | 'default';
+  moduleType?: 'pre-sales' | 'post-sales' | 'possession' | 'konstruct' | 'customer-portal' | 'default';
 }
 
 const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: WorkflowGraphProps) => {
@@ -567,9 +687,11 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     ? postSalesModuleData 
     : moduleType === 'possession' 
       ? possessionModuleData 
-      : moduleType === 'customer-portal'
-        ? customerPortalModuleData
-        : preSalesModuleData;
+      : moduleType === 'konstruct'
+        ? konstructModuleData
+        : moduleType === 'customer-portal'
+          ? customerPortalModuleData
+          : preSalesModuleData;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -578,13 +700,15 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
 
   // Set default selected module based on type
   useEffect(() => {
-    if (showLabels || moduleType === 'post-sales' || moduleType === 'possession' || moduleType === 'customer-portal') {
+    if (showLabels || moduleType === 'post-sales' || moduleType === 'possession' || moduleType === 'konstruct' || moduleType === 'customer-portal') {
       if (moduleType === 'post-sales') {
         setSelectedModule("engineering");
       } else if (moduleType === 'pre-sales') {
         setSelectedModule("lead-management");
       } else if (moduleType === 'possession') {
         setSelectedModule("fm-modules");
+      } else if (moduleType === 'konstruct') {
+        setSelectedModule("qc");
       } else if (moduleType === 'customer-portal') {
         setSelectedModule("my-dashboard");
       }
@@ -656,6 +780,22 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     { Icon: Megaphone, delay: 0.55, label: "Announcements", moduleId: "announcements" },
   ];
 
+  // Konstruct specific icons with labels and module IDs
+  const konstructLeftIcons = [
+    { Icon: CheckSquare, delay: 0, label: "QC", moduleId: "qc" },
+    { Icon: ClipboardCheck, delay: 0.1, label: "QA", moduleId: "qa" },
+    { Icon: ShieldCheck, delay: 0.2, label: "QHC", moduleId: "qhc" },
+    { Icon: ClipboardX, delay: 0.3, label: "Snagging", moduleId: "snagging" },
+    { Icon: Smartphone, delay: 0.4, label: "Flat Handover App", moduleId: "flat-handover-app" },
+  ];
+
+  const konstructRightIcons = [
+    { Icon: HardHat, delay: 0.1, label: "Safety", moduleId: "safety" },
+    { Icon: GraduationCap, delay: 0.2, label: "Tool Box Training", moduleId: "toolbox-training" },
+    { Icon: Eye, delay: 0.3, label: "Construction Monitoring", moduleId: "construction-monitoring" },
+    { Icon: FileBarChart, delay: 0.4, label: "Reports", moduleId: "reports" },
+  ];
+
   // Default icons without labels
   const defaultLeftIcons = [
     { Icon: Users, delay: 0, label: undefined, moduleId: undefined },
@@ -675,6 +815,8 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
       return { leftIcons: postSalesLeftIcons, rightIcons: postSalesRightIcons };
     } else if (moduleType === 'possession') {
       return { leftIcons: possessionLeftIcons, rightIcons: possessionRightIcons };
+    } else if (moduleType === 'konstruct') {
+      return { leftIcons: konstructLeftIcons, rightIcons: konstructRightIcons };
     } else if (moduleType === 'customer-portal') {
       return { leftIcons: customerPortalLeftIcons, rightIcons: customerPortalRightIcons };
     } else if (moduleType === 'pre-sales' || showLabels) {
@@ -694,7 +836,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const handleModuleClick = (moduleId: string | undefined) => {
-    if ((showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession' || moduleType === 'customer-portal') && moduleId) {
+    if ((showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession' || moduleType === 'konstruct' || moduleType === 'customer-portal') && moduleId) {
       setSelectedModule(moduleId);
       // Smooth scroll to details section
       setTimeout(() => {
