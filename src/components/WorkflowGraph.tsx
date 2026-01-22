@@ -54,7 +54,16 @@ import {
   Smartphone,
   GraduationCap,
   Eye,
-  FileBarChart
+  FileBarChart,
+  SearchCheck,
+  BadgeCheck,
+  HeartPulse,
+  StickyNote,
+  KeyRound,
+  ShieldAlert,
+  BookOpen,
+  Activity,
+  PieChart
 } from "lucide-react";
 import screenPresales from "@/assets/screen-presales.png";
 import screenLeadManagement from "@/assets/screen-lead-management.png";
@@ -847,6 +856,16 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
 
   const currentModule = selectedModule ? moduleData[selectedModule] : null;
 
+  // Get color for current selected module (for Konstruct with unique colors)
+  const getCurrentModuleColor = () => {
+    if (moduleType === 'konstruct' && selectedModule) {
+      const konstructItem = konstructHexData.find(item => item.moduleId === selectedModule);
+      return konstructItem?.color || color;
+    }
+    return color;
+  };
+  const currentModuleColor = getCurrentModuleColor();
+
   // Hexagon positions for post-sales honeycomb layout (14 modules around center)
   const hexagonPositions = [
     // Top row
@@ -918,17 +937,17 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     { Icon: UserCircle, label: "Employee\nManagement", moduleId: "employee-management" },
   ];
 
-  // Konstruct modules for hexagon layout (9 modules)
+  // Konstruct modules for hexagon layout (9 modules) with unique colors
   const konstructHexData = [
-    { Icon: CheckSquare, label: "QC", moduleId: "qc" },
-    { Icon: ClipboardCheck, label: "QA", moduleId: "qa" },
-    { Icon: ShieldCheck, label: "QHC", moduleId: "qhc" },
-    { Icon: ClipboardX, label: "Snagging", moduleId: "snagging" },
-    { Icon: Smartphone, label: "Flat Handover\nApp", moduleId: "flat-handover-app" },
-    { Icon: HardHat, label: "Safety", moduleId: "safety" },
-    { Icon: GraduationCap, label: "Tool Box\nTraining", moduleId: "toolbox-training" },
-    { Icon: Eye, label: "Construction\nMonitoring", moduleId: "construction-monitoring" },
-    { Icon: FileBarChart, label: "Reports", moduleId: "reports" },
+    { Icon: SearchCheck, label: "QC", moduleId: "qc", color: "#10B981" },           // Emerald green
+    { Icon: BadgeCheck, label: "QA", moduleId: "qa", color: "#3B82F6" },            // Blue
+    { Icon: HeartPulse, label: "QHC", moduleId: "qhc", color: "#EC4899" },          // Pink
+    { Icon: StickyNote, label: "Snagging", moduleId: "snagging", color: "#F59E0B" }, // Amber
+    { Icon: KeyRound, label: "Flat Handover\nApp", moduleId: "flat-handover-app", color: "#8B5CF6" }, // Purple
+    { Icon: ShieldAlert, label: "Safety", moduleId: "safety", color: "#EF4444" },   // Red
+    { Icon: BookOpen, label: "Tool Box\nTraining", moduleId: "toolbox-training", color: "#06B6D4" }, // Cyan
+    { Icon: Activity, label: "Construction\nMonitoring", moduleId: "construction-monitoring", color: "#F97316" }, // Orange
+    { Icon: PieChart, label: "Reports", moduleId: "reports", color: "#6366F1" },    // Indigo
   ];
 
   // Get hex data based on module type
@@ -1043,7 +1062,9 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
             viewBox="0 0 800 650"
             preserveAspectRatio="xMidYMid meet"
           >
-            {hexData.map((_, idx) => {
+            {hexData.map((hexItem, idx) => {
+              // Get individual color for Konstruct modules
+              const lineColor = 'color' in hexItem ? (hexItem as any).color : color;
               // Calculate hex positions (same logic as rendering)
               const centerX = 400;
               const centerY = 325;
@@ -1096,7 +1117,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
                   key={`line-${idx}`}
                   d={`M ${x} ${y} Q ${midX + (idx % 2 === 0 ? controlOffset : -controlOffset)} ${midY} ${centerX} ${centerY}`}
                   fill="none"
-                  stroke={color}
+                  stroke={lineColor}
                   strokeWidth="2"
                   strokeDasharray="8 4"
                   className={`flow-line-right ${isVisible ? 'opacity-50' : 'opacity-0'}`}
@@ -1130,7 +1151,9 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
           </div>
 
           {/* Surrounding Hexagons in honeycomb pattern */}
-          {hexData.map(({ Icon, label, moduleId }, idx) => {
+          {hexData.map((hexItem, idx) => {
+            const { Icon, label, moduleId } = hexItem;
+            const itemColor = 'color' in hexItem ? (hexItem as any).color : color;
             // Calculate positions in a honeycomb pattern
             const centerX = 50;
             const centerY = 50;
@@ -1206,14 +1229,14 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
                         : 'bg-white/90 backdrop-blur-sm shadow-lg border-2 hover:shadow-xl'
                     }`}
                     style={{ 
-                      backgroundColor: isSelected ? color : 'white',
-                      borderColor: isSelected ? color : `${color}40`
+                      backgroundColor: isSelected ? itemColor : 'white',
+                      borderColor: isSelected ? itemColor : `${itemColor}40`
                     }}
                   >
                     <Icon 
                       size={22} 
                       className={`mb-1 ${isSelected ? 'text-white' : 'text-gray-700'}`}
-                      style={{ color: isSelected ? 'white' : color }}
+                      style={{ color: isSelected ? 'white' : itemColor }}
                     />
                     <span 
                       className={`text-[10px] md:text-xs font-medium text-center leading-tight px-1 whitespace-pre-line ${
@@ -1425,7 +1448,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
             <div>
               <h3 
                 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-center"
-                style={{ color }}
+                style={{ color: currentModuleColor }}
               >
                 {currentModule.title}
               </h3>
@@ -1443,7 +1466,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
                     >
                       <div 
                         className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-                        style={{ backgroundColor: color }}
+                        style={{ backgroundColor: currentModuleColor }}
                       >
                         <Check size={12} className="text-white" />
                       </div>
@@ -1463,7 +1486,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
                     >
                       <div 
                         className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-                        style={{ backgroundColor: color }}
+                        style={{ backgroundColor: currentModuleColor }}
                       >
                         <Check size={12} className="text-white" />
                       </div>
