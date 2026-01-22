@@ -918,8 +918,28 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
     { Icon: UserCircle, label: "Employee\nManagement", moduleId: "employee-management" },
   ];
 
+  // Konstruct modules for hexagon layout (9 modules)
+  const konstructHexData = [
+    { Icon: CheckSquare, label: "QC", moduleId: "qc" },
+    { Icon: ClipboardCheck, label: "QA", moduleId: "qa" },
+    { Icon: ShieldCheck, label: "QHC", moduleId: "qhc" },
+    { Icon: ClipboardX, label: "Snagging", moduleId: "snagging" },
+    { Icon: Smartphone, label: "Flat Handover\nApp", moduleId: "flat-handover-app" },
+    { Icon: HardHat, label: "Safety", moduleId: "safety" },
+    { Icon: GraduationCap, label: "Tool Box\nTraining", moduleId: "toolbox-training" },
+    { Icon: Eye, label: "Construction\nMonitoring", moduleId: "construction-monitoring" },
+    { Icon: FileBarChart, label: "Reports", moduleId: "reports" },
+  ];
+
   // Get hex data based on module type
-  const hexData = moduleType === 'possession' ? possessionHexData : postSalesHexData;
+  const getHexData = () => {
+    if (moduleType === 'post-sales') return postSalesHexData;
+    if (moduleType === 'possession') return possessionHexData;
+    if (moduleType === 'konstruct') return konstructHexData;
+    return postSalesHexData;
+  };
+
+  const hexData = getHexData();
 
   // Hexagon SVG path
   const hexPath = "M50 0L93.3 25V75L50 100L6.7 75V25Z";
@@ -1014,8 +1034,8 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
       `}</style>
 
       {/* Workflow Diagram - Conditional layout */}
-      {moduleType === 'post-sales' ? (
-        /* Hexagonal Honeycomb Layout for Post-Sales */
+      {(moduleType === 'post-sales' || moduleType === 'possession' || moduleType === 'konstruct') ? (
+        /* Hexagonal Honeycomb Layout for Post-Sales, Possession, and Konstruct */
         <div className="relative max-w-4xl mx-auto h-[600px] md:h-[650px]">
           {/* SVG Connecting Lines */}
           <svg 
@@ -1031,7 +1051,22 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
               const totalItems = hexData.length;
               
               let x, y;
-              if (idx < 6) {
+              // Handle 9-module layout (Konstruct)
+              if (totalItems === 9) {
+                const positions = [
+                  { x: 50, y: 8 },   // top center
+                  { x: 18, y: 25 },  // top left
+                  { x: 82, y: 25 },  // top right
+                  { x: 8, y: 50 },   // middle left
+                  { x: 92, y: 50 },  // middle right
+                  { x: 18, y: 75 },  // bottom left
+                  { x: 82, y: 75 },  // bottom right
+                  { x: 35, y: 92 },  // bottom center left
+                  { x: 65, y: 92 },  // bottom center right
+                ];
+                x = (positions[idx]?.x ?? 50) * 8;
+                y = (positions[idx]?.y ?? 50) * 6.5;
+              } else if (idx < 6) {
                 const angle = (idx * 60 - 90) * (Math.PI / 180);
                 x = centerX + radius * Math.cos(angle);
                 y = centerY + radius * Math.sin(angle) * 0.9;
@@ -1104,7 +1139,22 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
             
             // Position calculations for honeycomb
             let x, y;
-            if (idx < 6) {
+            // Handle 9-module layout (Konstruct)
+            if (totalItems === 9) {
+              const positions = [
+                { x: 50, y: 8 },   // top center
+                { x: 18, y: 25 },  // top left
+                { x: 82, y: 25 },  // top right
+                { x: 8, y: 50 },   // middle left
+                { x: 92, y: 50 },  // middle right
+                { x: 18, y: 75 },  // bottom left
+                { x: 82, y: 75 },  // bottom right
+                { x: 35, y: 92 },  // bottom center left
+                { x: 65, y: 92 },  // bottom center right
+              ];
+              x = positions[idx]?.x ?? centerX;
+              y = positions[idx]?.y ?? centerY;
+            } else if (idx < 6) {
               // Inner ring - 6 hexagons around center
               const angle = (idx * 60 - 90) * (Math.PI / 180);
               x = centerX + radius * Math.cos(angle);
@@ -1364,7 +1414,7 @@ const WorkflowGraph = ({ color, showLabels = false, moduleType = 'default' }: Wo
       </div>
 
       {/* Inline Module Details Section */}
-      {(showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession') && currentModule && (
+      {(showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession' || moduleType === 'konstruct') && currentModule && (
         <div 
           ref={detailsRef}
           key={currentModule.id}
