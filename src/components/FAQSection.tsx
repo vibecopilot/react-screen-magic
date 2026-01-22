@@ -87,8 +87,7 @@ const FAQSection = () => {
   return <section id="faq" className="py-12 md:py-20 px-3 sm:px-4 scroll-mt-24" ref={sectionRef}>
       <div className="max-w-3xl mx-auto">
         <p className={`text-gray-500 text-xs sm:text-sm uppercase tracking-widest text-center mb-2 sm:mb-3 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          FAQ
-        </p>
+      </p>
         <h2 className="text-4xl font-serif text-center font-medium">
           Frequently Asked Questions
         </h2>
