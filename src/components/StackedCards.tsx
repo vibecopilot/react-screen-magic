@@ -110,7 +110,7 @@ const StackedCards = () => {
           <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
             PRODUCT & FEATURES
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-3 md:mb-4 mt-2">
+          <h2 className="font-serif text-3xl sm:text-4xl text-foreground mb-3 md:mb-4 mt-2 md:text-4xl">
             Our Powerful Modules
           </h2>
           <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto px-4">
@@ -176,7 +176,7 @@ const StackedCards = () => {
 
                     {/* Left Side - Text */}
                     <div className="flex-1 text-center md:text-left mb-4 md:mb-0 max-w-md relative z-10">
-                      <h3 className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 text-gray-800 font-semibold">
+                      <h3 className="text-2xl sm:text-3xl mb-2 sm:mb-3 text-gray-800 font-semibold md:text-3xl">
                         {card.name}
                       </h3>
                       <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-none">
