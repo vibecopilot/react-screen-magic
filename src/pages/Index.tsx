@@ -24,8 +24,8 @@ const Index = () => {
       <StackedCards />
       <ClientLogos />
       <BlogSection />
-      <FAQSection />
       <AboutSection />
+      <FAQSection />
       <Footer />
     </div>
   );
