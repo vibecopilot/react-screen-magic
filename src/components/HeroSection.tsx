@@ -26,11 +26,11 @@ const HeroSection = () => {
           )}
         >
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal leading-tight text-foreground mb-6">
-            Turn every service
+            Manage your entire real estate
             <br />
-            request into a smooth
+            journey on a single platform
             <br />
-            experience
+            from Pre-sales to possession.
           </h1>
         </div>
 
