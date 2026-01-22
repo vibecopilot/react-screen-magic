@@ -18,7 +18,6 @@ import logoAbil from "@/assets/logo-abil.png";
 import logoMaharashtra from "@/assets/logo-maharashtra.png";
 import logoPhoenix from "@/assets/logo-phoenix.png";
 import logoSunpharma from "@/assets/logo-sunpharma.png";
-import logoAdani from "@/assets/logo-adani.png";
 import logoAmanora from "@/assets/logo-amanora.png";
 import logoGrandhighstreet from "@/assets/logo-grandhighstreet.png";
 import logoWestend from "@/assets/logo-westend.png";
@@ -49,7 +48,6 @@ const logosRow2 = [
   { src: logoMaharashtra, alt: "Maharashtra Bamboo Development Board" },
   { src: logoPhoenix, alt: "Phoenix Marketcity" },
   { src: logoSunpharma, alt: "Sun Pharma" },
-  { src: logoAdani, alt: "Adani" },
   { src: logoAmanora, alt: "Amanora Mall" },
   { src: logoGrandhighstreet, alt: "Grand Highstreet Hinjewadi" },
   { src: logoWestend, alt: "Westend" },
@@ -91,20 +89,20 @@ const ClientLogos = () => {
           
           <div className="flex animate-scroll-slow">
             {logosRow1.map((logo, index) => (
-              <div key={index} className="flex-shrink-0 mx-6 flex items-center">
+              <div key={index} className="flex-shrink-0 mx-6 flex items-center justify-center w-24 md:w-28 h-14">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="h-12 md:h-14 w-auto object-contain"
+                  className="max-h-12 max-w-full object-contain"
                 />
               </div>
             ))}
             {logosRow1.map((logo, index) => (
-              <div key={`dup-${index}`} className="flex-shrink-0 mx-6 flex items-center">
+              <div key={`dup-${index}`} className="flex-shrink-0 mx-6 flex items-center justify-center w-24 md:w-28 h-14">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="h-12 md:h-14 w-auto object-contain"
+                  className="max-h-12 max-w-full object-contain"
                 />
               </div>
             ))}
@@ -124,20 +122,20 @@ const ClientLogos = () => {
           
           <div className="flex animate-scroll-reverse">
             {logosRow2.map((logo, index) => (
-              <div key={index} className="flex-shrink-0 mx-6 flex items-center">
+              <div key={index} className="flex-shrink-0 mx-6 flex items-center justify-center w-24 md:w-28 h-14">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="h-12 md:h-14 w-auto object-contain"
+                  className="max-h-12 max-w-full object-contain"
                 />
               </div>
             ))}
             {logosRow2.map((logo, index) => (
-              <div key={`dup-${index}`} className="flex-shrink-0 mx-6 flex items-center">
+              <div key={`dup-${index}`} className="flex-shrink-0 mx-6 flex items-center justify-center w-24 md:w-28 h-14">
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="h-12 md:h-14 w-auto object-contain"
+                  className="max-h-12 max-w-full object-contain"
                 />
               </div>
             ))}
