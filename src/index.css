@@ -45,6 +45,7 @@ html {
     /* Custom tokens */
     --sky-gradient: linear-gradient(180deg, hsl(205 45% 88%) 0%, hsl(210 25% 92%) 100%);
     --font-primary: "Montserrat", system-ui, -apple-system, sans-serif;
+    --font-heading: "Georgia", "Times New Roman", serif;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -107,7 +108,7 @@ html {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-primary);
+    font-family: var(--font-heading);
   }
 
   button, input, select, textarea {
