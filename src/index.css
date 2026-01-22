@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -44,7 +44,7 @@ html {
 
     /* Custom tokens */
     --sky-gradient: linear-gradient(180deg, hsl(205 45% 88%) 0%, hsl(210 25% 92%) 100%);
-    --font-primary: "Montserrat", system-ui, -apple-system, sans-serif;
+    --font-primary: "Almarai", system-ui, -apple-system, sans-serif;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
