@@ -15,6 +15,7 @@ const navLinks = [
   { label: "Product & Features", href: "/#features", isRoute: false },
   { label: "Blogs", href: "/#blog", isRoute: false },
   { label: "FAQ", href: "/#faq", isRoute: false },
+  { label: "About Us", href: "/#about", isRoute: false },
   { label: "Contact Us", href: "/contact", isRoute: true },
 ];
 
