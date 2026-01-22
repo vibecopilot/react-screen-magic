@@ -3,24 +3,64 @@ import { ChevronUp } from "lucide-react";
 
 const faqs = [
   {
-    question: "WHAT IS MYCITI?",
-    answer: "MyCiti is an all-in-one SaaS platform for commercial real estate enterprises, integrating pre-sales CRM, post-sales support, construction management (Konstruct), AI copilot (VibeCopilot), HRMS, and property possession workflows into a unified dashboard."
+    question: "WHAT IS THIS PLATFORM USED FOR?",
+    answer: "This platform is an end-to-end real estate management solution that covers the entire lifecycle of a project — from pre-sales and booking to possession and post-handover resident services, all through a single dashboard."
   },
   {
-    question: "WHICH INDUSTRIES CAN BENEFIT FROM MYCITI?",
-    answer: "Commercial real estate developers, construction firms, property management companies, sales teams, and HR departments handling leasing, project tracking, employee management, and property handovers."
+    question: "WHO IS THIS PLATFORM DESIGNED FOR?",
+    answer: "The platform is designed for: Real Estate Developers & Promoters, Sales & Pre-Sales Teams, Finance & Accounts Teams, Facility & Operations Teams, and Property & Community Managers."
   },
   {
-    question: "HOW DOES MYCITI ENHANCE TEAM COLLABORATION?",
-    answer: "Real-time shared dashboards across all 6 modules enable sales teams to sync with construction PMs, HR to track employee assignments, and post-sales support to access live possession updates - all with @mentions and activity feeds."
+    question: "WHICH STAGES OF A REAL ESTATE PROJECT DOES IT COVER?",
+    answer: "It covers: Pre-sales & lead management, Inventory & pricing control, Booking, agreements & payment tracking, Construction & handover workflows, and Post-possession resident engagement & services."
   },
   {
-    question: "DOES MYCITI INTEGRATE WITH OTHER SOFTWARE?",
-    answer: "Yes, central MyCiti hub connects seamlessly to your existing CRM, accounting, HR tools, and construction software via API, Zapier, and native connectors - hover reveals sub-features per module."
+    question: "CAN WE MANAGE SALES AND CRM ON THE SAME PLATFORM?",
+    answer: "Yes. The platform includes a built-in sales CRM to manage leads, site visits, bookings, brokers, conversion tracking, and sales performance — all integrated with inventory and finance."
   },
   {
-    question: "IS MYCITI CUSTOMIZABLE?",
-    answer: "Fully customizable dashboards, role-based permissions, white-label options, custom workflows, and module-specific templates - configure via no-code builder or VibeCopilot AI assistant."
+    question: "HOW DOES THE PLATFORM HELP WITH FINANCIAL MANAGEMENT?",
+    answer: "It helps you: Track customer payments & outstanding dues, Manage demand letters & receipts, Monitor project-level cash flow, Integrate with accounting systems, and Reduce revenue leakage through automation."
+  },
+  {
+    question: "DOES IT SUPPORT AUTOMATED HANDOVER AND POSSESSION?",
+    answer: "Yes. The platform automates: Handover checklists, Documentation tracking, Snag list & defect management, Possession approvals, and Resident onboarding."
+  },
+  {
+    question: "WHAT RESIDENT SERVICES ARE AVAILABLE AFTER POSSESSION?",
+    answer: "Residents can access: Maintenance & service requests, Amenities booking, Visitor & staff management, Notices, announcements & community updates, and Digital documents & payment history."
+  },
+  {
+    question: "IS THE PLATFORM CUSTOMIZABLE AS PER OUR PROJECT NEEDS?",
+    answer: "Yes. The platform is highly configurable based on: Project type (Residential / Commercial / Mixed-use), Organization structure, Approval workflows, and Feature enablement per project."
+  },
+  {
+    question: "CAN THIS PLATFORM HANDLE MULTIPLE PROJECTS?",
+    answer: "Absolutely. You can manage multiple projects, towers, units, and locations from a single login with role-based access."
+  },
+  {
+    question: "IS DATA SECURE AND COMPLIANT?",
+    answer: "Yes. The platform follows enterprise-grade security practices, including: Role-based access control, Data encryption, Audit logs, and Compliance-ready architecture (ISO, SOC2, GDPR-aligned)."
+  },
+  {
+    question: "CAN IT INTEGRATE WITH EXISTING TOOLS OR SOFTWARE?",
+    answer: "Yes. The platform supports integrations with: Accounting & ERP systems, Payment gateways, Access control & IoT devices, and WhatsApp, SMS, email & notification systems."
+  },
+  {
+    question: "HOW LONG DOES IMPLEMENTATION TAKE?",
+    answer: "Typical implementation takes 4–8 weeks, depending on: Number of projects, Modules selected, Data migration requirements, and Custom workflows."
+  },
+  {
+    question: "WILL TRAINING AND SUPPORT BE PROVIDED?",
+    answer: "Yes. We provide: Admin & team training sessions, User manuals & SOPs, Dedicated onboarding support, and Ongoing technical assistance."
+  },
+  {
+    question: "IS THIS PLATFORM SCALABLE FOR FUTURE EXPANSION?",
+    answer: "Yes. The platform is built to scale with: New projects, Growing unit counts, Additional modules, and Increased user load."
+  },
+  {
+    question: "HOW IS PRICING STRUCTURED?",
+    answer: "Pricing is typically based on: Number of units / projects, Modules selected, and Deployment model. A customized proposal is shared after understanding your requirements."
   }
 ];
 

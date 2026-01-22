@@ -39,15 +39,13 @@ const HeroSection = () => {
         transform: `translateY(${-offset * 0.5}px)`
       }} className={cn("transition-all duration-1000 delay-200 ease-out", descVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
           <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            MyCiti is your command centre for service operations – capture enquiries,
-            assign work, track progress, and get paid, all from one clean, connected
-            workspace.
+            Digitize sales pipelines, control finances, automate handovers, and deliver a seamless, connected resident experience — all from one unified dashboard.
           </p>
         </div>
 
         <div ref={btnRef} className={cn("flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-1000 delay-400 ease-out", btnVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95")}>
           <Button variant="heroOutline" size="lg">
-            See features
+            Book a Demo
           </Button>
         </div>
       </div>
