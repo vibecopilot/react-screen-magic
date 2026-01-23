@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Linkedin } from "lucide-react";
+import { Linkedin, MapPin } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/myciti-logo-new.png";
@@ -59,6 +59,20 @@ const Footer = () => {
                     </Link>
                   </li>
                 </ul>
+              </div>
+
+              {/* Address */}
+              <div className="col-span-1 sm:col-span-2 md:col-span-2">
+                <div className="flex items-start gap-2 mb-2 sm:mb-3">
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <h3 className="font-semibold text-foreground text-xs sm:text-sm uppercase tracking-wide">Address</h3>
+                </div>
+                <div className="text-foreground/70 text-xs sm:text-sm space-y-1">
+                  <p className="font-semibold text-foreground">HEAD OFFICE</p>
+                  <p className="leading-relaxed">
+                    314, SAMRUDDHI BUSINESS PARK BEHIND EVERSHINE MALL, NEW LINK RD, CHINCHOLI BUNDER, MALAD WEST, MUMBAI, MAHARASHTRA 400064.
+                  </p>
+                </div>
               </div>
 
             </div>
