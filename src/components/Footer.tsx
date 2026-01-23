@@ -49,6 +49,11 @@ const Footer = () => {
                     </a>
                   </li>
                   <li>
+                    <a href="/#about" className="text-foreground/70 hover:text-foreground transition-colors text-xs sm:text-sm py-1 inline-block touch-manipulation">
+                      About Us
+                    </a>
+                  </li>
+                  <li>
                     <a href="/#faq" className="text-foreground/70 hover:text-foreground transition-colors text-xs sm:text-sm py-1 inline-block touch-manipulation">
                       FAQ
                     </a>
