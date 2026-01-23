@@ -79,7 +79,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="border-t border-foreground/10 mt-4 sm:mt-6 pt-3 sm:pt-4">
-              <p className="text-foreground/60 text-[10px] sm:text-xs text-center sm:text-left">© 2025 My Citi.</p>
+              <p className="text-[10px] sm:text-xs text-center text-primary sm:text-justify">Copyright © 2025 Digielves Tech Wizards Private Limited All rights reserved</p>
             </div>
           </div>
         </div>
