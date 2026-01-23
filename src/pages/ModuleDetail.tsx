@@ -61,10 +61,10 @@ const ModuleDetail = () => {
         }}
       >
         <Navbar />
-        <div className="flex items-center justify-center min-h-[80vh]">
+        <div className="flex items-center justify-center min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] px-4">
           <div className="text-center">
-            <h1 className="text-4xl font-serif text-foreground mb-4">Module Not Found</h1>
-            <button onClick={() => navigate("/")} className="text-primary hover:underline">Go back home</button>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif text-foreground mb-3 sm:mb-4">Module Not Found</h1>
+            <button onClick={() => navigate("/")} className="text-primary hover:underline text-sm sm:text-base py-2 px-4 touch-manipulation">Go back home</button>
           </div>
         </div>
         <Footer />
@@ -84,15 +84,15 @@ const ModuleDetail = () => {
     >
       <Navbar />
       
-      <main className="pt-24 pb-20 px-4 md:px-6">
+      <main className="pt-20 sm:pt-24 md:pt-28 pb-12 sm:pb-16 md:pb-20 px-3 sm:px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
           {/* Module Title */}
-          <h1 className="text-2xl md:text-3xl font-serif font-bold text-center mb-8 mt-8 text-foreground">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-center mb-6 sm:mb-8 mt-4 sm:mt-6 md:mt-8 text-foreground px-2">
             {module.name}
           </h1>
 
           {/* Workflow Graph Section */}
-          <div className="mt-12">
+          <div className="mt-6 sm:mt-8 md:mt-12">
             <WorkflowGraph 
               color={module.color} 
               showLabels={slug === "pre-sales" || slug === "post-sales" || slug === "possession" || slug === "konstruct" || slug === "customer-portal"} 

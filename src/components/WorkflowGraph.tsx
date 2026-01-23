@@ -1049,7 +1049,7 @@ const WorkflowGraph = ({
 
   // Hexagon SVG path
   const hexPath = "M50 0L93.3 25V75L50 100L6.7 75V25Z";
-  return <div className="w-full py-8">
+  return <div className="w-full py-4 sm:py-6 md:py-8">
       {/* CSS Animations */}
       <style>{`
         @keyframes flowLeft {
@@ -1139,7 +1139,7 @@ const WorkflowGraph = ({
 
       {/* Workflow Diagram - Conditional layout */}
       {moduleType === 'post-sales' || moduleType === 'possession' || moduleType === 'konstruct' ? (/* Hexagonal Honeycomb Layout for Post-Sales, Possession, and Konstruct */
-    <div className="relative max-w-4xl mx-auto h-[600px] md:h-[650px]">
+    <div className="relative max-w-4xl mx-auto h-[480px] sm:h-[550px] md:h-[600px] lg:h-[650px] px-2 sm:px-4">
           {/* SVG Connecting Lines */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 650" preserveAspectRatio="xMidYMid meet">
             {hexData.map((hexItem, idx) => {
@@ -1253,11 +1253,11 @@ const WorkflowGraph = ({
         transition: 'all 0.7s ease-out',
         transitionDelay: '0.3s'
       }}>
-            <div className={`w-24 h-28 md:w-28 md:h-32 hexagon-shape shadow-xl flex items-center justify-center ${isVisible ? 'center-pulse' : ''}`} style={{
+            <div className={`w-16 h-20 sm:w-20 sm:h-24 md:w-24 md:h-28 lg:w-28 lg:h-32 hexagon-shape shadow-xl flex items-center justify-center ${isVisible ? 'center-pulse' : ''}`} style={{
           backgroundColor: color
         }}>
-              <div className={`w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
-                <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded rotate-45" />
+              <div className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
+                <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 bg-white rounded rotate-45" />
               </div>
             </div>
           </div>
@@ -1390,14 +1390,14 @@ const WorkflowGraph = ({
           zIndex: isSelected ? 5 : 1
         }}>
                 <div onClick={() => handleModuleClick(moduleId)} className={`group cursor-pointer ${isVisible ? floatClass : ''}`}>
-                  <div className={`w-20 h-24 md:w-24 md:h-28 hexagon-shape flex flex-col items-center justify-center transition-all duration-300 hover:scale-110 ${isSelected ? 'shadow-xl' : 'bg-white/90 backdrop-blur-sm shadow-lg border-2 hover:shadow-xl'}`} style={{
+                  <div className={`w-14 h-16 sm:w-18 sm:h-22 md:w-20 md:h-24 lg:w-24 lg:h-28 hexagon-shape flex flex-col items-center justify-center transition-all duration-300 hover:scale-110 touch-manipulation ${isSelected ? 'shadow-xl' : 'bg-white/90 backdrop-blur-sm shadow-lg border-2 hover:shadow-xl'}`} style={{
               backgroundColor: isSelected ? itemColor : 'white',
               borderColor: isSelected ? itemColor : `${itemColor}40`
             }}>
-                    <Icon size={22} className={`mb-1 ${isSelected ? 'text-white' : 'text-gray-700'}`} style={{
+                    <Icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mb-0.5 sm:mb-1 ${isSelected ? 'text-white' : 'text-gray-700'}`} style={{
                 color: isSelected ? 'white' : itemColor
               }} />
-                    <span className={`text-[10px] md:text-xs font-medium text-center leading-tight px-1 whitespace-pre-line ${isSelected ? 'text-white' : 'text-gray-700'}`}>
+                    <span className={`text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs font-medium text-center leading-tight px-0.5 sm:px-1 whitespace-pre-line ${isSelected ? 'text-white' : 'text-gray-700'}`}>
                       {label}
                     </span>
                   </div>
@@ -1405,9 +1405,9 @@ const WorkflowGraph = ({
               </div>;
       })}
         </div>) : (/* Original Left-Right Layout for Pre-Sales and Default */
-    <div className={`relative max-w-4xl mx-auto h-[450px]`}>
+    <div className={`relative max-w-4xl mx-auto h-[380px] sm:h-[400px] md:h-[450px] px-2 sm:px-4`}>
           {/* SVG Lines - dynamically generated based on icon count */}
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet">
+          <svg className="absolute inset-0 w-full h-full hidden sm:block" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet">
             {/* Left side lines - dynamically generated */}
             {leftIcons.map((_, idx) => {
           const totalIcons = leftIcons.length;
@@ -1436,25 +1436,25 @@ const WorkflowGraph = ({
           </svg>
 
           {/* Left Icons */}
-          <div className="absolute left-4 md:left-8 top-0 h-full flex flex-col justify-around py-8">
+          <div className="absolute left-2 sm:left-4 md:left-8 top-0 h-full flex flex-col justify-around py-4 sm:py-6 md:py-8">
             {leftIcons.map(({
           Icon,
           delay,
           label,
           moduleId
-        }, idx) => <div key={idx} className="flex flex-col items-center gap-1" style={{
+        }, idx) => <div key={idx} className="flex flex-col items-center gap-0.5 sm:gap-1" style={{
           transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.5)',
           opacity: isVisible ? 1 : 0,
           transition: 'all 0.7s ease-out',
           transitionDelay: `${delay}s`
         }}>
-                <div onClick={() => handleModuleClick(moduleId)} className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${idx % 3 + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`} style={{
+                <div onClick={() => handleModuleClick(moduleId)} className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl touch-manipulation ${isVisible ? `float-${idx % 3 + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`} style={{
             '--tw-ring-color': color,
             backgroundColor: selectedModule === moduleId ? color : 'white'
           } as React.CSSProperties}>
-                  <Icon size={24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
+                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${selectedModule === moduleId ? 'text-white' : 'text-gray-700'}`} />
                 </div>
-                {showLabels && label && <span onClick={() => handleModuleClick(moduleId)} className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[90px] leading-tight cursor-pointer hover:underline">
+                {showLabels && label && <span onClick={() => handleModuleClick(moduleId)} className="text-[10px] sm:text-xs md:text-sm font-medium text-gray-600 text-center max-w-[60px] sm:max-w-[80px] md:max-w-[90px] leading-tight cursor-pointer hover:underline">
                     {label}
                   </span>}
               </div>)}
@@ -1462,23 +1462,23 @@ const WorkflowGraph = ({
 
           {/* Center Icon */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl flex items-center justify-center transition-all duration-700 hover:scale-110 ${isVisible ? 'center-pulse' : ''}`} style={{
+            <div className={`w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-xl sm:rounded-2xl shadow-xl flex items-center justify-center transition-all duration-700 hover:scale-110 ${isVisible ? 'center-pulse' : ''}`} style={{
           backgroundColor: color,
           transform: isVisible ? 'scale(1)' : 'scale(0)',
           opacity: isVisible ? 1 : 0,
           transitionDelay: '0.3s'
         }}>
-              <div className={`w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
-                <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded rotate-45" />
+              <div className={`w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 bg-white/20 rounded-lg flex items-center justify-center ${isVisible ? 'inner-rotate' : ''}`}>
+                <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8 bg-white rounded rotate-45" />
               </div>
             </div>
             
             {/* Animated rings */}
-            <div className="absolute inset-0 rounded-2xl animate-ping opacity-20" style={{
+            <div className="absolute inset-0 rounded-xl sm:rounded-2xl animate-ping opacity-20" style={{
           backgroundColor: color,
           animationDuration: '2s'
         }} />
-            <div className="absolute inset-[-8px] rounded-3xl animate-ping opacity-10" style={{
+            <div className="absolute inset-[-4px] sm:inset-[-6px] md:inset-[-8px] rounded-2xl sm:rounded-3xl animate-ping opacity-10" style={{
           backgroundColor: color,
           animationDuration: '2.5s',
           animationDelay: '0.5s'
@@ -1486,25 +1486,25 @@ const WorkflowGraph = ({
           </div>
 
           {/* Right Icons */}
-          <div className="absolute right-4 md:right-8 top-0 h-full flex flex-col justify-around py-8">
+          <div className="absolute right-2 sm:right-4 md:right-8 top-0 h-full flex flex-col justify-around py-4 sm:py-6 md:py-8">
             {rightIcons.map(({
           Icon,
           delay,
           label,
           moduleId
-        }, idx) => <div key={idx} className="flex flex-col items-center gap-1" style={{
+        }, idx) => <div key={idx} className="flex flex-col items-center gap-0.5 sm:gap-1" style={{
           transform: isVisible ? 'translateX(0) scale(1)' : 'translateX(50px) scale(0.5)',
           opacity: isVisible ? 1 : 0,
           transition: 'all 0.7s ease-out',
           transitionDelay: `${delay}s`
         }}>
-                <div onClick={() => handleModuleClick(moduleId)} className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl ${isVisible ? `float-${(idx + 1) % 3 + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`} style={{
+                <div onClick={() => handleModuleClick(moduleId)} className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 hover:shadow-xl touch-manipulation ${isVisible ? `float-${(idx + 1) % 3 + 1}` : ''} ${showLabels ? 'hover:ring-2 hover:ring-offset-2' : ''} ${selectedModule === moduleId ? 'ring-2 ring-offset-2' : 'bg-white'}`} style={{
             '--tw-ring-color': color,
             backgroundColor: selectedModule === moduleId ? color : 'white'
           } as React.CSSProperties}>
-                  <Icon size={24} className={selectedModule === moduleId ? 'text-white' : 'text-gray-700'} />
+                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${selectedModule === moduleId ? 'text-white' : 'text-gray-700'}`} />
                 </div>
-                {showLabels && label && <span onClick={() => handleModuleClick(moduleId)} className="text-xs md:text-sm font-medium text-gray-600 text-center max-w-[100px] leading-tight cursor-pointer hover:underline">
+                {showLabels && label && <span onClick={() => handleModuleClick(moduleId)} className="text-[10px] sm:text-xs md:text-sm font-medium text-gray-600 text-center max-w-[60px] sm:max-w-[80px] md:max-w-[100px] leading-tight cursor-pointer hover:underline">
                     {label}
                   </span>}
               </div>)}
@@ -1512,26 +1512,26 @@ const WorkflowGraph = ({
         </div>)}
 
       {/* Features Bar - Between Workflow and Details */}
-      <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-8 px-4">
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-12 mt-6 sm:mt-8 px-3 sm:px-4">
         {features.map(({
         Icon,
         label
-      }, idx) => <div key={idx} className={`flex items-center gap-2 text-gray-600 transition-all duration-700`} style={{
+      }, idx) => <div key={idx} className={`flex items-center gap-1.5 sm:gap-2 text-gray-600 transition-all duration-700`} style={{
         transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
         opacity: isVisible ? 1 : 0,
         transitionDelay: `${0.6 + idx * 0.1}s`
       }}>
             <div className="relative">
-              <div className="absolute -left-8 top-1/2 w-6 border-t-2 border-dashed" style={{
+              <div className="absolute -left-4 sm:-left-6 md:-left-8 top-1/2 w-3 sm:w-4 md:w-6 border-t-2 border-dashed hidden sm:block" style={{
             borderColor: color,
             opacity: 0.4
           }} />
-              <Icon size={18} style={{
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-[18px] md:h-[18px]" style={{
             color
-          }} className={idx === 0 ? 'animate-spin' : ''} />
+          }} />
             </div>
-            <span className="text-sm md:text-base font-medium">{label}</span>
-            {idx < features.length - 1 && <div className="hidden md:block w-16 border-t-2 border-dashed ml-4" style={{
+            <span className="text-xs sm:text-sm md:text-base font-medium">{label}</span>
+            {idx < features.length - 1 && <div className="hidden lg:block w-16 border-t-2 border-dashed ml-4" style={{
           borderColor: color,
           opacity: 0.4
         }} />}
@@ -1539,45 +1539,45 @@ const WorkflowGraph = ({
       </div>
 
       {/* Inline Module Details Section */}
-      {(showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession' || moduleType === 'konstruct') && currentModule && <div ref={detailsRef} key={currentModule.id} className="mt-12 max-w-4xl mx-auto px-4 animate-fade-in scroll-mt-8">
+      {(showLabels || moduleType === 'post-sales' || moduleType === 'pre-sales' || moduleType === 'possession' || moduleType === 'konstruct') && currentModule && <div ref={detailsRef} key={currentModule.id} className="mt-8 sm:mt-10 md:mt-12 max-w-4xl mx-auto px-3 sm:px-4 animate-fade-in scroll-mt-4 sm:scroll-mt-6 md:scroll-mt-8">
           <div>
             {/* Features List */}
             <div>
-              <h3 className="text-2xl md:text-3xl mb-4 text-center lg:text-3xl font-medium" style={{
+              <h3 className="text-xl sm:text-2xl md:text-3xl mb-3 sm:mb-4 text-center font-medium" style={{
             color: currentModuleColor
           }}>
                 {currentModule.title}
               </h3>
-              <p className="text-gray-600 mb-8 text-base md:text-lg text-center">{currentModule.description}</p>
+              <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base md:text-lg text-center px-2">{currentModule.description}</p>
               
-              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6 text-center">Key Features</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+              <h4 className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 sm:mb-6 text-center">Key Features</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 sm:gap-x-6 md:gap-x-8 gap-y-3 sm:gap-y-4">
                 {/* Left column - first half of features */}
-                <ul className="space-y-4">
-                  {currentModule.features.slice(0, Math.ceil(currentModule.features.length / 2)).map((feature, idx) => <li key={idx} className="flex items-start gap-3 animate-fade-in" style={{
+                <ul className="space-y-3 sm:space-y-4">
+                  {currentModule.features.slice(0, Math.ceil(currentModule.features.length / 2)).map((feature, idx) => <li key={idx} className="flex items-start gap-2 sm:gap-3 animate-fade-in" style={{
                 animationDelay: `${idx * 0.05}s`
               }}>
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5" style={{
+                      <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center mt-0.5" style={{
                   backgroundColor: currentModuleColor
                 }}>
-                        <Check size={12} className="text-white" />
+                        <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
                       </div>
-                      <span className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      <span className="text-gray-700 text-xs sm:text-sm md:text-base leading-relaxed">
                         {feature}
                       </span>
                     </li>)}
                 </ul>
                 {/* Right column - second half of features */}
-                <ul className="space-y-4">
-                  {currentModule.features.slice(Math.ceil(currentModule.features.length / 2)).map((feature, idx) => <li key={idx + Math.ceil(currentModule.features.length / 2)} className="flex items-start gap-3 animate-fade-in" style={{
+                <ul className="space-y-3 sm:space-y-4">
+                  {currentModule.features.slice(Math.ceil(currentModule.features.length / 2)).map((feature, idx) => <li key={idx + Math.ceil(currentModule.features.length / 2)} className="flex items-start gap-2 sm:gap-3 animate-fade-in" style={{
                 animationDelay: `${(idx + Math.ceil(currentModule.features.length / 2)) * 0.05}s`
               }}>
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5" style={{
+                      <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center mt-0.5" style={{
                   backgroundColor: currentModuleColor
                 }}>
-                        <Check size={12} className="text-white" />
+                        <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
                       </div>
-                      <span className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      <span className="text-gray-700 text-xs sm:text-sm md:text-base leading-relaxed">
                         {feature}
                       </span>
                     </li>)}
