@@ -4,9 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 /* MyCiti Design System */
