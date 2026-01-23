@@ -102,8 +102,17 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Mobile Menu - Clean layout with just hamburger icon */}
-        <div className="flex lg:hidden">
+        {/* Mobile Menu */}
+        <div className="flex lg:hidden items-center gap-3">
+          <a href="/app/login" className="hidden sm:block">
+            <Button 
+              size="sm"
+              className="bg-black text-white text-sm font-medium hover:bg-black/90 rounded-full px-4"
+            >
+              Login
+            </Button>
+          </a>
+          
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="h-9 w-9">
