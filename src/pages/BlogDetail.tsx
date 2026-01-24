@@ -61,6 +61,8 @@ const BlogDetail = () => {
     const elements: JSX.Element[] = [];
     let listItems: string[] = [];
     let inList = false;
+    let tableRows: string[][] = [];
+    let inTable = false;
 
     const flushList = () => {
       if (listItems.length > 0) {
@@ -76,8 +78,83 @@ const BlogDetail = () => {
       inList = false;
     };
 
+    const flushTable = () => {
+      if (tableRows.length > 0) {
+        const headerRow = tableRows[0];
+        const bodyRows = tableRows.slice(1);
+        
+        elements.push(
+          <div key={`table-${elements.length}`} className="overflow-x-auto my-8">
+            <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
+              <thead>
+                <tr className="bg-primary/10">
+                  {headerRow.map((cell, i) => (
+                    <th key={i} className="px-4 py-3 text-left font-semibold text-foreground border border-border/50">
+                      {cell}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {bodyRows.map((row, rowIndex) => (
+                  <tr 
+                    key={rowIndex} 
+                    className={cn(
+                      "transition-colors hover:bg-muted/50",
+                      rowIndex % 2 === 0 ? "bg-background/50" : "bg-muted/30"
+                    )}
+                  >
+                    {row.map((cell, cellIndex) => (
+                      <td key={cellIndex} className="px-4 py-3 text-foreground/80 border border-border/50">
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        tableRows = [];
+      }
+      inTable = false;
+    };
+
+    const parseInlineFormatting = (text: string) => {
+      // Parse bold text with **text**
+      const parts = text.split(/(\*\*[^*]+\*\*)/g);
+      return parts.map((part, i) => {
+        if (part.startsWith("**") && part.endsWith("**")) {
+          return <strong key={i} className="font-semibold text-foreground">{part.slice(2, -2)}</strong>;
+        }
+        return part;
+      });
+    };
+
     lines.forEach((line, index) => {
       const trimmed = line.trim();
+
+      // Check for table rows (lines starting and containing |)
+      if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
+        flushList();
+        
+        // Skip separator rows (|---|---|)
+        if (trimmed.match(/^\|[-:\s|]+\|$/)) {
+          return;
+        }
+        
+        // Parse table cells
+        const cells = trimmed
+          .split("|")
+          .slice(1, -1) // Remove empty first and last elements
+          .map(cell => cell.trim());
+        
+        tableRows.push(cells);
+        inTable = true;
+        return;
+      } else if (inTable) {
+        flushTable();
+      }
 
       if (trimmed.startsWith("## ")) {
         flushList();
@@ -93,11 +170,19 @@ const BlogDetail = () => {
             {trimmed.replace("### ", "")}
           </h3>
         );
-      } else if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
+      } else if (trimmed.startsWith("**") && trimmed.endsWith("**") && !trimmed.slice(2, -2).includes("**")) {
         flushList();
         elements.push(
           <p key={index} className="font-semibold text-foreground mb-2">
             {trimmed.replace(/\*\*/g, "")}
+          </p>
+        );
+      } else if (trimmed.startsWith("**") && trimmed.includes(":**")) {
+        // Handle bold labels with descriptions like "**Label:** Description"
+        flushList();
+        elements.push(
+          <p key={index} className="text-foreground/80 leading-relaxed mb-4">
+            {parseInlineFormatting(trimmed)}
           </p>
         );
       } else if (trimmed.startsWith("- [ ] ") || trimmed.startsWith("- [x] ")) {
@@ -130,13 +215,14 @@ const BlogDetail = () => {
         flushList();
         elements.push(
           <p key={index} className="text-foreground/80 leading-relaxed mb-4">
-            {trimmed}
+            {parseInlineFormatting(trimmed)}
           </p>
         );
       }
     });
 
     flushList();
+    flushTable();
     return elements;
   };
 
