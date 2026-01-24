@@ -176,7 +176,7 @@ const postSalesModuleData: Record<string, ModuleInfo> = {
   },
   "reward-loyalty": {
     id: "reward-loyalty",
-    title: "Reward Loyalty",
+    title: "Reward and Loyalty",
     description: "Build lasting customer relationships with comprehensive loyalty programs and reward management.",
     features: ["Customer loyalty program management", "Points accumulation and redemption tracking", "Referral bonus and incentive programs", "Exclusive member benefits and offers", "Loyalty tier management", "Reward catalog and fulfillment", "Customer engagement analytics", "Automated reward notifications"],
     screenImage: screenSalesExecutive
@@ -1029,7 +1029,7 @@ const WorkflowGraph = ({
     moduleId: "sales"
   }, {
     Icon: HeartHandshake,
-    label: "Reward\nLoyalty",
+    label: "Reward\n&\nLoyalty",
     moduleId: "reward-loyalty"
   }];
 
@@ -1238,33 +1238,45 @@ const WorkflowGraph = ({
             y = centerY + radius * Math.sin(angle) * 0.9;
           } else {
             const outerIdx = idx - 6;
-            const positions = [{
-              x: 12,
-              y: 25
-            }, {
-              x: 88,
-              y: 25
-            }, {
-              x: 5,
-              y: 50
-            }, {
-              x: 95,
-              y: 50
-            }, {
-              x: 12,
-              y: 75
-            }, {
-              x: 88,
-              y: 75
-            }, {
-              x: 30,
-              y: 90
-            }, {
-              x: 70,
-              y: 90
-            }];
-            x = (positions[outerIdx]?.x ?? 50) * 8;
-            y = (positions[outerIdx]?.y ?? 50) * 6.5;
+            // For post-sales with more than 14 items, distribute the outer ring evenly
+            // so extra modules (like Reward & Loyalty) are always visible.
+            if (moduleType === 'post-sales' && totalItems > 14) {
+              const outerCount = totalItems - 6;
+              const angle = (outerIdx * (360 / outerCount) - 90) * (Math.PI / 180);
+              const outerRadius = 44; // percentage radius
+              const xPct = 50 + outerRadius * Math.cos(angle);
+              const yPct = 50 + outerRadius * Math.sin(angle) * 0.9;
+              x = xPct * 8;
+              y = yPct * 6.5;
+            } else {
+              const positions = [{
+                x: 12,
+                y: 25
+              }, {
+                x: 88,
+                y: 25
+              }, {
+                x: 5,
+                y: 50
+              }, {
+                x: 95,
+                y: 50
+              }, {
+                x: 12,
+                y: 75
+              }, {
+                x: 88,
+                y: 75
+              }, {
+                x: 30,
+                y: 90
+              }, {
+                x: 70,
+                y: 90
+              }];
+              x = (positions[outerIdx]?.x ?? 50) * 8;
+              y = (positions[outerIdx]?.y ?? 50) * 6.5;
+            }
           }
 
           // Create curved path from hex to center
@@ -1367,48 +1379,58 @@ const WorkflowGraph = ({
         } else {
           // Outer ring - remaining hexagons
           const outerIdx = idx - 6;
-          const positions = [{
-            x: 12,
-            y: 25
-          },
-          // far left top
-          {
-            x: 88,
-            y: 25
-          },
-          // far right top
-          {
-            x: 5,
-            y: 50
-          },
-          // far left middle
-          {
-            x: 95,
-            y: 50
-          },
-          // far right middle
-          {
-            x: 12,
-            y: 75
-          },
-          // far left bottom
-          {
-            x: 88,
-            y: 75
-          },
-          // far right bottom
-          {
-            x: 30,
-            y: 90
-          },
-          // bottom left
-          {
-            x: 70,
-            y: 90
-          } // bottom right
-          ];
-          x = positions[outerIdx]?.x ?? centerX;
-          y = positions[outerIdx]?.y ?? centerY;
+
+          // Post-sales can have 15+ items; distribute evenly so nothing gets clipped.
+          if (moduleType === 'post-sales' && totalItems > 14) {
+            const outerCount = totalItems - 6;
+            const angle = (outerIdx * (360 / outerCount) - 90) * (Math.PI / 180);
+            const outerRadius = 44;
+            x = centerX + outerRadius * Math.cos(angle);
+            y = centerY + outerRadius * Math.sin(angle) * 0.9;
+          } else {
+            const positions = [{
+              x: 12,
+              y: 25
+            },
+            // far left top
+            {
+              x: 88,
+              y: 25
+            },
+            // far right top
+            {
+              x: 5,
+              y: 50
+            },
+            // far left middle
+            {
+              x: 95,
+              y: 50
+            },
+            // far right middle
+            {
+              x: 12,
+              y: 75
+            },
+            // far left bottom
+            {
+              x: 88,
+              y: 75
+            },
+            // far right bottom
+            {
+              x: 30,
+              y: 90
+            },
+            // bottom left
+            {
+              x: 70,
+              y: 90
+            } // bottom right
+            ];
+            x = positions[outerIdx]?.x ?? centerX;
+            y = positions[outerIdx]?.y ?? centerY;
+          }
         }
         const isSelected = selectedModule === moduleId;
         const floatClass = idx % 2 === 0 ? 'hex-float' : 'hex-float-delayed';
