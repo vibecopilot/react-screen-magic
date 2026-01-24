@@ -16,7 +16,7 @@ export const blogPosts: BlogPost[] = [
     id: "snag-free-possession",
     category: "Possession & Handover",
     categoryIcon: Home,
-    title: "Snag-Free Possession: How Digital Keys Are Redefining Home Handover in 2026",
+    title: "Beyond the Paperwork: Making the Possession Experience \"Snag-Free\"",
     cardPrompt: "Turn possession day into a celebration, not a confrontation…",
     blogFocus: "Explore how mobile snagging apps, digital vaults, and automated onboarding create a seamless handover experience.",
     fullContent: `The traditional home handover process has long been a source of anxiety for buyers. Snag lists, missing documents, and unclear communication often turn what should be a joyous occasion into a frustrating ordeal.
