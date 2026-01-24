@@ -12,6 +12,12 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
   const navigate = useNavigate();
   const IconComponent = post.categoryIcon;
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`/blog/${post.id}`);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -23,7 +29,15 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
         ease: [0.25, 0.46, 0.45, 0.94]
       }}
       whileHover={{ y: -8, scale: 1.02 }}
-      onClick={() => navigate(`/blog/${post.id}`)}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          navigate(`/blog/${post.id}`);
+        }
+      }}
       className={cn(
         "group cursor-pointer relative overflow-hidden rounded-2xl",
         "bg-card/80 backdrop-blur-sm border border-border/50",
@@ -49,13 +63,7 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full">
         {/* Category badge */}
-        <motion.div 
-          className="flex items-center gap-2 mb-4"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
-        >
+        <div className="flex items-center gap-2 mb-4">
           <div className={cn(
             "p-2 rounded-lg",
             "bg-primary/10 text-primary",
@@ -67,29 +75,17 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
           <span className="text-xs font-medium tracking-wider uppercase text-muted-foreground group-hover:text-foreground/80 transition-colors">
             {post.category}
           </span>
-        </motion.div>
+        </div>
 
         {/* Title */}
-        <motion.h3 
-          className="font-serif text-lg sm:text-xl font-medium text-foreground mb-3 line-clamp-3 group-hover:text-primary transition-colors duration-300"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
-        >
+        <h3 className="font-serif text-lg sm:text-xl font-medium text-foreground mb-3 line-clamp-3 group-hover:text-primary transition-colors duration-300">
           {post.title}
-        </motion.h3>
+        </h3>
 
         {/* Card prompt */}
-        <motion.p 
-          className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2 group-hover:text-foreground/70 transition-colors"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: index * 0.1 + 0.4 }}
-        >
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2 group-hover:text-foreground/70 transition-colors">
           {post.cardPrompt}
-        </motion.p>
+        </p>
 
         {/* Spacer */}
         <div className="flex-1" />
