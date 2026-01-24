@@ -1,0 +1,100 @@
+import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { BlogPost } from "@/data/blogPosts";
+
+interface BlogCardProps {
+  post: BlogPost;
+  index: number;
+}
+
+const BlogCard = ({ post, index }: BlogCardProps) => {
+  const navigate = useNavigate();
+  const IconComponent = post.categoryIcon;
+
+  return (
+    <div
+      onClick={() => navigate(`/blog/${post.id}`)}
+      className={cn(
+        "group cursor-pointer relative overflow-hidden rounded-2xl",
+        "bg-card/80 backdrop-blur-sm border border-border/50",
+        "p-5 sm:p-6 h-full min-h-[280px]",
+        "transition-all duration-500 ease-out",
+        "hover:shadow-2xl hover:shadow-primary/10",
+        "hover:-translate-y-2 hover:scale-[1.02]",
+        "animate-fade-in"
+      )}
+      style={{
+        animationDelay: `${index * 100}ms`,
+        animationFillMode: "both"
+      }}
+    >
+      {/* Gradient background effect */}
+      <div
+        className={cn(
+          "absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500",
+          "group-hover:opacity-100",
+          post.gradient
+        )}
+      />
+
+      {/* Animated border glow */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute inset-[-1px] rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-sm" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col h-full">
+        {/* Category badge */}
+        <div className="flex items-center gap-2 mb-4">
+          <div className={cn(
+            "p-2 rounded-lg",
+            "bg-primary/10 text-primary",
+            "group-hover:bg-primary group-hover:text-primary-foreground",
+            "transition-all duration-300"
+          )}>
+            <IconComponent className="w-4 h-4" />
+          </div>
+          <span className="text-xs font-medium tracking-wider uppercase text-muted-foreground group-hover:text-foreground/80 transition-colors">
+            {post.category}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3 className="font-serif text-lg sm:text-xl font-medium text-foreground mb-3 line-clamp-3 group-hover:text-primary transition-colors duration-300">
+          {post.title}
+        </h3>
+
+        {/* Card prompt */}
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2 group-hover:text-foreground/70 transition-colors">
+          {post.cardPrompt}
+        </p>
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Read more indicator */}
+        <div className="flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+          <span>Read article</span>
+          <svg
+            className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Floating particles effect on hover */}
+      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+        <div className="w-2 h-2 rounded-full bg-accent/50 animate-float" />
+      </div>
+      <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200">
+        <div className="w-1.5 h-1.5 rounded-full bg-primary/50 animate-float" style={{ animationDelay: "0.5s" }} />
+      </div>
+    </div>
+  );
+};
+
+export default BlogCard;
