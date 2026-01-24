@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { BlogPost } from "@/data/blogPosts";
 
@@ -12,21 +13,24 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
   const IconComponent = post.categoryIcon;
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 50, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }}
+      whileHover={{ y: -8, scale: 1.02 }}
       onClick={() => navigate(`/blog/${post.id}`)}
       className={cn(
         "group cursor-pointer relative overflow-hidden rounded-2xl",
         "bg-card/80 backdrop-blur-sm border border-border/50",
         "p-5 sm:p-6 h-full min-h-[280px]",
-        "transition-all duration-500 ease-out",
-        "hover:shadow-2xl hover:shadow-primary/10",
-        "hover:-translate-y-2 hover:scale-[1.02]",
-        "animate-fade-in"
+        "transition-shadow duration-500 ease-out",
+        "hover:shadow-2xl hover:shadow-primary/10"
       )}
-      style={{
-        animationDelay: `${index * 100}ms`,
-        animationFillMode: "both"
-      }}
     >
       {/* Gradient background effect */}
       <div
@@ -45,7 +49,13 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full">
         {/* Category badge */}
-        <div className="flex items-center gap-2 mb-4">
+        <motion.div 
+          className="flex items-center gap-2 mb-4"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
+        >
           <div className={cn(
             "p-2 rounded-lg",
             "bg-primary/10 text-primary",
@@ -57,17 +67,29 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
           <span className="text-xs font-medium tracking-wider uppercase text-muted-foreground group-hover:text-foreground/80 transition-colors">
             {post.category}
           </span>
-        </div>
+        </motion.div>
 
         {/* Title */}
-        <h3 className="font-serif text-lg sm:text-xl font-medium text-foreground mb-3 line-clamp-3 group-hover:text-primary transition-colors duration-300">
+        <motion.h3 
+          className="font-serif text-lg sm:text-xl font-medium text-foreground mb-3 line-clamp-3 group-hover:text-primary transition-colors duration-300"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+        >
           {post.title}
-        </h3>
+        </motion.h3>
 
         {/* Card prompt */}
-        <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2 group-hover:text-foreground/70 transition-colors">
+        <motion.p 
+          className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2 group-hover:text-foreground/70 transition-colors"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: index * 0.1 + 0.4 }}
+        >
           {post.cardPrompt}
-        </p>
+        </motion.p>
 
         {/* Spacer */}
         <div className="flex-1" />
@@ -93,7 +115,7 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
       <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200">
         <div className="w-1.5 h-1.5 rounded-full bg-primary/50 animate-float" style={{ animationDelay: "0.5s" }} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
