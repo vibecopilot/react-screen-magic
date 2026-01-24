@@ -65,13 +65,6 @@ const preSalesModuleData: Record<string, ModuleInfo> = {
     features: ["Track inventory levels in real time across multiple locations", "Automatic stock updates for purchases, sales, and returns", "Low-stock alerts and reorder notifications", "Categorization and tagging of products for easy management", "Inventory usage analytics and reporting", "Integration with sales and procurement systems", "Barcode / SKU-based inventory tracking", "Reduce stock wastage with expiry and movement tracking"],
     screenImage: screenSalesExecutive
   },
-  "channel-partner": {
-    id: "channel-partner",
-    title: "Channel Partner",
-    description: "Build and manage a strong network of channel partners to expand your sales reach and drive growth.",
-    features: ["Partner registration and onboarding portal", "Partner tier management and benefits", "Real-time deal registration and tracking", "Partner portal with self-service tools", "Co-branded marketing materials", "Partner training and certification programs", "Performance-based incentive management", "Partner communication and collaboration tools"],
-    screenImage: screenSalesExecutive
-  },
   "ivr-calling": {
     id: "ivr-calling",
     title: "IVR Calling",
@@ -445,13 +438,8 @@ const WorkflowGraph = ({
     label: "Inventory Tracking",
     moduleId: "inventory-tracking"
   }, {
-    Icon: Users,
-    delay: 0.4,
-    label: "Channel Partner",
-    moduleId: "channel-partner"
-  }, {
     Icon: Phone,
-    delay: 0.5,
+    delay: 0.4,
     label: "IVR Calling",
     moduleId: "ivr-calling"
   }];
