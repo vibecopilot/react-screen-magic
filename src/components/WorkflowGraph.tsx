@@ -64,6 +64,20 @@ const preSalesModuleData: Record<string, ModuleInfo> = {
     description: "Streamline your inventory monitoring and control with real-time tracking and intelligent stock management.",
     features: ["Track inventory levels in real time across multiple locations", "Automatic stock updates for purchases, sales, and returns", "Low-stock alerts and reorder notifications", "Categorization and tagging of products for easy management", "Inventory usage analytics and reporting", "Integration with sales and procurement systems", "Barcode / SKU-based inventory tracking", "Reduce stock wastage with expiry and movement tracking"],
     screenImage: screenSalesExecutive
+  },
+  "channel-partner": {
+    id: "channel-partner",
+    title: "Channel Partner",
+    description: "Build and manage a strong network of channel partners to expand your sales reach and drive growth.",
+    features: ["Partner registration and onboarding portal", "Partner tier management and benefits", "Real-time deal registration and tracking", "Partner portal with self-service tools", "Co-branded marketing materials", "Partner training and certification programs", "Performance-based incentive management", "Partner communication and collaboration tools"],
+    screenImage: screenSalesExecutive
+  },
+  "ivr-calling": {
+    id: "ivr-calling",
+    title: "IVR Calling",
+    description: "Automate customer interactions with intelligent IVR systems for efficient call handling and lead qualification.",
+    features: ["Automated call routing and distribution", "Interactive voice response menus", "Call recording and quality monitoring", "Lead qualification through IVR surveys", "Integration with CRM for call logging", "Missed call tracking and callbacks", "Multi-language support for IVR", "Real-time call analytics and reporting"],
+    screenImage: screenSalesExecutive
   }
 };
 
@@ -422,14 +436,24 @@ const WorkflowGraph = ({
     moduleId: "booking-approval"
   }, {
     Icon: UserCog,
-    delay: 0.25,
+    delay: 0.2,
     label: "Sales Executive Management",
     moduleId: "sales-executive-management"
   }, {
     Icon: Package,
-    delay: 0.4,
+    delay: 0.3,
     label: "Inventory Tracking",
     moduleId: "inventory-tracking"
+  }, {
+    Icon: Users,
+    delay: 0.4,
+    label: "Channel Partner",
+    moduleId: "channel-partner"
+  }, {
+    Icon: Phone,
+    delay: 0.5,
+    label: "IVR Calling",
+    moduleId: "ivr-calling"
   }];
 
   // Post-sales specific icons with labels and module IDs
