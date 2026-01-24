@@ -902,9 +902,13 @@ const WorkflowGraph = ({
     y: 82,
     delay: 0.65
   }, {
-    x: 50,
+    x: 35,
     y: 95,
     delay: 0.7
+  }, {
+    x: 65,
+    y: 95,
+    delay: 0.75
   }];
 
   // All post-sales modules for hexagon layout
@@ -1023,6 +1027,10 @@ const WorkflowGraph = ({
     Icon: TrendingUp,
     label: "Sales",
     moduleId: "sales"
+  }, {
+    Icon: HeartHandshake,
+    label: "Reward\nLoyalty",
+    moduleId: "reward-loyalty"
   }];
 
   // Possession modules for hexagon layout (8 modules)
