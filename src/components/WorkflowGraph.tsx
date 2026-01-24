@@ -173,6 +173,13 @@ const postSalesModuleData: Record<string, ModuleInfo> = {
     description: "Track post-sale sales activities with upsell management and performance analytics.",
     features: ["Track post-sale sales activities", "Upsell and add-on management", "Customer interaction history", "Sales performance analytics"],
     screenImage: screenSalesExecutive
+  },
+  "reward-loyalty": {
+    id: "reward-loyalty",
+    title: "Reward Loyalty",
+    description: "Build lasting customer relationships with comprehensive loyalty programs and reward management.",
+    features: ["Customer loyalty program management", "Points accumulation and redemption tracking", "Referral bonus and incentive programs", "Exclusive member benefits and offers", "Loyalty tier management", "Reward catalog and fulfillment", "Customer engagement analytics", "Automated reward notifications"],
+    screenImage: screenSalesExecutive
   }
 };
 
@@ -516,6 +523,11 @@ const WorkflowGraph = ({
     delay: 0.7,
     label: "Sales",
     moduleId: "sales"
+  }, {
+    Icon: HeartHandshake,
+    delay: 0.8,
+    label: "Reward Loyalty",
+    moduleId: "reward-loyalty"
   }];
 
   // Possession specific icons with labels and module IDs
