@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import axiosInstance from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -36,9 +36,9 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const result = contactSchema.safeParse(formData);
-    
+
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.errors.forEach((err) => {
@@ -49,28 +49,31 @@ const Contact = () => {
       setErrors(fieldErrors);
       return;
     }
-    
+
     setErrors({});
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData,
+      await axiosInstance.post('/abouts/contact_us.json', {
+        contact_us: {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          customer_type: formData.customerType,
+        }
       });
-
-      if (error) throw error;
 
       toast({
         title: "Message sent!",
         description: "We'll get back to you as soon as possible.",
       });
-      
+
       setFormData({ name: "", email: "", message: "", customerType: "" });
     } catch (error: any) {
       console.error("Error sending message:", error);
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: error.response?.data?.message || "Failed to send message. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -79,7 +82,7 @@ const Contact = () => {
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen"
       style={{
         backgroundImage: `url(${heroBg})`,
@@ -89,7 +92,7 @@ const Contact = () => {
       }}
     >
       <Navbar />
-      
+
       {/* Contact Hero */}
       <section className="pt-24 sm:pt-28 md:pt-32 pb-6 md:pb-8 px-3 sm:px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -163,15 +166,15 @@ const Contact = () => {
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="yes">Yes, I'm an existing customer</SelectItem>
-                  <SelectItem value="no">No, I'm a new customer</SelectItem>
-                  <SelectItem value="trial">I'm currently on a trial</SelectItem>
+                  <SelectItem value="Yes, I'm an existing customer">Yes, I'm an existing customer</SelectItem>
+                  <SelectItem value="No, I'm a new customer">No, I'm a new customer</SelectItem>
+                  <SelectItem value="I'm currently on a trial">I'm currently on a trial</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={isSubmitting}
               className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-full py-6 text-base"
             >

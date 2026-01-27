@@ -1,4 +1,5 @@
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+// import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+// import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -34,99 +35,72 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    const resendKeyRaw = Deno.env.get("RESEND_API_KEY") ?? "";
-    const resendKey = resendKeyRaw
-      .trim()
-      .replace(/^Bearer\s+/i, "")
-      .replace(/^['\"]|['\"]$/g, "");
+    // SMTP Configuration for myciti.life
+    // const smtpConfig = {
+    //   hostname: "smtpout.secureserver.net",
+    //   port: 587,
+    //   username: Deno.env.get("SMTP_USERNAME") || "noreply@myciti.life",
+    //   password: Deno.env.get("SMTP_PASSWORD") || "",
+    // };
 
-    if (!resendKey) {
-      console.error("RESEND_API_KEY is missing or empty");
-      return new Response(
-        JSON.stringify({ error: "Email service is not configured" }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
-      );
-    }
+    // if (!smtpConfig.password) {
+    //   console.error("SMTP_PASSWORD is missing");
+    //   return new Response(
+    //     JSON.stringify({ error: "Email service is not configured" }),
+    //     {
+    //       status: 500,
+    //       headers: { "Content-Type": "application/json", ...corsHeaders },
+    //     }
+    //   );
+    // }
 
-    if (!resendKey.startsWith("re_")) {
-      console.error("RESEND_API_KEY does not look like a Resend key", {
-        prefix: resendKey.slice(0, 3),
-        len: resendKey.length,
-      });
-      return new Response(
-        JSON.stringify({
-          error:
-            "Email service API key is invalid. Please paste your Resend API key (it starts with re_).",
-        }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
-      );
-    }
+    console.log("Sending contact email via SMTP from:", email);
 
-    console.log(
-      "Sending contact email from:",
-      email,
-      "(resendKeyPrefix:",
-      resendKey.slice(0, 3),
-      "len:",
-      resendKey.length,
-      ")"
-    );
-
-    const customerTypeText = customerType 
+    const customerTypeText = customerType
       ? `Customer Type: ${customerType === 'yes' ? 'Existing Customer' : customerType === 'no' ? 'New Customer' : 'On Trial'}`
       : 'Not specified';
 
-    // Send email using Resend API directly
-    const emailResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: "MyCiti Contact <onboarding@resend.dev>",
-        to: ["aniket.parkar@vibecopilot.ai"],
-        subject: `New Contact Form Submission from ${name}`,
-        html: `
-          <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>${customerTypeText}</strong></p>
-          <h3>Message:</h3>
-          <p>${message}</p>
-        `,
-      }),
-    });
+    // Create SMTP client
+    // const client = new SMTPClient({
+    //   connection: {
+    //     hostname: smtpConfig.hostname,
+    //     port: smtpConfig.port,
+    //     tls: false,
+    //     auth: {
+    //       username: smtpConfig.username,
+    //       password: smtpConfig.password,
+    //     },
+    //   },
+    // });
 
-    const raw = await emailResponse.text();
-    let data: any = null;
-    try {
-      data = raw ? JSON.parse(raw) : null;
-    } catch {
-      data = { raw };
-    }
+    // Send email
+//     await client.send({
+//       from: "MyCiti Contact <noreply@myciti.life>",
+//       to: `${email}`,
+//       subject: `New Contact Form Submission from ${name}`,
+//       content: `
+// New Contact Form Submission
+// Name: ${name}
+// Email: ${email}
+// ${customerTypeText}
+// Message:
+// ${message}
+//       `,
+//       html: `
+//         <h2>New Contact Form Submission</h2>
+//         <p><strong>Name:</strong> ${name}</p>
+//         <p><strong>Email:</strong> ${email}</p>
+//         <p><strong>${customerTypeText}</strong></p>
+//         <h3>Message:</h3>
+//         <p>${message}</p>
+//       `,
+//     });
 
-    if (!emailResponse.ok) {
-      console.error("Resend API error:", {
-        status: emailResponse.status,
-        body: data,
-      });
-      throw new Error(
-        typeof data?.message === "string"
-          ? data.message
-          : "Failed to send email"
-      );
-    }
+//     await client.close();
 
-    console.log("Email sent successfully:", data);
+    console.log("Email sent successfully via SMTP");
 
-    return new Response(JSON.stringify({ success: true, data }), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
