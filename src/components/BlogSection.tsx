@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
@@ -17,10 +17,14 @@ const categories = [
   { id: "Thought Leadership", label: "Thought Leadership" },
 ];
 
+const AUTOPLAY_INTERVAL = 5000; // 5 seconds
+
 const BlogSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
   
   const {
     ref: headerRef,
@@ -50,6 +54,35 @@ const BlogSection = () => {
     setDirection(-1);
     setActiveIndex((prev) => (prev - 1 + filteredPosts.length) % filteredPosts.length);
   }, [filteredPosts.length]);
+
+  // Autoplay functionality
+  useEffect(() => {
+    if (isPaused || filteredPosts.length <= 1) {
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+        autoplayRef.current = null;
+      }
+      return;
+    }
+
+    autoplayRef.current = setInterval(() => {
+      handleNext();
+    }, AUTOPLAY_INTERVAL);
+
+    return () => {
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+      }
+    };
+  }, [isPaused, handleNext, filteredPosts.length]);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsPaused(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsPaused(false);
+  }, []);
 
   const handleDragEnd = useCallback((_: any, info: PanInfo) => {
     const threshold = 50;
@@ -130,6 +163,8 @@ const BlogSection = () => {
         {/* Carousel Container */}
         <div 
           className="relative"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           onKeyDown={handleKeyDown}
           tabIndex={0}
           role="region"
