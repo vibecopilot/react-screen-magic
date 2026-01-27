@@ -113,8 +113,9 @@ const BlogDetail = () => {
             {listItems.map((item, i) => (
               <motion.li 
                 key={i} 
-                className="leading-relaxed"
+                className="leading-relaxed py-1.5 px-2 -mx-2 rounded-md transition-all duration-300 hover:bg-primary/5 hover:translate-x-1 cursor-default"
                 variants={fadeInLeft}
+                whileHover={{ scale: 1.01 }}
               >
                 {parseInlineFormatting(item)}
               </motion.li>
@@ -266,8 +267,9 @@ const BlogDetail = () => {
             variants={fadeInLeft}
             initial="hidden"
             whileInView="visible"
+            whileHover={{ x: 4, backgroundColor: "hsl(var(--primary) / 0.03)" }}
             viewport={{ once: true, margin: "-50px" }}
-            className="text-foreground/80 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base"
+            className="text-foreground/80 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base py-2 px-3 -mx-3 rounded-lg transition-colors duration-300 cursor-default"
           >
             {parseInlineFormatting(trimmed)}
           </motion.p>
@@ -292,8 +294,9 @@ const BlogDetail = () => {
             variants={fadeInLeft}
             initial="hidden"
             whileInView="visible"
+            whileHover={{ x: 4, backgroundColor: "hsl(var(--primary) / 0.03)" }}
             viewport={{ once: true, margin: "-50px" }}
-            className="text-foreground/80 mb-2 pl-4 text-sm sm:text-base"
+            className="text-foreground/80 mb-2 pl-4 text-sm sm:text-base py-2 pr-3 rounded-lg transition-colors duration-300 cursor-default"
           >
             {trimmed}
           </motion.p>
@@ -320,8 +323,9 @@ const BlogDetail = () => {
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
+            whileHover={{ x: 4, backgroundColor: "hsl(var(--primary) / 0.03)" }}
             viewport={{ once: true, margin: "-50px" }}
-            className="text-foreground/80 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base"
+            className="text-foreground/80 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base py-2 px-3 -mx-3 rounded-lg transition-colors duration-300 cursor-default"
           >
             {parseInlineFormatting(trimmed)}
           </motion.p>
