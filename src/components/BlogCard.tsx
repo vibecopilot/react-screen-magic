@@ -16,6 +16,7 @@ const BlogCard = ({ post, isActive = false }: BlogCardProps) => {
   const handleReadMore = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    window.scrollTo(0, 0);
     navigate(`/blog/${post.id}`);
   };
 
