@@ -6,6 +6,12 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import heroBg from "@/assets/hero-clouds-bg.jpg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -37,8 +43,6 @@ const BlogDetail = () => {
     );
   }
 
-  const IconComponent = post.categoryIcon;
-
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -67,9 +71,9 @@ const BlogDetail = () => {
     const flushList = () => {
       if (listItems.length > 0) {
         elements.push(
-          <ul key={`list-${elements.length}`} className="list-disc list-inside space-y-2 mb-6 text-foreground/80">
+          <ul key={`list-${elements.length}`} className="list-disc list-inside space-y-2 mb-6 text-foreground/80 text-sm sm:text-base">
             {listItems.map((item, i) => (
-              <li key={i}>{item}</li>
+              <li key={i} className="leading-relaxed">{item}</li>
             ))}
           </ul>
         );
@@ -84,12 +88,12 @@ const BlogDetail = () => {
         const bodyRows = tableRows.slice(1);
         
         elements.push(
-          <div key={`table-${elements.length}`} className="overflow-x-auto my-8">
-            <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm">
+          <div key={`table-${elements.length}`} className="overflow-x-auto my-6 sm:my-8">
+            <table className="w-full border-collapse rounded-lg overflow-hidden shadow-sm text-sm sm:text-base">
               <thead>
                 <tr className="bg-primary/10">
                   {headerRow.map((cell, i) => (
-                    <th key={i} className="px-4 py-3 text-left font-semibold text-foreground border border-border/50">
+                    <th key={i} className="px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold text-foreground border border-border/50">
                       {cell}
                     </th>
                   ))}
@@ -105,7 +109,7 @@ const BlogDetail = () => {
                     )}
                   >
                     {row.map((cell, cellIndex) => (
-                      <td key={cellIndex} className="px-4 py-3 text-foreground/80 border border-border/50">
+                      <td key={cellIndex} className="px-3 sm:px-4 py-2 sm:py-3 text-foreground/80 border border-border/50">
                         {cell}
                       </td>
                     ))}
@@ -159,21 +163,21 @@ const BlogDetail = () => {
       if (trimmed.startsWith("## ")) {
         flushList();
         elements.push(
-          <h2 key={index} className="font-serif text-2xl sm:text-3xl font-medium text-foreground mt-10 mb-4">
+          <h2 key={index} className="font-serif text-xl sm:text-2xl md:text-3xl font-medium text-foreground mt-8 sm:mt-10 mb-3 sm:mb-4">
             {trimmed.replace("## ", "")}
           </h2>
         );
       } else if (trimmed.startsWith("### ")) {
         flushList();
         elements.push(
-          <h3 key={index} className="font-serif text-xl sm:text-2xl font-medium text-foreground mt-8 mb-3">
+          <h3 key={index} className="font-serif text-lg sm:text-xl md:text-2xl font-medium text-foreground mt-6 sm:mt-8 mb-2 sm:mb-3">
             {trimmed.replace("### ", "")}
           </h3>
         );
       } else if (trimmed.startsWith("**") && trimmed.endsWith("**") && !trimmed.slice(2, -2).includes("**")) {
         flushList();
         elements.push(
-          <p key={index} className="font-semibold text-foreground mb-2">
+          <p key={index} className="font-semibold text-foreground mb-2 text-sm sm:text-base">
             {trimmed.replace(/\*\*/g, "")}
           </p>
         );
@@ -181,7 +185,7 @@ const BlogDetail = () => {
         // Handle bold labels with descriptions like "**Label:** Description"
         flushList();
         elements.push(
-          <p key={index} className="text-foreground/80 leading-relaxed mb-4">
+          <p key={index} className="text-foreground/80 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
             {parseInlineFormatting(trimmed)}
           </p>
         );
@@ -200,21 +204,21 @@ const BlogDetail = () => {
       } else if (trimmed.match(/^\d+\.\s/)) {
         flushList();
         elements.push(
-          <p key={index} className="text-foreground/80 mb-2 pl-4">
+          <p key={index} className="text-foreground/80 mb-2 pl-4 text-sm sm:text-base">
             {trimmed}
           </p>
         );
       } else if (trimmed.startsWith("*") && trimmed.endsWith("*") && trimmed.includes("—")) {
         flushList();
         elements.push(
-          <blockquote key={index} className="border-l-4 border-primary/50 pl-4 py-2 my-6 italic text-foreground/70">
+          <blockquote key={index} className="border-l-4 border-primary/50 pl-4 py-2 my-4 sm:my-6 italic text-foreground/70 text-sm sm:text-base">
             {trimmed.replace(/^\*|\*$/g, "")}
           </blockquote>
         );
       } else if (trimmed.length > 0) {
         flushList();
         elements.push(
-          <p key={index} className="text-foreground/80 leading-relaxed mb-4">
+          <p key={index} className="text-foreground/80 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
             {parseInlineFormatting(trimmed)}
           </p>
         );
@@ -238,38 +242,37 @@ const BlogDetail = () => {
     >
       <Navbar />
 
-      <article className="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
+      <article className="container mx-auto px-4 py-6 sm:py-8 md:py-12 max-w-4xl">
         {/* Back button */}
         <Button
           onClick={() => navigate("/")}
           variant="ghost"
-          className="mb-8 hover:bg-background/50"
+          className="mb-6 sm:mb-8 hover:bg-background/50"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Blog
         </Button>
 
         {/* Hero section */}
-        <header className="mb-10">
-
+        <header className="mb-8 sm:mb-10">
           {/* Title */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-foreground mb-6 leading-tight">
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-foreground mb-4 sm:mb-6 leading-tight">
             {post.title}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-6">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-4 sm:mb-6">
             {post.blogFocus}
           </p>
 
           {/* Meta */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
-              <Calendar className="w-4 h-4" />
+              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>January 24, 2026</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" />
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>5 min read</span>
             </div>
             <Button
@@ -278,7 +281,7 @@ const BlogDetail = () => {
               onClick={handleShare}
               className="ml-auto"
             >
-              <Share2 className="w-4 h-4 mr-1.5" />
+              <Share2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5" />
               Share
             </Button>
           </div>
@@ -286,20 +289,45 @@ const BlogDetail = () => {
 
         {/* Gradient divider */}
         <div className={cn(
-          "h-1 rounded-full mb-10",
+          "h-1 rounded-full mb-8 sm:mb-10",
           "bg-gradient-to-r",
           post.gradient.replace("/20", "/40")
         )} />
 
-        {/* Content */}
-        <div className="bg-card/60 backdrop-blur-sm rounded-2xl p-6 sm:p-10 border border-border/50">
-          <div className="prose prose-lg max-w-none">
-            {renderContent(post.fullContent)}
+        {/* Main Content */}
+        <div className="bg-card/60 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-10 border border-border/50 mb-6 sm:mb-8">
+          <div className="prose prose-sm sm:prose-lg max-w-none">
+            {renderContent(post.mainContent)}
           </div>
         </div>
 
+        {/* FAQ Section with Accordion */}
+        {post.faqs && post.faqs.length > 0 && (
+          <div className="bg-card/60 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-10 border border-border/50">
+            <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-medium text-foreground mb-4 sm:mb-6">
+              Frequently Asked Questions
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {post.faqs.map((faq, index) => (
+                <AccordionItem 
+                  key={index} 
+                  value={`faq-${index}`}
+                  className="border-border/50"
+                >
+                  <AccordionTrigger className="text-left text-sm sm:text-base font-medium text-foreground hover:text-primary hover:no-underline py-3 sm:py-4">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-foreground/80 text-sm sm:text-base leading-relaxed pb-3 sm:pb-4">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        )}
+
         {/* Related posts suggestion */}
-        <div className="mt-12 text-center">
+        <div className="mt-10 sm:mt-12 text-center">
           <Button
             onClick={() => navigate("/")}
             variant="outline"

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
@@ -6,19 +6,9 @@ import { blogPosts } from "@/data/blogPosts";
 import BlogCard from "./BlogCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const categories = [
-  { id: "all", label: "All" },
-  { id: "Possession & Handover", label: "Possession" },
-  { id: "Construction Transparency", label: "Construction" },
-  { id: "Presales Automation", label: "Presales" },
-  { id: "Post-Sales Experience", label: "Post-Sales" },
-  { id: "Buyer Education", label: "Buyer Education" },
-  { id: "Feature Deep Dives", label: "Features" },
-  { id: "Thought Leadership", label: "Thought Leadership" },
-];
+// Only 5 main blog posts now - no category filtering needed
 
 const BlogSection = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   
@@ -29,15 +19,8 @@ const BlogSection = () => {
     threshold: 0.3
   });
 
-  const filteredPosts = useMemo(() => {
-    if (activeCategory === "all") return blogPosts;
-    return blogPosts.filter(post => post.category === activeCategory);
-  }, [activeCategory]);
-
-  // Reset index when category changes
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [activeCategory]);
+  // Use all blog posts directly (only 5 main posts now)
+  const filteredPosts = blogPosts;
 
   const handleNext = useCallback(() => {
     if (filteredPosts.length === 0) return;
