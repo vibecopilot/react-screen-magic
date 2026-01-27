@@ -3,9 +3,9 @@ import axios from "axios";
 const axiosInstance = axios.create({
   // baseURL: "http://13.215.74.38",
   
-  baseURL: "http://localhost:3000",
+  // baseURL: "http://localhost:3000",
   
-  // baseURL: "https://app.myciti.life"
+  baseURL: "https://app.myciti.life"
 
 });
  
