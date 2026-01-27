@@ -86,12 +86,7 @@ const BlogSection = () => {
   const visibleCards = getVisibleCards();
 
   return (
-    <section id="blog" className="py-12 sm:py-16 md:py-24 px-3 sm:px-4 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50">
-      {/* Background effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-      </div>
+    <section id="blog" className="py-12 sm:py-16 md:py-24 px-3 sm:px-4 overflow-hidden bg-transparent">
 
       <div className="container mx-auto max-w-7xl relative">
         {/* Header */}

@@ -26,17 +26,22 @@ const BlogCard = ({ post, isActive = false }: BlogCardProps) => {
         opacity: isActive ? 1 : 0.7, 
         scale: isActive ? 1 : 0.9,
       }}
+      whileHover={!isActive ? { 
+        scale: 0.93, 
+        opacity: 0.85,
+        y: -8 
+      } : undefined}
       transition={{
         duration: 0.4,
         ease: [0.25, 0.46, 0.45, 0.94]
       }}
       className={cn(
-        "relative overflow-hidden rounded-2xl h-full",
+        "relative overflow-hidden rounded-2xl h-full cursor-pointer",
         "bg-white backdrop-blur-sm",
         "border border-border/50",
-        "transition-all duration-500 ease-out",
+        "transition-all duration-300 ease-out",
         isActive && "shadow-2xl shadow-primary/10 border-primary/20",
-        !isActive && "shadow-lg"
+        !isActive && "shadow-lg hover:shadow-xl hover:border-primary/30"
       )}
     >
       {/* Subtle gradient overlay */}
