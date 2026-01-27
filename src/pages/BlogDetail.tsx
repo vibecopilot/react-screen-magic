@@ -251,18 +251,6 @@ const BlogDetail = () => {
 
         {/* Hero section */}
         <header className="mb-10">
-          {/* Category */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className={cn(
-              "p-2.5 rounded-xl",
-              "bg-primary/10 text-primary"
-            )}>
-              <IconComponent className="w-5 h-5" />
-            </div>
-            <span className="text-sm font-medium tracking-wider uppercase text-muted-foreground">
-              {post.category}
-            </span>
-          </div>
 
           {/* Title */}
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-foreground mb-6 leading-tight">
