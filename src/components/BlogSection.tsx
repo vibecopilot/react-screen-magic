@@ -86,10 +86,10 @@ const BlogSection = () => {
   const visibleCards = getVisibleCards();
 
   return (
-    <section id="blog" className="py-12 sm:py-16 md:py-24 px-3 sm:px-4 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <section id="blog" className="py-12 sm:py-16 md:py-24 px-3 sm:px-4 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
       </div>
 
@@ -102,13 +102,13 @@ const BlogSection = () => {
             headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}
         >
-          <span className="text-xs font-medium tracking-widest text-cyan-400/80 uppercase">
+          <span className="text-xs font-medium tracking-widest text-primary/80 uppercase">
             BLOG
           </span>
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white mt-2 font-medium">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mt-2 font-medium">
             Ideas to level-up your real estate journey
           </h2>
-          <p className="mt-4 text-slate-400 max-w-2xl mx-auto">
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
             Insights, guides, and thought leadership on transforming the real estate experience through technology
           </p>
         </div>
@@ -123,8 +123,8 @@ const BlogSection = () => {
                 "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
                 "border",
                 activeCategory === category.id
-                  ? "bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.2)]"
-                  : "bg-slate-800/50 text-slate-400 border-slate-700/50 hover:bg-slate-700/50 hover:text-slate-300 hover:border-slate-600"
+                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25"
+                  : "bg-white text-muted-foreground border-border hover:bg-muted hover:text-foreground hover:border-primary/30"
               )}
             >
               {category.label}
@@ -148,14 +148,14 @@ const BlogSection = () => {
                 className={cn(
                   "absolute left-0 sm:-left-4 md:-left-8 top-1/2 -translate-y-1/2 z-20",
                   "w-12 h-12 rounded-full",
-                  "bg-slate-800/80 backdrop-blur-sm",
-                  "border border-cyan-500/30",
-                  "text-cyan-400",
+                  "bg-white/90 backdrop-blur-sm shadow-lg",
+                  "border border-border",
+                  "text-foreground",
                   "flex items-center justify-center",
                   "transition-all duration-300",
-                  "hover:bg-cyan-500/20 hover:border-cyan-400/50",
-                  "hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]",
-                  "focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                  "hover:bg-primary hover:text-primary-foreground hover:border-primary",
+                  "hover:shadow-xl",
+                  "focus:outline-none focus:ring-2 focus:ring-primary/50"
                 )}
                 aria-label="Previous post"
               >
@@ -166,14 +166,14 @@ const BlogSection = () => {
                 className={cn(
                   "absolute right-0 sm:-right-4 md:-right-8 top-1/2 -translate-y-1/2 z-20",
                   "w-12 h-12 rounded-full",
-                  "bg-slate-800/80 backdrop-blur-sm",
-                  "border border-cyan-500/30",
-                  "text-cyan-400",
+                  "bg-white/90 backdrop-blur-sm shadow-lg",
+                  "border border-border",
+                  "text-foreground",
                   "flex items-center justify-center",
                   "transition-all duration-300",
-                  "hover:bg-cyan-500/20 hover:border-cyan-400/50",
-                  "hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]",
-                  "focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                  "hover:bg-primary hover:text-primary-foreground hover:border-primary",
+                  "hover:shadow-xl",
+                  "focus:outline-none focus:ring-2 focus:ring-primary/50"
                 )}
                 aria-label="Next post"
               >
@@ -242,8 +242,8 @@ const BlogSection = () => {
                   className={cn(
                     "w-2 h-2 rounded-full transition-all duration-300",
                     index === activeIndex
-                      ? "w-8 bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.5)]"
-                      : "bg-slate-600 hover:bg-slate-500"
+                      ? "w-8 bg-primary shadow-lg shadow-primary/30"
+                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                   )}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -255,7 +255,7 @@ const BlogSection = () => {
         {/* Empty State */}
         {filteredPosts.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-slate-400">No articles found in this category.</p>
+            <p className="text-muted-foreground">No articles found in this category.</p>
           </div>
         )}
       </div>
