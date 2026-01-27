@@ -1,8 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import { blogPosts } from "@/data/blogPosts";
 import BlogCard from "./BlogCard";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const categories = [
   { id: "all", label: "All" },
@@ -17,6 +19,8 @@ const categories = [
 
 const BlogSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   
   const {
     ref: headerRef,
@@ -30,9 +34,66 @@ const BlogSection = () => {
     return blogPosts.filter(post => post.category === activeCategory);
   }, [activeCategory]);
 
+  // Reset index when category changes
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [activeCategory]);
+
+  const handleNext = useCallback(() => {
+    if (filteredPosts.length === 0) return;
+    setDirection(1);
+    setActiveIndex((prev) => (prev + 1) % filteredPosts.length);
+  }, [filteredPosts.length]);
+
+  const handlePrev = useCallback(() => {
+    if (filteredPosts.length === 0) return;
+    setDirection(-1);
+    setActiveIndex((prev) => (prev - 1 + filteredPosts.length) % filteredPosts.length);
+  }, [filteredPosts.length]);
+
+  const handleDragEnd = useCallback((_: any, info: PanInfo) => {
+    const threshold = 50;
+    if (info.offset.x > threshold) {
+      handlePrev();
+    } else if (info.offset.x < -threshold) {
+      handleNext();
+    }
+  }, [handleNext, handlePrev]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') handlePrev();
+    if (e.key === 'ArrowRight') handleNext();
+  }, [handleNext, handlePrev]);
+
+  // Get visible cards (prev, current, next)
+  const getVisibleCards = () => {
+    if (filteredPosts.length === 0) return [];
+    if (filteredPosts.length === 1) return [{ post: filteredPosts[0], position: 0 }];
+    if (filteredPosts.length === 2) {
+      return [
+        { post: filteredPosts[(activeIndex - 1 + filteredPosts.length) % filteredPosts.length], position: -1 },
+        { post: filteredPosts[activeIndex], position: 0 },
+      ];
+    }
+    
+    return [
+      { post: filteredPosts[(activeIndex - 1 + filteredPosts.length) % filteredPosts.length], position: -1 },
+      { post: filteredPosts[activeIndex], position: 0 },
+      { post: filteredPosts[(activeIndex + 1) % filteredPosts.length], position: 1 },
+    ];
+  };
+
+  const visibleCards = getVisibleCards();
+
   return (
-    <section id="blog" className="py-12 sm:py-16 md:py-20 px-3 sm:px-4">
-      <div className="container mx-auto max-w-7xl">
+    <section id="blog" className="py-12 sm:py-16 md:py-24 px-3 sm:px-4 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+      {/* Background effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto max-w-7xl relative">
         {/* Header */}
         <div
           ref={headerRef}
@@ -41,29 +102,29 @@ const BlogSection = () => {
             headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}
         >
-          <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
+          <span className="text-xs font-medium tracking-widest text-cyan-400/80 uppercase">
             BLOG
           </span>
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mt-2 font-medium">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white mt-2 font-medium">
             Ideas to level-up your real estate journey
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-4 text-slate-400 max-w-2xl mx-auto">
             Insights, guides, and thought leadership on transforming the real estate experience through technology
           </p>
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8 sm:mb-10">
+        <div className="flex flex-wrap justify-center gap-2 mb-10 sm:mb-14">
           {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
               className={cn(
                 "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
-                "border border-border/50 hover:border-primary/50",
+                "border",
                 activeCategory === category.id
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                  : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+                  ? "bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.2)]"
+                  : "bg-slate-800/50 text-slate-400 border-slate-700/50 hover:bg-slate-700/50 hover:text-slate-300 hover:border-slate-600"
               )}
             >
               {category.label}
@@ -71,17 +132,130 @@ const BlogSection = () => {
           ))}
         </div>
 
-        {/* Blog Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          {filteredPosts.map((post, index) => (
-            <BlogCard key={post.id} post={post} index={index} />
-          ))}
+        {/* Carousel Container */}
+        <div 
+          className="relative"
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+          role="region"
+          aria-label="Blog posts carousel"
+        >
+          {/* Navigation Arrows */}
+          {filteredPosts.length > 1 && (
+            <>
+              <button
+                onClick={handlePrev}
+                className={cn(
+                  "absolute left-0 sm:-left-4 md:-left-8 top-1/2 -translate-y-1/2 z-20",
+                  "w-12 h-12 rounded-full",
+                  "bg-slate-800/80 backdrop-blur-sm",
+                  "border border-cyan-500/30",
+                  "text-cyan-400",
+                  "flex items-center justify-center",
+                  "transition-all duration-300",
+                  "hover:bg-cyan-500/20 hover:border-cyan-400/50",
+                  "hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]",
+                  "focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                )}
+                aria-label="Previous post"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={handleNext}
+                className={cn(
+                  "absolute right-0 sm:-right-4 md:-right-8 top-1/2 -translate-y-1/2 z-20",
+                  "w-12 h-12 rounded-full",
+                  "bg-slate-800/80 backdrop-blur-sm",
+                  "border border-cyan-500/30",
+                  "text-cyan-400",
+                  "flex items-center justify-center",
+                  "transition-all duration-300",
+                  "hover:bg-cyan-500/20 hover:border-cyan-400/50",
+                  "hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]",
+                  "focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                )}
+                aria-label="Next post"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </>
+          )}
+
+          {/* Cards Carousel */}
+          <motion.div
+            className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 px-12 sm:px-16 md:px-20 min-h-[420px] sm:min-h-[460px]"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={handleDragEnd}
+            style={{ cursor: filteredPosts.length > 1 ? 'grab' : 'default' }}
+            whileDrag={{ cursor: 'grabbing' }}
+          >
+            <AnimatePresence mode="popLayout" initial={false}>
+              {visibleCards.map(({ post, position }) => (
+                <motion.div
+                  key={`${post.id}-${position}`}
+                  initial={{ 
+                    opacity: 0,
+                    x: direction * 100,
+                    scale: 0.8
+                  }}
+                  animate={{ 
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    zIndex: position === 0 ? 10 : 5
+                  }}
+                  exit={{ 
+                    opacity: 0,
+                    x: -direction * 100,
+                    scale: 0.8
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
+                  className={cn(
+                    "flex-shrink-0 transition-all duration-300",
+                    position === 0 
+                      ? "w-[85%] sm:w-[70%] md:w-[50%] lg:w-[40%]" 
+                      : "w-[60%] sm:w-[50%] md:w-[35%] lg:w-[28%] hidden sm:block"
+                  )}
+                >
+                  <BlogCard post={post} isActive={position === 0} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Pagination Dots */}
+          {filteredPosts.length > 1 && (
+            <div className="flex justify-center gap-2 mt-8">
+              {filteredPosts.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setDirection(index > activeIndex ? 1 : -1);
+                    setActiveIndex(index);
+                  }}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-all duration-300",
+                    index === activeIndex
+                      ? "w-8 bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.5)]"
+                      : "bg-slate-600 hover:bg-slate-500"
+                  )}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Empty State */}
         {filteredPosts.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">No articles found in this category.</p>
+            <p className="text-slate-400">No articles found in this category.</p>
           </div>
         )}
       </div>

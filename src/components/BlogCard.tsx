@@ -2,17 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { BlogPost } from "@/data/blogPosts";
+import { ArrowRight } from "lucide-react";
 
 interface BlogCardProps {
   post: BlogPost;
-  index: number;
+  isActive?: boolean;
 }
 
-const BlogCard = ({ post, index }: BlogCardProps) => {
+const BlogCard = ({ post, isActive = false }: BlogCardProps) => {
   const navigate = useNavigate();
   const IconComponent = post.categoryIcon;
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleReadMore = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     navigate(`/blog/${post.id}`);
@@ -20,97 +21,115 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ 
+        opacity: isActive ? 1 : 0.6, 
+        scale: isActive ? 1 : 0.85,
+      }}
       transition={{
-        duration: 0.5,
-        delay: index * 0.1,
+        duration: 0.4,
         ease: [0.25, 0.46, 0.45, 0.94]
       }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      onClick={handleClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          navigate(`/blog/${post.id}`);
-        }
-      }}
       className={cn(
-        "group cursor-pointer relative overflow-hidden rounded-2xl",
-        "bg-card/80 backdrop-blur-sm border border-border/50",
-        "p-5 sm:p-6 h-full min-h-[280px]",
-        "transition-shadow duration-500 ease-out",
-        "hover:shadow-2xl hover:shadow-primary/10"
+        "relative overflow-hidden rounded-2xl h-full",
+        "bg-slate-900/90 backdrop-blur-xl",
+        "border border-cyan-500/30",
+        "transition-all duration-500 ease-out",
+        // Neon glow effect
+        isActive && "shadow-[0_0_30px_rgba(6,182,212,0.3),0_0_60px_rgba(6,182,212,0.1)]",
+        !isActive && "shadow-lg"
       )}
+      style={{
+        background: "linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.9) 100%)",
+      }}
     >
-      {/* Gradient background effect */}
-      <div
-        className={cn(
-          "absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500",
-          "group-hover:opacity-100",
-          post.gradient
-        )}
-      />
-
       {/* Animated border glow */}
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute inset-[-1px] rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-sm" />
+      <div className={cn(
+        "absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500",
+        isActive && "opacity-100"
+      )}>
+        <div className="absolute inset-[-2px] rounded-2xl bg-gradient-to-r from-cyan-500/40 via-blue-500/40 to-cyan-500/40 blur-sm animate-pulse" />
       </div>
 
+      {/* Glassmorphism inner glow */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+      
+      {/* Subtle grid pattern */}
+      <div 
+        className="absolute inset-0 opacity-5"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(6,182,212,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(6,182,212,0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '20px 20px'
+        }}
+      />
+
       {/* Content */}
-      <div className="relative z-10 flex flex-col h-full">
+      <div className="relative z-10 flex flex-col h-full p-6 sm:p-8">
         {/* Category badge */}
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-2 mb-5">
           <div className={cn(
-            "p-2 rounded-lg",
-            "bg-primary/10 text-primary",
-            "group-hover:bg-primary group-hover:text-primary-foreground",
-            "transition-all duration-300"
+            "p-2.5 rounded-xl",
+            "bg-cyan-500/10 text-cyan-400",
+            "border border-cyan-500/20",
+            "transition-all duration-300",
+            isActive && "bg-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.3)]"
           )}>
             <IconComponent className="w-4 h-4" />
           </div>
-          <span className="text-xs font-medium tracking-wider uppercase text-muted-foreground group-hover:text-foreground/80 transition-colors">
+          <span className="text-xs font-medium tracking-widest uppercase text-cyan-400/80">
             {post.category}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="font-serif text-lg sm:text-xl font-medium text-foreground mb-3 line-clamp-3 group-hover:text-primary transition-colors duration-300">
+        <h3 className="font-serif text-xl sm:text-2xl font-medium text-white mb-4 line-clamp-3 leading-tight">
           {post.title}
         </h3>
 
-        {/* Card prompt */}
-        <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2 group-hover:text-foreground/70 transition-colors">
+        {/* Excerpt */}
+        <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3 flex-1">
           {post.cardPrompt}
         </p>
 
         {/* Spacer */}
-        <div className="flex-1" />
+        <div className="flex-1 min-h-4" />
 
-        {/* Read more indicator */}
-        <div className="flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-          <span>Read article</span>
-          <svg
-            className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </div>
+        {/* Read More Button */}
+        <motion.button
+          onClick={handleReadMore}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className={cn(
+            "group flex items-center justify-center gap-2 w-full",
+            "px-6 py-3.5 rounded-xl",
+            "bg-gradient-to-r from-cyan-500/20 to-blue-500/20",
+            "border border-cyan-500/40",
+            "text-cyan-300 font-medium text-sm",
+            "transition-all duration-300",
+            "hover:from-cyan-500/30 hover:to-blue-500/30",
+            "hover:border-cyan-400/60",
+            "hover:shadow-[0_0_20px_rgba(6,182,212,0.25)]",
+            "hover:text-cyan-200"
+          )}
+        >
+          <span>Read More</span>
+          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </motion.button>
       </div>
 
-      {/* Floating particles effect on hover */}
-      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-        <div className="w-2 h-2 rounded-full bg-accent/50 animate-float" />
-      </div>
-      <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200">
-        <div className="w-1.5 h-1.5 rounded-full bg-primary/50 animate-float" style={{ animationDelay: "0.5s" }} />
-      </div>
+      {/* Corner accent */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-cyan-500/10 to-transparent rounded-bl-full pointer-events-none" />
+      
+      {/* Bottom accent line */}
+      <div className={cn(
+        "absolute bottom-0 left-0 right-0 h-[2px]",
+        "bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent",
+        "transition-opacity duration-500",
+        isActive ? "opacity-100" : "opacity-0"
+      )} />
     </motion.div>
   );
 };
