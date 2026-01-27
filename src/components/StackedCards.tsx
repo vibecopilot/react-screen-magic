@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import screenPresalesOverview from "@/assets/screen-presales-overview.png";
-import screenKonstruct from "@/assets/screen-konstruct.png";
+import screenPostSales from "@/assets/screen-post-sales.png";
+import screenKonstruct from "@/assets/screen-konstruct-new.png";
+import screenPossession from "@/assets/screen-possession.png";
+import screenCustomerPortal from "@/assets/screen-customer-portal.png";
+
 const cards = [{
   name: "Pre Sales",
   slug: "pre-sales",
@@ -16,14 +20,14 @@ const cards = [{
   description: "Manage customer relationships after the deal closes. Handle documentation, payment tracking, and customer support seamlessly.",
   barColor: "bg-[#3B82F6]",
   icon: "🤝",
-  screenImage: null
+  screenImage: screenPostSales
 }, {
   name: "Possession",
   slug: "possession",
   description: "Seamless handover and possession tracking. Manage property handovers, documentation, and customer satisfaction efficiently.",
   barColor: "bg-[#3B82F6]",
   icon: "🔑",
-  screenImage: null
+  screenImage: screenPossession
 }, {
   name: "Konstruct",
   slug: "konstruct",
@@ -37,7 +41,7 @@ const cards = [{
   description: "Empower your customers with a self-service portal. Access documents, track payments, raise requests, and stay updated on their property journey.",
   barColor: "bg-[#3B82F6]",
   icon: "🌐",
-  screenImage: null
+  screenImage: screenCustomerPortal
 }];
 const LaptopFrame = ({
   icon,
