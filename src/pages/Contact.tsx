@@ -88,7 +88,7 @@ const Contact = () => {
         backgroundImage: `url(${heroBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundAttachment: "scroll",
+        backgroundAttachment: "fixed",
       }}
     >
       <Navbar />

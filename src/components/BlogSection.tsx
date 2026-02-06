@@ -6,6 +6,8 @@ import { blogPosts } from "@/data/blogPosts";
 import BlogCard from "./BlogCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+// Only 5 main blog posts now - no category filtering needed
+
 const BlogSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -17,6 +19,7 @@ const BlogSection = () => {
     threshold: 0.3
   });
 
+  // Use all blog posts directly (only 5 main posts now)
   const filteredPosts = blogPosts;
 
   const handleNext = useCallback(() => {
@@ -45,6 +48,7 @@ const BlogSection = () => {
     if (e.key === 'ArrowRight') handleNext();
   }, [handleNext, handlePrev]);
 
+  // Get visible cards (prev, current, next)
   const getVisibleCards = () => {
     if (filteredPosts.length === 0) return [];
     if (filteredPosts.length === 1) return [{ post: filteredPosts[0], position: 0 }];
@@ -65,29 +69,31 @@ const BlogSection = () => {
   const visibleCards = getVisibleCards();
 
   return (
-    <section id="blog" className="py-10 sm:py-16 md:py-24 px-3 sm:px-4 overflow-hidden bg-transparent">
+    <section id="blog" className="py-12 sm:py-16 md:py-24 px-3 sm:px-4 overflow-hidden bg-transparent">
+
       <div className="container mx-auto max-w-7xl relative">
         {/* Header */}
         <div
           ref={headerRef}
           className={cn(
-            "text-center mb-8 sm:mb-12 md:mb-16 transition-all duration-700",
+            "text-center mb-10 sm:mb-12 md:mb-16 transition-all duration-700",
             headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}
         >
-          <span className="text-[10px] sm:text-xs font-medium tracking-widest text-primary/80 uppercase">
+          <span className="text-xs font-medium tracking-widest text-primary/80 uppercase">
             BLOG
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground mt-2 font-medium">
             Ideas to level-up your real estate journey
           </h2>
-          <p className="mt-3 sm:mt-4 text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto px-2">
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
             Insights, guides, and thought leadership on transforming the real estate experience through technology
           </p>
         </div>
 
+
         {/* Carousel Container */}
-        <div
+        <div 
           className="relative"
           onKeyDown={handleKeyDown}
           tabIndex={0}
@@ -100,8 +106,8 @@ const BlogSection = () => {
               <button
                 onClick={handlePrev}
                 className={cn(
-                  "absolute -left-1 sm:-left-4 md:-left-8 top-1/2 -translate-y-1/2 z-20",
-                  "w-9 h-9 sm:w-12 sm:h-12 rounded-full",
+                  "absolute left-0 sm:-left-4 md:-left-8 top-1/2 -translate-y-1/2 z-20",
+                  "w-12 h-12 rounded-full",
                   "bg-white/90 backdrop-blur-sm shadow-lg",
                   "border border-border",
                   "text-foreground",
@@ -109,18 +115,17 @@ const BlogSection = () => {
                   "transition-all duration-300",
                   "hover:bg-primary hover:text-primary-foreground hover:border-primary",
                   "hover:shadow-xl",
-                  "focus:outline-none focus:ring-2 focus:ring-primary/50",
-                  "touch-manipulation"
+                  "focus:outline-none focus:ring-2 focus:ring-primary/50"
                 )}
                 aria-label="Previous post"
               >
-                <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
+                <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={handleNext}
                 className={cn(
-                  "absolute -right-1 sm:-right-4 md:-right-8 top-1/2 -translate-y-1/2 z-20",
-                  "w-9 h-9 sm:w-12 sm:h-12 rounded-full",
+                  "absolute right-0 sm:-right-4 md:-right-8 top-1/2 -translate-y-1/2 z-20",
+                  "w-12 h-12 rounded-full",
                   "bg-white/90 backdrop-blur-sm shadow-lg",
                   "border border-border",
                   "text-foreground",
@@ -128,19 +133,18 @@ const BlogSection = () => {
                   "transition-all duration-300",
                   "hover:bg-primary hover:text-primary-foreground hover:border-primary",
                   "hover:shadow-xl",
-                  "focus:outline-none focus:ring-2 focus:ring-primary/50",
-                  "touch-manipulation"
+                  "focus:outline-none focus:ring-2 focus:ring-primary/50"
                 )}
                 aria-label="Next post"
               >
-                <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
+                <ChevronRight className="w-6 h-6" />
               </button>
             </>
           )}
 
           {/* Cards Carousel */}
           <motion.div
-            className="flex items-center justify-center gap-3 sm:gap-6 md:gap-8 px-10 sm:px-16 md:px-20 min-h-[380px] sm:min-h-[420px] md:min-h-[460px]"
+            className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 px-12 sm:px-16 md:px-20 min-h-[420px] sm:min-h-[460px]"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.2}
@@ -152,18 +156,18 @@ const BlogSection = () => {
               {visibleCards.map(({ post, position }) => (
                 <motion.div
                   key={`${post.id}-${position}`}
-                  initial={{
+                  initial={{ 
                     opacity: 0,
                     x: direction * 100,
                     scale: 0.8
                   }}
-                  animate={{
+                  animate={{ 
                     opacity: 1,
                     x: 0,
                     scale: 1,
                     zIndex: position === 0 ? 10 : 5
                   }}
-                  exit={{
+                  exit={{ 
                     opacity: 0,
                     x: -direction * 100,
                     scale: 0.8
@@ -174,8 +178,8 @@ const BlogSection = () => {
                   }}
                   className={cn(
                     "flex-shrink-0 transition-all duration-300",
-                    position === 0
-                      ? "w-[88%] sm:w-[70%] md:w-[50%] lg:w-[40%]"
+                    position === 0 
+                      ? "w-[85%] sm:w-[70%] md:w-[50%] lg:w-[40%]" 
                       : "w-[60%] sm:w-[50%] md:w-[35%] lg:w-[28%] hidden sm:block"
                   )}
                 >
@@ -187,7 +191,7 @@ const BlogSection = () => {
 
           {/* Pagination Dots */}
           {filteredPosts.length > 1 && (
-            <div className="flex justify-center gap-1.5 sm:gap-2 mt-6 sm:mt-8">
+            <div className="flex justify-center gap-2 mt-8">
               {filteredPosts.map((_, index) => (
                 <button
                   key={index}
@@ -196,18 +200,13 @@ const BlogSection = () => {
                     setActiveIndex(index);
                   }}
                   className={cn(
-                    "h-2 rounded-full transition-all duration-300 touch-manipulation min-h-[20px] min-w-[20px] flex items-center justify-center",
+                    "w-2 h-2 rounded-full transition-all duration-300",
                     index === activeIndex
                       ? "w-8 bg-primary shadow-lg shadow-primary/30"
                       : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                   )}
                   aria-label={`Go to slide ${index + 1}`}
-                >
-                  <span className={cn(
-                    "block rounded-full",
-                    index === activeIndex ? "w-8 h-1.5 bg-primary" : "w-2 h-2 bg-muted-foreground/30"
-                  )} />
-                </button>
+                />
               ))}
             </div>
           )}

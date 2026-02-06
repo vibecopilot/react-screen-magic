@@ -12,38 +12,57 @@ interface CardData {
   hasCta?: boolean;
 }
 
-const cards: CardData[] = [{
-  id: 0,
-  title: "Our Story",
-  content: "MyCiti.Life was founded by a visionary leader with deep expertise in the real estate ecosystem, spanning every stage of the journey—from pre-sales and post-sales to construction and final possession. This hands-on experience gives us a strong understanding of the real-world challenges faced by developers, property managers, and residents, enabling us to build solutions that truly address industry needs.",
-  icon: <Sparkles className="w-5 h-5" />,
-  iconAccent: "text-indigo-600 bg-indigo-50"
-}, {
-  id: 1,
-  title: "Our Expertise",
-  content: ["Customer experience innovation – delivering seamless, digital-first interactions for buyers and residents", "Pre-sale & post-sale enablement – streamlining lead management, customer communication, documentation, and handover processes", "Construction monitoring – driving transparency, accountability, and efficiency across project timelines", "Smart community solutions – integrating facility management, payments, and lifestyle services into a unified platform"],
-  icon: <Target className="w-5 h-5" />,
-  iconAccent: "text-emerald-600 bg-emerald-50"
-}, {
-  id: 2,
-  title: "Our Vision",
-  content: "We believe technology should simplify urban living while empowering developers and property managers to deliver premium, reliable, and transparent experiences. By combining deep real estate knowledge with tech-driven innovation, MyCiti.Life is redefining how communities are planned, managed, and experienced.",
-  icon: <Eye className="w-5 h-5" />,
-  iconAccent: "text-purple-600 bg-purple-50"
-}, {
-  id: 3,
-  title: "Our Values",
-  content: ["Experience-backed innovation – blending real-world real estate expertise with modern PropTech solutions", "Transparency & trust – ensuring clarity and accountability at every stage of the lifecycle", "Customer-first design – prioritizing ease of use, privacy, and satisfaction", "Future-focused growth – enabling smarter, more sustainable communities through technology"],
-  icon: <Heart className="w-5 h-5" />,
-  iconAccent: "text-blue-600 bg-blue-50"
-}, {
-  id: 4,
-  title: "Let's Connect",
-  content: "Ready to transform your real estate projects? Let's connect and explore how MyCiti.Life can elevate your business with cutting-edge PropTech solutions.",
-  icon: <Rocket className="w-5 h-5" />,
-  iconAccent: "text-orange-600 bg-orange-50",
-  hasCta: true
-}];
+const cards: CardData[] = [
+  {
+    id: 0,
+    title: "Our Story",
+    content:
+      "MyCiti.Life was founded by a visionary leader with deep expertise in the real estate ecosystem, spanning every stage of the journey—from pre-sales and post-sales to construction and final possession. This hands-on experience gives us a strong understanding of the real-world challenges faced by developers, property managers, and residents, enabling us to build solutions that truly address industry needs.",
+    icon: <Sparkles className="w-5 h-5" />,
+    iconAccent: "text-indigo-600 bg-indigo-50",
+  },
+  {
+    id: 1,
+    title: "Our Expertise",
+    content: [
+      "Customer experience innovation – delivering seamless, digital-first interactions for buyers and residents",
+      "Pre-sale & post-sale enablement – streamlining lead management, customer communication, documentation, and handover processes",
+      "Construction monitoring – driving transparency, accountability, and efficiency across project timelines",
+      "Smart community solutions – integrating facility management, payments, and lifestyle services into a unified platform",
+    ],
+    icon: <Target className="w-5 h-5" />,
+    iconAccent: "text-emerald-600 bg-emerald-50",
+  },
+  {
+    id: 2,
+    title: "Our Vision",
+    content:
+      "We believe technology should simplify urban living while empowering developers and property managers to deliver premium, reliable, and transparent experiences. By combining deep real estate knowledge with tech-driven innovation, MyCiti.Life is redefining how communities are planned, managed, and experienced.",
+    icon: <Eye className="w-5 h-5" />,
+    iconAccent: "text-purple-600 bg-purple-50",
+  },
+  {
+    id: 3,
+    title: "Our Values",
+    content: [
+      "Experience-backed innovation – blending real-world real estate expertise with modern PropTech solutions",
+      "Transparency & trust – ensuring clarity and accountability at every stage of the lifecycle",
+      "Customer-first design – prioritizing ease of use, privacy, and satisfaction",
+      "Future-focused growth – enabling smarter, more sustainable communities through technology",
+    ],
+    icon: <Heart className="w-5 h-5" />,
+    iconAccent: "text-blue-600 bg-blue-50",
+  },
+  {
+    id: 4,
+    title: "Let's Connect",
+    content:
+      "Ready to transform your real estate projects? Let's connect and explore how MyCiti.Life can elevate your business with cutting-edge PropTech solutions.",
+    icon: <Rocket className="w-5 h-5" />,
+    iconAccent: "text-orange-600 bg-orange-50",
+    hasCta: true,
+  },
+];
 
 const SWIPE_THRESHOLD = 50;
 
@@ -52,13 +71,18 @@ const AboutCardCarousel = () => {
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
   const totalCards = cards.length;
 
-  const getCardIndex = (offset: number) => (currentIndex + offset + totalCards) % totalCards;
+  const getCardIndex = (offset: number) =>
+    (currentIndex + offset + totalCards) % totalCards;
 
-  const navCard = useCallback((dir: number) => {
-    setCurrentIndex(prev => (prev + dir + totalCards) % totalCards);
-  }, [totalCards]);
+  const navCard = useCallback(
+    (dir: number) => {
+      setCurrentIndex((prev) => (prev + dir + totalCards) % totalCards);
+    },
+    [totalCards]
+  );
 
   const handleDragEnd = (_: unknown, info: PanInfo) => {
     setIsDragging(false);
@@ -77,37 +101,18 @@ const AboutCardCarousel = () => {
   }, [navCard]);
 
   const getStackStyle = (stackPos: number) => {
-    const configs = [{
-      scale: 1,
-      y: 0,
-      rotateZ: 0,
-      zIndex: 30,
-      opacity: 1
-    }, {
-      scale: 0.95,
-      y: 16,
-      rotateZ: 2.5,
-      zIndex: 20,
-      opacity: 0.65
-    }, {
-      scale: 0.90,
-      y: 32,
-      rotateZ: -1.5,
-      zIndex: 10,
-      opacity: 0.35
-    }];
-    return configs[stackPos] || {
-      scale: 0.85,
-      y: 48,
-      rotateZ: 0,
-      zIndex: 0,
-      opacity: 0
-    };
+    const configs = [
+      { scale: 1, y: 0, rotateZ: 0, zIndex: 30, opacity: 1 },
+      { scale: 0.95, y: 16, rotateZ: 2.5, zIndex: 20, opacity: 0.65 },
+      { scale: 0.90, y: 32, rotateZ: -1.5, zIndex: 10, opacity: 0.35 },
+    ];
+    return configs[stackPos] || { scale: 0.85, y: 48, rotateZ: 0, zIndex: 0, opacity: 0 };
   };
 
   const renderCard = (card: CardData, stackPos: number) => {
     const style = getStackStyle(stackPos);
     const isTop = stackPos === 0;
+
     return (
       <motion.div
         key={card.id}
@@ -115,19 +120,19 @@ const AboutCardCarousel = () => {
         style={{
           zIndex: style.zIndex,
           perspective: "1200px",
-          transformStyle: "preserve-3d"
+          transformStyle: "preserve-3d",
         }}
         animate={{
           scale: style.scale,
           y: style.y,
           rotate: style.rotateZ,
-          opacity: style.opacity
+          opacity: style.opacity,
         }}
         transition={{
           type: "spring",
           stiffness: 300,
           damping: 30,
-          duration: 0.6
+          duration: 0.6,
         }}
         drag={isTop ? "x" : false}
         dragConstraints={{ left: 0, right: 0 }}
@@ -139,17 +144,17 @@ const AboutCardCarousel = () => {
         aria-roledescription="slide"
         aria-label={`Card ${card.id + 1} of ${totalCards}: ${card.title}`}
       >
-        <div className="relative h-full flex flex-col">
-          {/* Left accent strip - desktop only */}
-          <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-1.5 bg-foreground/5" />
+        <div className="relative h-full flex flex-col sm:flex-row">
+          {/* Left accent strip */}
+          <div className="hidden sm:block w-1.5 flex-shrink-0 bg-foreground/5" />
 
-          <div className="flex-1 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-9 sm:pl-5 overflow-y-auto">
+          <div className="flex-1 flex flex-col justify-between p-5 sm:p-7 md:p-9 overflow-y-auto">
             {/* Header */}
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-3 md:mb-4">
-              <div className={`inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl ${card.iconAccent}`}>
+            <div className="flex items-center gap-3 mb-3 sm:mb-4">
+              <div className={`inline-flex items-center justify-center w-9 h-9 rounded-xl ${card.iconAccent}`}>
                 {card.icon}
               </div>
-              <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold font-serif text-foreground leading-tight">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold font-serif text-foreground leading-tight">
                 {card.title}
               </h3>
             </div>
@@ -157,21 +162,22 @@ const AboutCardCarousel = () => {
             {/* Body */}
             <div className="flex-1 flex items-start">
               {Array.isArray(card.content) ? (
-                <ul className="space-y-1.5 sm:space-y-2 md:space-y-3 w-full">
+                <ul className="space-y-2 sm:space-y-3 w-full">
                   {card.content.map((item, i) => {
                     const dashIndex = item.indexOf(" – ");
                     const label = dashIndex > -1 ? item.substring(0, dashIndex) : item;
                     const desc = dashIndex > -1 ? item.substring(dashIndex + 3) : "";
+
                     return (
                       <motion.li
                         key={i}
-                        className="flex items-start gap-2 sm:gap-2.5"
+                        className="flex items-start gap-2.5"
                         initial={{ opacity: 0, x: -15 }}
                         animate={isTop ? { opacity: 1, x: 0 } : { opacity: 0 }}
                         transition={{ delay: i * 0.08, duration: 0.35 }}
                       >
-                        <span className="mt-1.5 sm:mt-2 w-1.5 h-1.5 rounded-full bg-foreground/30 flex-shrink-0" />
-                        <span className="text-[11px] sm:text-xs md:text-sm lg:text-base text-muted-foreground font-medium leading-relaxed">
+                        <span className="mt-2 w-1.5 h-1.5 rounded-full bg-foreground/30 flex-shrink-0" />
+                        <span className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium leading-relaxed">
                           <span className="text-foreground font-semibold">{label}</span>
                           {desc && <> – {desc}</>}
                         </span>
@@ -180,9 +186,9 @@ const AboutCardCarousel = () => {
                   })}
                 </ul>
               ) : (
-                <div className="flex flex-col gap-3 sm:gap-4">
+                <div className="flex flex-col gap-4">
                   <motion.p
-                    className="text-[11px] sm:text-xs md:text-sm lg:text-base text-muted-foreground font-medium leading-relaxed"
+                    className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium leading-relaxed"
                     initial={{ opacity: 0 }}
                     animate={isTop ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ duration: 0.4 }}
@@ -193,11 +199,11 @@ const AboutCardCarousel = () => {
                   {/* CTA button for Let's Connect card */}
                   {card.hasCta && isTop && (
                     <motion.button
-                      onClick={e => {
+                      onClick={(e) => {
                         e.stopPropagation();
                         navigate("/contact");
                       }}
-                      className="self-center sm:self-start px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-foreground text-background text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 touch-manipulation min-h-[44px]"
+                      className="self-start px-6 py-2.5 rounded-full bg-foreground text-background text-sm font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3, duration: 0.4 }}
@@ -210,16 +216,18 @@ const AboutCardCarousel = () => {
             </div>
 
             {/* Footer dots */}
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 pt-2 sm:pt-3 md:pt-4">
+            <div className="flex items-center justify-center gap-2 pt-3 sm:pt-4">
               {cards.map((_, i) => (
                 <button
                   key={i}
-                  onClick={e => {
+                  onClick={(e) => {
                     e.stopPropagation();
                     if (!isDragging) setCurrentIndex(i);
                   }}
-                  className={`rounded-full transition-all duration-300 min-h-[20px] min-w-[20px] flex items-center justify-center ${
-                    i === currentIndex ? "w-5 h-1.5 bg-foreground" : "w-1.5 h-1.5 bg-foreground/20"
+                  className={`rounded-full transition-all duration-300 ${
+                    i === currentIndex
+                      ? "w-5 h-1.5 bg-foreground"
+                      : "w-1.5 h-1.5 bg-foreground/20"
                   }`}
                   aria-label={`Go to card ${i + 1}`}
                 />
@@ -231,29 +239,37 @@ const AboutCardCarousel = () => {
     );
   };
 
-  const visibleCards = [0, 1, 2].map(offset => {
+  const visibleCards = [0, 1, 2].map((offset) => {
     const idx = getCardIndex(offset);
     return { card: cards[idx], stackPos: offset };
   });
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-3 sm:px-4" ref={containerRef} role="region" aria-roledescription="carousel" aria-label="About Us card carousel">
-      {/* Landscape Card Stack — responsive sizing */}
+    <div
+      className="w-full max-w-5xl mx-auto px-4"
+      ref={containerRef}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="About Us card carousel"
+    >
+      {/* Landscape Card Stack — larger size */}
       <div
         className="relative mx-auto"
         style={{
           width: "min(820px, 94vw)",
-          height: "clamp(320px, 55vh, 440px)"
+          height: "min(440px, 65vh)",
         }}
       >
-        {[...visibleCards].reverse().map(({ card, stackPos }) => renderCard(card, stackPos))}
+        {[...visibleCards].reverse().map(({ card, stackPos }) =>
+          renderCard(card, stackPos)
+        )}
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center justify-center gap-4 sm:gap-6 mt-6 sm:mt-8">
+      <div className="flex items-center justify-center gap-6 mt-8">
         <button
           onClick={() => navCard(-1)}
-          className="group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-border shadow-md hover:shadow-lg transition-all duration-300 touch-manipulation"
+          className="group flex items-center justify-center w-10 h-10 rounded-full bg-white border border-border shadow-md hover:shadow-lg transition-all duration-300"
           aria-label="Previous card"
         >
           <ChevronLeft className="w-4 h-4 text-foreground group-hover:scale-110 transition-transform" />
@@ -265,7 +281,7 @@ const AboutCardCarousel = () => {
 
         <button
           onClick={() => navCard(1)}
-          className="group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-border shadow-md hover:shadow-lg transition-all duration-300 touch-manipulation"
+          className="group flex items-center justify-center w-10 h-10 rounded-full bg-white border border-border shadow-md hover:shadow-lg transition-all duration-300"
           aria-label="Next card"
         >
           <ChevronRight className="w-4 h-4 text-foreground group-hover:scale-110 transition-transform" />

@@ -25,7 +25,7 @@ const HeroSection = () => {
     ref: parallaxRef,
     offset
   } = useParallax(0.3);
-  return <section ref={parallaxRef} className="relative min-h-[80vh] sm:min-h-screen flex flex-col items-center justify-center px-3 sm:px-6 text-center pt-20 sm:pt-24">
+  return <section ref={parallaxRef} className="relative min-h-[85vh] sm:min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 text-center pt-20 sm:pt-24">
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto">
         <div ref={titleRef} style={{

@@ -58,7 +58,7 @@ const BlogDetail = () => {
           backgroundImage: `url(${heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundAttachment: "scroll",
+          backgroundAttachment: "fixed",
         }}
       >
         <Navbar />
@@ -343,10 +343,10 @@ const BlogDetail = () => {
       className="min-h-screen"
       style={{
         backgroundImage: `url(${heroBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "scroll",
-        }}
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
     >
       <Navbar />
 

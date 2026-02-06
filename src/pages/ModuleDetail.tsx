@@ -57,7 +57,7 @@ const ModuleDetail = () => {
           backgroundImage: `url(${heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundAttachment: "scroll",
+          backgroundAttachment: "fixed",
         }}
       >
         <Navbar />
@@ -75,12 +75,12 @@ const ModuleDetail = () => {
   return (
     <div 
       className="min-h-screen"
-        style={{
-          backgroundImage: `url(${heroBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "scroll",
-        }}
+      style={{
+        backgroundImage: `url(${heroBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
     >
       <Navbar />
       
