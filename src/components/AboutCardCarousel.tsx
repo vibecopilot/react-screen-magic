@@ -153,14 +153,14 @@ const AboutCardCarousel = () => {
                   duration: 0.35
                 }}>
                         <span className="mt-2 w-1.5 h-1.5 rounded-full bg-foreground/30 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium leading-relaxed">
+                        <span className="text-xs sm:text-sm text-muted-foreground font-medium leading-relaxed md:text-lg">
                           <span className="text-foreground font-semibold text-center">{label}</span>
                           {desc && <> – {desc}</>}
                         </span>
                       </motion.li>;
               })}
                 </ul> : <div className="flex flex-col gap-4">
-                  <motion.p className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium leading-relaxed text-center" initial={{
+                  <motion.p className="text-xs sm:text-sm text-muted-foreground font-medium leading-relaxed text-center md:text-lg" initial={{
                 opacity: 0
               }} animate={isTop ? {
                 opacity: 1
