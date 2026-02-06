@@ -49,7 +49,7 @@ const BlogCard = ({ post, isActive = false }: BlogCardProps) => {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col h-full p-6 sm:p-8">
+      <div className="relative z-10 flex flex-col h-full p-4 sm:p-6 md:p-8">
         {/* Category badge */}
         <div className="flex items-center gap-2 mb-5">
           <div className={cn(
@@ -67,12 +67,12 @@ const BlogCard = ({ post, isActive = false }: BlogCardProps) => {
         </div>
 
         {/* Title */}
-        <h3 className="font-serif text-xl sm:text-2xl font-medium text-foreground mb-4 line-clamp-3 leading-tight">
+        <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-medium text-foreground mb-3 sm:mb-4 line-clamp-3 leading-tight">
           {post.title}
         </h3>
 
         {/* Excerpt */}
-        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-6 line-clamp-3 flex-1">
+        <p className="text-muted-foreground text-xs sm:text-sm md:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3 flex-1">
           {post.cardPrompt}
         </p>
 
@@ -86,9 +86,9 @@ const BlogCard = ({ post, isActive = false }: BlogCardProps) => {
           whileTap={{ scale: 0.98 }}
           className={cn(
             "group flex items-center justify-center gap-2 w-full",
-            "px-6 py-3.5 rounded-xl",
+            "px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl",
             "bg-primary text-primary-foreground",
-            "font-medium text-sm",
+            "font-medium text-xs sm:text-sm",
             "transition-all duration-300",
             "hover:bg-primary/90",
             "hover:shadow-lg hover:shadow-primary/25"
