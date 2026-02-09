@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ValuesHexagonNetwork from "@/components/ValuesHexagonNetwork";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-transparent">
+    <div className="min-h-screen">
       <Navbar />
 
       {/* ── Section 1: Our Story ── */}
@@ -18,13 +18,6 @@ const About = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-10"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
 
           <h1
             className="text-4xl sm:text-5xl font-bold mb-8 leading-tight"
