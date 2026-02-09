@@ -23,11 +23,12 @@ const AboutSection = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-background"
+      className="py-16 sm:py-20 md:py-28 px-4 sm:px-6"
+      style={{ background: "hsl(214 80% 92%)" }}
     >
       <div className="max-w-5xl mx-auto">
         <motion.div
-          className="rounded-xl border border-border/40 bg-transparent overflow-hidden shadow-sm"
+          className="rounded-xl border border-white/80 bg-white/40 backdrop-blur-sm overflow-hidden shadow-sm"
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
