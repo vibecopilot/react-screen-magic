@@ -10,7 +10,7 @@ import heroBg from "@/assets/hero-clouds-bg.jpg";
 
 const Index = () => {
   return (
-    <div 
+    <div
       className="min-h-screen"
       style={{
         backgroundImage: `url(${heroBg})`,
