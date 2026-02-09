@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ValuesDiamond from "@/components/ValuesDiamond";
+import ValuesHexagonNetwork from "@/components/ValuesHexagonNetwork";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-transparent">
       <Navbar />
 
       {/* ── Section 1: Our Story ── */}
@@ -34,7 +34,7 @@ const About = () => {
           </h1>
 
           <p
-            className="text-xl sm:text-2xl leading-relaxed mb-10"
+            className="text-xl sm:text-2xl leading-relaxed mb-12"
             style={{ color: "hsl(220 10% 35%)" }}
           >
             MyCiti.Life was founded by a real estate veteran who lived every
@@ -71,7 +71,7 @@ const About = () => {
 
           {/* Blue accent divider */}
           <motion.div
-            className="w-24 h-1 rounded-full mx-auto mb-10"
+            className="w-24 h-1 rounded-full mx-auto mb-12"
             style={{ background: "hsl(217 91% 60%)" }}
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -90,10 +90,10 @@ const About = () => {
         </motion.div>
       </section>
 
-      {/* ── Section 3: Our Values — Diamond Diagram ── */}
+      {/* ── Section 3: Our Values — Hexagon Network ── */}
       <section className="py-20 sm:py-28 px-4 sm:px-6">
         <motion.div
-          className="max-w-4xl mx-auto"
+          className="max-w-5xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -112,7 +112,7 @@ const About = () => {
             The principles that guide everything we build.
           </p>
 
-          <ValuesDiamond />
+          <ValuesHexagonNetwork />
         </motion.div>
       </section>
 
@@ -138,9 +138,8 @@ const About = () => {
 
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-10 py-4 rounded-xl text-white font-semibold text-base
-              shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all duration-300"
-            style={{ background: "hsl(217 91% 60%)" }}
+            className="inline-flex items-center gap-2 px-12 py-4 rounded-xl text-white font-semibold text-base
+              shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all duration-300 bg-primary"
           >
             Book Demo
             <ArrowRight className="w-4 h-4" />
