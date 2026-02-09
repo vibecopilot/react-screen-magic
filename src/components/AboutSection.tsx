@@ -23,8 +23,7 @@ const AboutSection = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="py-16 sm:py-20 md:py-28 px-4 sm:px-6"
-      style={{ background: "hsl(214 80% 92%)" }}
+      className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-background"
     >
       <div className="max-w-5xl mx-auto">
         <motion.div
