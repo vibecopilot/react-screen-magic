@@ -27,7 +27,7 @@ const AboutSection = () => {
     >
       <div className="max-w-5xl mx-auto">
         <motion.div
-          className="rounded-xl border border-white/80 bg-white/40 backdrop-blur-sm overflow-hidden shadow-sm"
+          className="rounded-xl border border-border/40 bg-transparent overflow-hidden shadow-sm"
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
