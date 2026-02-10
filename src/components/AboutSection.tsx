@@ -17,7 +17,7 @@ const AboutSection = () => {
   }, []);
   return <section id="section-about" ref={sectionRef} className="py-16 sm:py-20 md:py-28 px-4 sm:px-6">
       <div className="flex justify-center mb-6">
-        <span className="tracking-widest uppercase text-muted-foreground text-sm">
+        <span className="tracking-widest uppercase text-sm text-primary">
           About Us
         </span>
       </div>
