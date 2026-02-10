@@ -87,7 +87,7 @@ const FAQSection = () => {
   return <section id="faq" className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 scroll-mt-20 sm:scroll-mt-24" ref={sectionRef}>
       <div className="max-w-3xl mx-auto">
         <div className={`text-center mb-6 sm:mb-8 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
+          <span className="font-medium tracking-wider uppercase text-primary text-sm">
             FAQ
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-center font-medium mt-2">
