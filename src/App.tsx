@@ -10,6 +10,7 @@ import NewCollection from "./pages/NewCollection";
 import ModuleDetail from "./pages/ModuleDetail";
 import BlogDetail from "./pages/BlogDetail";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/contact" element={<Contact />} />

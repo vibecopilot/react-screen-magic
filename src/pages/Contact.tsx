@@ -99,7 +99,7 @@ const Contact = () => {
           <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 bg-white/60 backdrop-blur-sm rounded-full text-xs font-medium text-foreground mb-4 sm:mb-6 animate-fade-in" style={{ animationDelay: "0.1s", animationFillMode: "backwards" }}>
             CONTACT US
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold text-foreground mb-3 sm:mb-4 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "backwards" }}>
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-Semibold text-foreground mb-3 sm:mb-4 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "backwards" }}>
             Let's connect
           </h1>
           <p className="text-foreground/70 text-base md:text-lg max-w-md mx-auto px-4 animate-fade-in" style={{ animationDelay: "0.3s", animationFillMode: "backwards" }}>
@@ -121,7 +121,7 @@ const Contact = () => {
                   placeholder="Eg. Jane Smith"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className={`bg-white border-border/50 ${errors.name ? "border-destructive" : ""}`}
+                  className={`bg-white border-border/50 focus-visible:ring-0 focus-visible:border-black focus-visible:outline-none data-[state=invalid]:border-destructive data-[state=invalid]:ring-destructive hover:border-black/50 transition-all duration-200`}
                 />
                 {errors.name && <p className="text-destructive text-xs mt-1">{errors.name}</p>}
               </div>
@@ -134,7 +134,7 @@ const Contact = () => {
                   placeholder="jane@framer.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`bg-white border-border/50 ${errors.email ? "border-destructive" : ""}`}
+                  className={`bg-white border-border/50 focus-visible:ring-0 focus-visible:border-black focus-visible:outline-none data-[state=invalid]:border-destructive data-[state=invalid]:ring-destructive hover:border-black/50 transition-all duration-200`}
                 />
                 {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
               </div>
@@ -149,7 +149,7 @@ const Contact = () => {
                 rows={5}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className={`bg-white border-border/50 resize-none ${errors.message ? "border-destructive" : ""}`}
+                className={`bg-white border-border/50 resize-none focus-visible:ring-0 focus-visible:border-black focus-visible:outline-none data-[state=invalid]:border-destructive data-[state=invalid]:ring-destructive hover:border-black/50 transition-all duration-200`}
               />
               {errors.message && <p className="text-destructive text-xs mt-1">{errors.message}</p>}
             </div>
@@ -162,13 +162,28 @@ const Contact = () => {
                 value={formData.customerType}
                 onValueChange={(value) => setFormData({ ...formData, customerType: value })}
               >
-                <SelectTrigger className="bg-white border-border/50">
+                <SelectTrigger className="bg-white border-b border-border/50 border-t-0 border-l-0 border-r-0 focus-visible:ring-0 focus-visible:border-black focus-visible:outline-none data-[state=open]:ring-0 data-[state=open]:border-black/50 hover:border-black [&>svg]:text-foreground transition-all duration-200">
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Yes, I'm an existing customer">Yes, I'm an existing customer</SelectItem>
-                  <SelectItem value="No, I'm a new customer">No, I'm a new customer</SelectItem>
-                  <SelectItem value="I'm currently on a trial">I'm currently on a trial</SelectItem>
+                <SelectContent className="bg-white/95 backdrop-blur-sm border-black/20 focus-visible:ring-0 focus-visible:outline-none [&_[data-radix-collection-item][data-highlighted]]:bg-black/5 [&_[data-radix-collection-item][data-state=checked]]:bg-black/5">
+                  <SelectItem
+                    value="Yes, I'm an existing customer"
+                    className="focus:bg-black/5 hover:bg-black/5 data-[highlighted]:bg-black/5 data-[state=checked]:bg-black/5 border-none outline-none focus:outline-none cursor-pointer"
+                  >
+                    Yes, I'm an existing customer
+                  </SelectItem>
+                  <SelectItem
+                    value="No, I'm a new customer"
+                    className="focus:bg-black/5 hover:bg-black/5 data-[highlighted]:bg-black/5 data-[state=checked]:bg-black/5 border-none outline-none focus:outline-none cursor-pointer"
+                  >
+                    No, I'm a new customer
+                  </SelectItem>
+                  <SelectItem
+                    value="I'm currently on a trial"
+                    className="focus:bg-black/5 hover:bg-black/5 data-[highlighted]:bg-black/5 data-[state=checked]:bg-black/5 border-none outline-none focus:outline-none cursor-pointer"
+                  >
+                    I'm currently on a trial
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>

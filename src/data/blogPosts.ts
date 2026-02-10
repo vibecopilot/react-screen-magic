@@ -73,7 +73,7 @@ The shift toward automated presales isn't just about convenience; it's about Pro
         answer: "The dashboard provides a full breakdown of gross commission, tax deductions, and net payouts, providing total financial clarity for partners."
       }
     ],
-    gradient: "from-purple-500/20 to-pink-500/20"
+    gradient: "from-Black-500/20 to-black-500/20"
   },
   {
     id: "banking-grade-transparency",

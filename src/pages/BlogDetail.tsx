@@ -17,8 +17,8 @@ import {
 // Animation variants for scroll-triggered animations
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.6 }
   }
@@ -26,8 +26,8 @@ const fadeInUp: Variants = {
 
 const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.5 }
   }
@@ -61,15 +61,7 @@ const BlogDetail = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <Navbar />
-        <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="font-serif text-3xl text-foreground mb-4">Blog post not found</h1>
-          <Button onClick={() => navigate("/")} variant="outline">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
-        </div>
-        <Footer />
+
       </div>
     );
   }
@@ -102,8 +94,8 @@ const BlogDetail = () => {
     const flushList = () => {
       if (listItems.length > 0) {
         elements.push(
-          <motion.ul 
-            key={`list-${elements.length}`} 
+          <motion.ul
+            key={`list-${elements.length}`}
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -111,8 +103,8 @@ const BlogDetail = () => {
             className="list-disc list-inside space-y-2 mb-6 text-foreground/80 text-sm sm:text-base"
           >
             {listItems.map((item, i) => (
-              <motion.li 
-                key={i} 
+              <motion.li
+                key={i}
                 className="leading-relaxed py-1.5 px-2 -mx-2 rounded-md transition-all duration-300 hover:bg-primary/5 hover:translate-x-1 cursor-default"
                 variants={fadeInLeft}
                 whileHover={{ scale: 1.01 }}
@@ -131,10 +123,10 @@ const BlogDetail = () => {
       if (tableRows.length > 0) {
         const headerRow = tableRows[0];
         const bodyRows = tableRows.slice(1);
-        
+
         elements.push(
-          <motion.div 
-            key={`table-${elements.length}`} 
+          <motion.div
+            key={`table-${elements.length}`}
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -153,8 +145,8 @@ const BlogDetail = () => {
               </thead>
               <tbody>
                 {bodyRows.map((row, rowIndex) => (
-                  <tr 
-                    key={rowIndex} 
+                  <tr
+                    key={rowIndex}
                     className={cn(
                       "transition-colors hover:bg-muted/50",
                       rowIndex % 2 === 0 ? "bg-background/50" : "bg-muted/30"
@@ -197,18 +189,18 @@ const BlogDetail = () => {
       // Check for table rows (lines starting and containing |)
       if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
         flushList();
-        
+
         // Skip separator rows (|---|---|)
         if (trimmed.match(/^\|[-:\s|]+\|$/)) {
           return;
         }
-        
+
         // Parse table cells
         const cells = trimmed
           .split("|")
           .slice(1, -1)
           .map(cell => cell.trim());
-        
+
         tableRows.push(cells);
         inTable = true;
         return;
@@ -219,8 +211,8 @@ const BlogDetail = () => {
       if (trimmed.startsWith("## ")) {
         flushList();
         elements.push(
-          <motion.h2 
-            key={index} 
+          <motion.h2
+            key={index}
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -233,8 +225,8 @@ const BlogDetail = () => {
       } else if (trimmed.startsWith("### ")) {
         flushList();
         elements.push(
-          <motion.h3 
-            key={index} 
+          <motion.h3
+            key={index}
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -247,8 +239,8 @@ const BlogDetail = () => {
       } else if (trimmed.startsWith("**") && trimmed.endsWith("**") && !trimmed.slice(2, -2).includes("**")) {
         flushList();
         elements.push(
-          <motion.p 
-            key={index} 
+          <motion.p
+            key={index}
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -262,8 +254,8 @@ const BlogDetail = () => {
         // Handle bold labels with descriptions like "**Label:** Description"
         flushList();
         elements.push(
-          <motion.p 
-            key={index} 
+          <motion.p
+            key={index}
             variants={fadeInLeft}
             initial="hidden"
             whileInView="visible"
@@ -289,8 +281,8 @@ const BlogDetail = () => {
       } else if (trimmed.match(/^\d+\.\s/)) {
         flushList();
         elements.push(
-          <motion.p 
-            key={index} 
+          <motion.p
+            key={index}
             variants={fadeInLeft}
             initial="hidden"
             whileInView="visible"
@@ -304,8 +296,8 @@ const BlogDetail = () => {
       } else if (trimmed.startsWith("*") && trimmed.endsWith("*") && trimmed.includes("—")) {
         flushList();
         elements.push(
-          <motion.blockquote 
-            key={index} 
+          <motion.blockquote
+            key={index}
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -318,8 +310,8 @@ const BlogDetail = () => {
       } else if (trimmed.length > 0) {
         flushList();
         elements.push(
-          <motion.p 
-            key={index} 
+          <motion.p
+            key={index}
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -368,14 +360,14 @@ const BlogDetail = () => {
         </motion.div>
 
         {/* Hero section */}
-        <motion.header 
+        <motion.header
           className="mb-8 sm:mb-10"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
         >
           {/* Title */}
-          <motion.h1 
+          <motion.h1
             variants={fadeInUp}
             className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-foreground mb-4 sm:mb-6 leading-tight"
           >
@@ -383,7 +375,7 @@ const BlogDetail = () => {
           </motion.h1>
 
           {/* Subtitle */}
-          <motion.p 
+          <motion.p
             variants={fadeInUp}
             className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-4 sm:mb-6"
           >
@@ -391,7 +383,7 @@ const BlogDetail = () => {
           </motion.p>
 
           {/* Meta */}
-          <motion.div 
+          <motion.div
             variants={fadeInUp}
             className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground"
           >
@@ -416,7 +408,7 @@ const BlogDetail = () => {
         </motion.header>
 
         {/* Gradient divider */}
-        <motion.div 
+        <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -424,11 +416,11 @@ const BlogDetail = () => {
             "h-1 rounded-full mb-8 sm:mb-10 origin-left",
             "bg-gradient-to-r",
             post.gradient.replace("/20", "/40")
-          )} 
+          )}
         />
 
         {/* Main Content */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -441,7 +433,7 @@ const BlogDetail = () => {
 
         {/* FAQ Section with Accordion */}
         {post.faqs && post.faqs.length > 0 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -460,7 +452,7 @@ const BlogDetail = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                 >
-                  <AccordionItem 
+                  <AccordionItem
                     value={`faq-${index}`}
                     className="border-border/50"
                   >
@@ -478,7 +470,7 @@ const BlogDetail = () => {
         )}
 
         {/* Related posts suggestion */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

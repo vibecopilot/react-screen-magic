@@ -50,7 +50,7 @@ const LaptopFrame = ({
   icon: string;
   screenImage?: string | null;
 }) => <div className="relative w-[280px] sm:w-[340px] md:w-[420px] lg:w-[480px]">
-    
+
     {/* Laptop Screen */}
     <div className="relative">
       {/* Screen bezel */}
@@ -61,20 +61,20 @@ const LaptopFrame = ({
         </div>
         {/* Screen content */}
         <div className="bg-white rounded-[4px] aspect-[16/10] overflow-hidden">
-        {screenImage ? <img src={screenImage} alt="Screen preview" className="w-full h-full object-cover object-top bg-white" style={{
-          imageRendering: 'crisp-edges'
-        }} /> : <div className="flex items-center justify-center h-full p-4 sm:p-6 md:p-8 bg-gradient-to-b from-[#e8f4fc] to-[#d4e8f5]">
-              <p className="font-serif text-[10px] sm:text-sm md:text-lg lg:text-xl text-[#1a3a5c] text-center leading-snug italic">
-          </p>
-            </div>}
+          {screenImage ? <img src={screenImage} alt="Screen preview" className="w-full h-full object-cover object-top bg-white" style={{
+            imageRendering: 'crisp-edges'
+          }} /> : <div className="flex items-center justify-center h-full p-4 sm:p-6 md:p-8 bg-gradient-to-b from-[#e8f4fc] to-[#d4e8f5]">
+            <p className="font-serif text-[10px] sm:text-sm md:text-lg lg:text-xl text-[#1a3a5c] text-center leading-snug italic">
+            </p>
+          </div>}
         </div>
       </div>
-      
+
       {/* Laptop bottom hinge */}
       <div className="relative h-[6px] sm:h-[8px] md:h-[10px] bg-gradient-to-b from-[#2a2a2a] to-[#1f1f1f] rounded-b-sm">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40px] sm:w-[50px] md:w-[70px] h-[2px] sm:h-[3px] md:h-[4px] bg-[#444] rounded-t-sm" />
       </div>
-      
+
       {/* Laptop base/keyboard */}
       <div className="relative mx-[-6px] sm:mx-[-8px] md:mx-[-12px]">
         <div className="h-[5px] sm:h-[6px] md:h-[8px] bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] rounded-b-xl border-b border-l border-r border-[#444]" />
@@ -107,23 +107,23 @@ const StackedCards = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return <section id="features" ref={containerRef} className="relative min-h-[600vh] pt-8 pb-20">
-      <div className="sticky top-16 flex flex-col items-center px-3 sm:px-4 md:px-6 overflow-hidden">
-        {/* Section Header */}
-        <div className="text-center mb-8 md:mb-12 animate-fade-in">
-          <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
-            PRODUCT & FEATURES
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl text-foreground mb-3 md:mb-4 mt-2 md:text-4xl">
-            Our Powerful Modules
-          </h2>
-          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto px-4">
-            Everything you need to manage your operations, all in one place
-          </p>
-        </div>
+    <div className="sticky top-16 flex flex-col items-center px-3 sm:px-4 md:px-6 overflow-hidden">
+      {/* Section Header */}
+      <div className="text-center mb-8 md:mb-12 animate-fade-in">
+        <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
+          PRODUCT & FEATURES
+        </span>
+        <h2 className="font-serif text-3xl sm:text-4xl text-foreground mb-3 md:mb-4 mt-2 md:text-4xl">
+          Our Powerful Modules
+        </h2>
+        <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto px-4">
+          Everything you need to manage your operations, all in one place
+        </p>
+      </div>
 
-        {/* Stacked Cards Container */}
-        <div className="relative w-full max-w-5xl h-[320px] sm:h-[360px] md:h-[420px] overflow-hidden">
-          {cards.map((card, index) => {
+      {/* Stacked Cards Container */}
+      <div className="relative w-full max-w-5xl h-[320px] sm:h-[360px] md:h-[420px] overflow-hidden">
+        {cards.map((card, index) => {
           // Calculate individual card progress
           const cardProgress = scrollProgress - index;
 
@@ -169,48 +169,48 @@ const StackedCards = () => {
             zIndex: cards.length - index + (cardProgress >= 0 ? 10 : 0),
             opacity
           }}>
-                {/* Main Card - Glassmorphism with opaque background */}
-                <div className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-xl sm:rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white h-full">
-                  {/* Card Content */}
-                  <div className="relative h-[320px] sm:h-[360px] md:h-[420px] flex flex-col md:flex-row items-center justify-between p-4 sm:p-6 md:p-10 overflow-hidden">
-                    {/* Decorative gradient circles */}
-                    <div className={cn("absolute -top-20 -right-20 w-48 sm:w-72 h-48 sm:h-72 rounded-full opacity-30 blur-3xl", card.barColor)} />
-                    <div className={cn("absolute -bottom-20 -left-20 w-40 sm:w-56 h-40 sm:h-56 rounded-full opacity-20 blur-2xl", card.barColor)} />
+            {/* Main Card - Glassmorphism with opaque background */}
+            <div className="bg-[rgba(248,250,252,0.95)] backdrop-blur-[20px] rounded-xl sm:rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white h-full">
+              {/* Card Content */}
+              <div className="relative h-[320px] sm:h-[360px] md:h-[420px] flex flex-col md:flex-row items-center justify-between p-4 sm:p-6 md:p-10 overflow-hidden">
+                {/* Decorative gradient circles */}
+                <div className={cn("absolute -top-20 -right-20 w-48 sm:w-72 h-48 sm:h-72 rounded-full opacity-30 blur-3xl", card.barColor)} />
+                <div className={cn("absolute -bottom-20 -left-20 w-40 sm:w-56 h-40 sm:h-56 rounded-full opacity-20 blur-2xl", card.barColor)} />
 
-                    {/* Left Side - Text */}
-                    <div className="flex-1 text-center md:text-left mb-4 md:mb-0 max-w-md relative z-10">
-                      <h3 className="text-2xl sm:text-3xl mb-2 sm:mb-3 text-gray-800 md:text-3xl font-normal">
-                        {card.name}
-                      </h3>
-                      <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-none">
-                        {card.description}
-                      </p>
-                      <div className="flex mt-4 sm:mt-6 justify-center md:justify-start">
-                        <Link to={`/module/${card.slug}`} className="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full font-medium transition-all duration-300 text-white text-sm sm:text-base bg-[#3B82F6] hover:bg-[#2563EB] hover:scale-105 hover:shadow-lg shadow-md inline-block">
-                          View Details
-                        </Link>
-                      </div>
-                    </div>
-
-                    {/* Right Side - Laptop Frame */}
-                    <div className="flex-shrink-0 hidden sm:block relative z-10">
-                      <LaptopFrame icon={card.icon} screenImage={card.screenImage} />
-                    </div>
+                {/* Left Side - Text */}
+                <div className="flex-1 text-center md:text-left mb-4 md:mb-0 max-w-md relative z-10">
+                  <h3 className="text-2xl sm:text-3xl mb-2 sm:mb-3 text-gray-800 md:text-3xl font-normal">
+                    {card.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3 md:line-clamp-none">
+                    {card.description}
+                  </p>
+                  <div className="flex mt-4 sm:mt-6 justify-center md:justify-start">
+                    <Link to={`/module/${card.slug}`} className="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full font-medium transition-all duration-300 text-white text-sm sm:text-base bg-[#000000] hover:bg-[#2563EB] hover:scale-105 hover:shadow-lg shadow-md inline-block">
+                      View Details
+                    </Link>
                   </div>
                 </div>
-              </div>;
-        })}
-        </div>
 
-        {/* Progress Indicator */}
-        <div className="flex gap-2 mt-16">
-          {cards.map((card, index) => {
+                {/* Right Side - Laptop Frame */}
+                <div className="flex-shrink-0 hidden sm:block relative z-10">
+                  <LaptopFrame icon={card.icon} screenImage={card.screenImage} />
+                </div>
+              </div>
+            </div>
+          </div>;
+        })}
+      </div>
+
+      {/* Progress Indicator */}
+      <div className="flex gap-2 mt-16">
+        {cards.map((card, index) => {
           const isCurrent = scrollProgress >= index && scrollProgress < index + 1;
           const isPast = scrollProgress >= index + 1;
           return <div key={card.name} className={cn("h-2 rounded-full transition-all duration-300", isCurrent ? "w-10 bg-primary" : isPast ? "w-2 bg-primary/60" : "w-2 bg-muted-foreground/30")} />;
         })}
-        </div>
       </div>
-    </section>;
+    </div>
+  </section>;
 };
 export default StackedCards;
