@@ -6,7 +6,6 @@ import screenPostSales from "@/assets/screen-post-sales.png";
 import screenKonstruct from "@/assets/screen-konstruct-new.png";
 import screenPossession from "@/assets/screen-possession.png";
 import screenCustomerPortal from "@/assets/screen-customer-portal.png";
-
 const cards = [{
   name: "Pre Sales",
   slug: "pre-sales",
@@ -62,8 +61,8 @@ const LaptopFrame = ({
         {/* Screen content */}
         <div className="bg-white rounded-[4px] aspect-[16/10] overflow-hidden">
           {screenImage ? <img src={screenImage} alt="Screen preview" className="w-full h-full object-cover object-top bg-white" style={{
-            imageRendering: 'crisp-edges'
-          }} /> : <div className="flex items-center justify-center h-full p-4 sm:p-6 md:p-8 bg-gradient-to-b from-[#e8f4fc] to-[#d4e8f5]">
+          imageRendering: 'crisp-edges'
+        }} /> : <div className="flex items-center justify-center h-full p-4 sm:p-6 md:p-8 bg-gradient-to-b from-[#e8f4fc] to-[#d4e8f5]">
             <p className="font-serif text-[10px] sm:text-sm md:text-lg lg:text-xl text-[#1a3a5c] text-center leading-snug italic">
             </p>
           </div>}
@@ -110,7 +109,7 @@ const StackedCards = () => {
     <div className="sticky top-16 flex flex-col items-center px-3 sm:px-4 md:px-6 overflow-hidden">
       {/* Section Header */}
       <div className="text-center mb-8 md:mb-12 animate-fade-in">
-        <span className="text-xs font-medium tracking-wider text-foreground/60 uppercase">
+        <span className="font-medium tracking-wider text-foreground/60 uppercase text-sm">
           PRODUCT & FEATURES
         </span>
         <h2 className="font-serif text-3xl sm:text-4xl text-foreground mb-3 md:mb-4 mt-2 md:text-4xl">
